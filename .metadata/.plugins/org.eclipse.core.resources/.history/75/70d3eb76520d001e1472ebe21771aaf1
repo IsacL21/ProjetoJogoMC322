@@ -1,0 +1,15 @@
+package main;
+
+import java.awt.image.BufferedImage;
+
+public class Background {
+	
+	private BufferedImage image1;
+	private GamePanel gamePanel;
+	
+	
+	public Background(GamePanel gamepanel) {
+		this.gamePanel = gamepanel;
+	}
+	
+}

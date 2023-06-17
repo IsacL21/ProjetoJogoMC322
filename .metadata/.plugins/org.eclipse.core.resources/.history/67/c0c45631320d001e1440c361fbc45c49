@@ -1,0 +1,12 @@
+package main;
+
+public class Player extends Entity{
+	GamePanel gamePanel;
+	KeyboardInput keyInput;
+
+	public Player(GamePanel gamePanel, KeyboardInput keyInput) {
+		super(100,100,120);
+		this.gamePanel = gamePanel;
+		this.keyInput = keyInput;
+	}
+}

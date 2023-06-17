@@ -1,0 +1,98 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class Player extends Entity{
+	private GamePanel gamePanel;
+	private KeyboardInput keyInput;
+	
+	private BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
+	
+	private String direction = "down";
+	private int spriteNum = 0;
+
+	public Player(GamePanel gamePanel, KeyboardInput keyInput) {
+		super(100,100,2);
+		this.gamePanel = gamePanel;
+		this.keyInput = keyInput;
+		this.getPlayerImage();
+	}
+	
+	public void getPlayerImage() {
+		try {
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
+			down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
+			right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void update() {
+		if (keyInput.isUpPressed()) {
+			System.out.println("up pressed update");
+			moveUp();
+			direction = "up";
+		}
+			
+		else if (keyInput.isDownPressed()) {
+			moveDown();
+			direction = "down";
+		}
+		else if (keyInput.isLeftPressed()) {
+			moveLeft();
+			direction = "left";
+		}
+			
+		else if (keyInput.isRightPressed()) {
+			moveRight();
+			direction = "right";
+		}	
+	}
+	
+	public void draw(Graphics2D tela) {
+		BufferedImage image = down1;
+		
+		switch (direction) {
+		case "up":
+			if (spriteNum == 0) 
+				image = up2;
+			else if (spriteNum == 1)
+				image = up1;
+			break;
+		case "down":
+			if (spriteNum == 0) 
+				image = down2;
+			else if (spriteNum == 1)
+				image = down1;
+			break;
+		case "left":
+			if (spriteNum == 0) 
+				image = left2;
+			else if (spriteNum == 1)
+				image = left1;
+			break;
+		case "right":
+			if (spriteNum == 0) 
+				image = right2;
+			else if (spriteNum == 1)
+				image = right1;
+			break;
+		}
+		spriteNum = (spriteNum + 1) % 2; 
+		
+		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
+		
+	}
+}
