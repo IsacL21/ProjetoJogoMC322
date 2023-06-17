@@ -41,21 +41,35 @@ public class Player extends Entity{
 	
 	public void update() {
 		if (keyInput.isUpPressed()) {
-			moveUp();
+			
+			if(!colissionWallUP()) {
+				moveUp();
+			}
 			direction = "up";
 		}
 			
 		else if (keyInput.isDownPressed()) {
-			moveDown();
+			
+			if(!colissionWallDown()) {
+				moveDown();
+			}
 			direction = "down";
+			
 		}
 		else if (keyInput.isLeftPressed()) {
-			moveLeft();
+			
+			if(!colissionWallLeft()) {
+				moveLeft();
+			}
 			direction = "left";
 		}
 			
 		else if (keyInput.isRightPressed()) {
-			moveRight();
+			
+			if(!colissionWallRight()) {
+				moveRight();
+			}
+			
 			direction = "right";
 		}	
 	}
@@ -64,34 +78,33 @@ public class Player extends Entity{
 		BufferedImage image = down1;
 		
 		switch (direction) {
-	        case "up":
-	            if (spriteNum < 10 && keyInput.isUpPressed())
-	                image = up2;
-	            else if (spriteNum <=20 )
-	                image = up1;
-	            break;
-	        case "down":
-	            if (spriteNum < 10 && keyInput.isDownPressed())
-	                image = down2;
-	            else if (spriteNum <=20)
-	                image = down1;
-	            break;
-	        case "left":
-	            if (spriteNum < 10 && keyInput.isLeftPressed())
-	                image = left2;
-	            else if (spriteNum <=20)
-	                image = left1;
-	            break;
-	        case "right":
-	            if (spriteNum < 10 && keyInput.isRightPressed())
-	                image = right2;
-	            else if (spriteNum <=20)
-	                image = right1;
-	            break;
-	        }
-		spriteNum = (spriteNum + 1) % 20; 
+        case "up":
+            if (spriteNum < 10 && keyInput.isUpPressed())
+                image = up2;
+            else if (spriteNum <=20 )
+            	image = up1;
+            break;
+        case "down":
+            if (spriteNum < 10 && keyInput.isDownPressed())
+            	image = down2;
+            else if (spriteNum <=20)
+            	image = down1;
+            break;
+        case "left":
+            if (spriteNum < 10 && keyInput.isLeftPressed())
+            	image = left2;
+            else if (spriteNum <=20)
+            	image = left1;
+            break;
+        case "right":
+            if (spriteNum < 10 && keyInput.isRightPressed())
+            	image = right2;
+            else if (spriteNum <=20)
+            	image = right1;
+            break;
+        }
+        spriteNum = (spriteNum + 1) % 20; 
 		
 		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
-		
 	}
 }

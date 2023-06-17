@@ -10,6 +10,46 @@ public class Entity {
 		this.speed = speed;
 	}
 	
+	public boolean colissionWallUP() {
+		
+		if(y <= 5) {
+			System.out.println("Colidiu");
+			return true;
+		}
+				
+		return false;
+	}
+	
+	public boolean colissionWallDown() {
+		
+		if(y>= GamePanel.getTelaAltura()-48) {
+			System.out.println("Colidiu");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean colissionWallRight() {
+		
+		if(x >= GamePanel.getTelaLargura()-48) {
+			System.out.println("Colidiu");
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean colissionWallLeft() {
+		
+		if(x <= 0) {
+			System.out.println("Colidiu");
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public int getX() {
 		return x;
 	}
