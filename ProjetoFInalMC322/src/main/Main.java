@@ -12,7 +12,6 @@ public class Main {
 		window.setTitle("Jogo 2D");
 		window.setLocationRelativeTo(null);
 		
-		
 		//cria, adiciona e ajusta a janela ao gamepanel
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);

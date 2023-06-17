@@ -13,7 +13,6 @@ public class Entity {
 	public boolean colissionWallUP() {
 		
 		if(y <= 5) {
-			System.out.println("Colidiu");
 			return true;
 		}
 				
@@ -23,7 +22,6 @@ public class Entity {
 	public boolean colissionWallDown() {
 		
 		if(y>= GamePanel.getTelaAltura()-48) {
-			System.out.println("Colidiu");
 			return true;
 		}
 		
@@ -33,7 +31,6 @@ public class Entity {
 	public boolean colissionWallRight() {
 		
 		if(x >= GamePanel.getTelaLargura()-48) {
-			System.out.println("Colidiu");
 			return true;
 		}
 		
@@ -43,7 +40,6 @@ public class Entity {
 	public boolean colissionWallLeft() {
 		
 		if(x <= 0) {
-			System.out.println("Colidiu");
 			return true;
 		}
 		
