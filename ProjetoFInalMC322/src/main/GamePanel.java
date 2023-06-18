@@ -27,6 +27,14 @@ public class GamePanel extends JPanel implements Runnable{
 		return tamanhoBloco;
 	}
 	
+	public static int getNumeroBlocosHorizontal() {
+		return numeroBlocosHorizontal;
+	}
+	
+	public static int getNumeroBlocosVertical() {
+		return numeroBlocosVertical;
+	}
+	
 	public static int getTelaLargura() {
 		return telaLargura;
 	}
@@ -41,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	Player player = new Player(this, keyI);
 	
-	Background background = new Background(this);
+	MapBuilder mapBuilder = new MapBuilder();
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(telaLargura, telaAltura));
@@ -95,14 +103,15 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
-		background.draw(g2);
+		mapBuilder.draw(g2);
 		
 		player.draw(g2);
 		
 		
+		
 		g2.setColor(Color.black);
 		
-		g2.fillRect(50, 50, 50, 50);
+		g2.fillRect(-25, -25, 50, 50);
 		
 		g2.dispose();
 	}
