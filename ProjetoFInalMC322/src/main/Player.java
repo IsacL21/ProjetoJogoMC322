@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import arquivos.Arquivos;
+
 public class Player extends Entity{
 	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
-	
-	private BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
 	
 	private String direction = "down";
 	private int spriteNum = 0;
@@ -20,23 +20,6 @@ public class Player extends Entity{
 		super(100,100,3);
 		this.gamePanel = gamePanel;
 		this.keyInput = keyInput;
-		this.getPlayerImage();
-	}
-	
-	public void getPlayerImage() {
-		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_up_2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_down_2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_left_2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/sprites/player/boy_right_2.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void update() {
@@ -75,32 +58,32 @@ public class Player extends Entity{
 	}
 	
 	public void draw(Graphics2D tela) {
-		BufferedImage image = down1;
+		BufferedImage image = Arquivos.getPlayerimages().get(2);
 		
 		switch (direction) {
         case "up":
             if (spriteNum < 10 && keyInput.isUpPressed())
-                image = up2;
+                image = Arquivos.getPlayerimages().get(1);
             else if (spriteNum <=20 )
-            	image = up1;
+            	image = Arquivos.getPlayerimages().get(0);
             break;
         case "down":
             if (spriteNum < 10 && keyInput.isDownPressed())
-            	image = down2;
+            	image = Arquivos.getPlayerimages().get(3);
             else if (spriteNum <=20)
-            	image = down1;
+            	image = Arquivos.getPlayerimages().get(2);;
             break;
         case "left":
             if (spriteNum < 10 && keyInput.isLeftPressed())
-            	image = left2;
+            	image = Arquivos.getPlayerimages().get(5);
             else if (spriteNum <=20)
-            	image = left1;
+            	image = Arquivos.getPlayerimages().get(4);
             break;
         case "right":
             if (spriteNum < 10 && keyInput.isRightPressed())
-            	image = right2;
+            	image = Arquivos.getPlayerimages().get(7);
             else if (spriteNum <=20)
-            	image = right1;
+            	image = Arquivos.getPlayerimages().get(6);
             break;
         }
         spriteNum = (spriteNum + 1) % 20; 

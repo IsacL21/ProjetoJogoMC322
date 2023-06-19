@@ -107,8 +107,6 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		player.draw(g2);
 		
-		
-		
 		g2.setColor(Color.black);
 		
 		g2.fillRect(-25, -25, 50, 50);

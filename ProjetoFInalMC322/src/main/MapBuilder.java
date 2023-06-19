@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
+import arquivos.Arquivos;
+
 public class MapBuilder {
 	
 	private Bloco[] blocos;
@@ -22,21 +24,11 @@ public class MapBuilder {
 	}
 	
 	public void carregaImagemBlocos() {
-		BufferedImage textura;
 		
-		try {
-			textura = ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/grass.png"));
-			blocos[0] = new Bloco(textura,false);
-			
-			textura = ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/earth.png"));
-			blocos[1] = new Bloco(textura,false);
-			
-			textura = ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/wall.png"));
-			blocos[2] = new Bloco(textura,false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		blocos[0] = new Bloco(Arquivos.getTextureimages().get(0),false);
+		blocos[1] = new Bloco(Arquivos.getTextureimages().get(1),false);
+		blocos[2] = new Bloco(Arquivos.getTextureimages().get(2),false);
+		
 	}
 	
 	public void carregaBlocosMapa() {
@@ -63,9 +55,6 @@ public class MapBuilder {
 				tela.drawImage(blocos[mapa[i][j]].getTextura(), j * tamanhoBloco, i * tamanhoBloco,tamanhoBloco ,tamanhoBloco,null);
 			}
 		}
-				
-		
-		
 	}
 	
 }
