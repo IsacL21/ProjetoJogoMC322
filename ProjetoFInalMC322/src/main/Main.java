@@ -13,7 +13,7 @@ public class Main {
 		window.setLocationRelativeTo(null);
 		
 		//cria, adiciona e ajusta a janela ao gamepanel
-		GamePanel gamePanel = new GamePanel();
+		
 		window.add(gamePanel);
 		window.pack();
 		
