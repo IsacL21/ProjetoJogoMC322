@@ -23,7 +23,7 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
-		if (keyInput.isUpPressed()) {
+		if (keyInput.isUpPressed()) { 
 			
 			if(!colissionWallUP()) {
 				moveUp();
