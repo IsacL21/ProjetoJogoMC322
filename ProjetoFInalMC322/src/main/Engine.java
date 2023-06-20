@@ -8,7 +8,7 @@ public class Engine implements Runnable{
 	private Thread gameThread;
 	private Player player;
 	private MapBuilder mapBuilder;
-	private ArrayList<Entity> listaEntidades;
+	//private ArrayList<Entity> listaEntidades;
 	
 	private final static int fps = 60;
 	private final static double updateInterval = 1000/fps;
@@ -16,13 +16,26 @@ public class Engine implements Runnable{
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(keyInput);
+		player = new Player(gamePanel, keyInput);
 		mapBuilder = new MapBuilder();
-		
-		
-		
 	}
 	
+	public KeyboardInput getKeyInput() {
+		return keyInput;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public MapBuilder getMapBuilder() {
+		return mapBuilder;
+	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -32,7 +45,6 @@ public class Engine implements Runnable{
 		player.update();
 	}
 	
-
 	@Override
 	public void run() {
 		double delta = 0;

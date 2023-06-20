@@ -12,14 +12,16 @@ public class Main {
 		window.setTitle("Jogo 2D");
 		window.setLocationRelativeTo(null);
 		
-		//cria, adiciona e ajusta a janela ao gamepanel
+		//cria engine
+		Engine engine = new Engine();
 		
-		window.add(gamePanel);
+		//adiciona e ajusta a janela ao gamepanel
+		
+		window.add(engine.getGamePanel());
 		window.pack();
 		
 		//inicia looping do jogo
-		
-		gamePanel.startGameThread();
+		engine.startGameThread();
 		
 		
 		window.setVisible(true);

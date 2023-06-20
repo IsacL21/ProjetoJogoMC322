@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel{
 	
 	private final Engine engine;
 	private final static int tamanhoOriginalBloco = 16; //tamanho dos "blocos" em pixel
@@ -44,11 +44,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 	
 	public GamePanel(Engine engine) {
+		this.engine = engine;
 		this.setPreferredSize(new Dimension(telaLargura, telaAltura));
 		this.setBackground(Color.DARK_GRAY);
 		this.setDoubleBuffered(true);
 		
-		this.addKeyListener(keyInput);
+		this.addKeyListener(engine.getKeyInput());
 		this.setFocusable(true);
 	}
 	
@@ -59,13 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
-		engine.getMap().draw(g2);
+		engine.getMapBuilder().draw(g2);
 		
 		engine.getPlayer().draw(g2);
-		
-		for 
-		
-		
 		
 		g2.setColor(Color.black);
 		
