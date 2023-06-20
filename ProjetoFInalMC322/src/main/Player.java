@@ -9,21 +9,24 @@ import javax.imageio.ImageIO;
 
 import arquivos.Arquivos;
 
-public class Player extends Entity{
+public class Player extends Personagem{
 	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
 	
 	private String direction = "down";
 	private int spriteNum = 0;
-
-	public Player(GamePanel gamePanel, KeyboardInput keyInput) {
-		super(100,100,3);
+	
+	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
+			KeyboardInput keyInput, String direction, int spriteNum) {
+		super(100, 100, 3, vida, invencivel, velocidade);
 		this.gamePanel = gamePanel;
 		this.keyInput = keyInput;
+		this.direction = direction;
+		this.spriteNum = spriteNum;
 	}
-	
+
 	public void update() {
-		if (keyInput.isUpPressed()) { 
+		if (keyInput.isUpPressed()) {
 			
 			if(!colissionWallUP()) {
 				moveUp();
@@ -90,4 +93,17 @@ public class Player extends Entity{
 		
 		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
 	}
+	
+	@Override
+	public void causarDano() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void levarDano() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

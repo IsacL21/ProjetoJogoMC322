@@ -61,9 +61,9 @@ public class GamePanel extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		engine.getMapBuilder().draw(g2);
-		
 		engine.getPlayer().draw(g2);
 
+		engine.getInimigo().draw(g2);
 		g2.dispose();
 	}
 }

@@ -2,14 +2,15 @@ package main;
 
 public class Entity {
 	private int x, y;
-	private int speed;
+	private boolean colisivel;
 	
-	public Entity(int x, int y, int speed) {
+	public Entity(int x, int y, boolean colisivel) {
 		this.x = x;
 		this.y = y;
-		this.speed = speed;
+		this.colisivel = colisivel;
 	}
 	
+	/*ver se vai ficar assim ainda*/
 	public boolean colissionWallUP() {
 		
 		if(y <= 5) {
@@ -61,28 +62,13 @@ public class Entity {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	public int getSpeed() {
-		return speed;
+
+	public boolean isColisivel() {
+		return colisivel;
+	}
+
+	public void setColisivel(boolean colisivel) {
+		this.colisivel = colisivel;
 	}
 	
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-	
-	public void moveUp() {
-		y -= speed;
-	}
-	
-	public void moveDown() {
-		y += speed;
-	}
-	
-	public void moveLeft() {
-		x -= speed;
-	}
-	
-	public void moveRight() {
-		x += speed;
-	}
 }

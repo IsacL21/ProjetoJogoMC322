@@ -1,14 +1,12 @@
 package main;
 
-import java.util.ArrayList;
-
 public class Engine implements Runnable{
 	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
 	private Thread gameThread;
 	private Player player;
+	private InimigoEletron inimigo;
 	private MapBuilder mapBuilder;
-	//private ArrayList<Entity> listaEntidades;
 	
 	private final static int fps = 60;
 	private final static double updateInterval = 1000/fps;
@@ -16,7 +14,8 @@ public class Engine implements Runnable{
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(gamePanel, keyInput);
+		player = new Player(100, false, 3, gamePanel, keyInput, "down", 0);		
+		inimigo = new InimigoEletron(100, false, 3, gamePanel, "down", 0);		
 		mapBuilder = new MapBuilder();
 	}
 	
@@ -26,6 +25,14 @@ public class Engine implements Runnable{
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public InimigoEletron getInimigo() {
+		return inimigo;
+	}
+
+	public void setInimigo(InimigoEletron inimigo) {
+		this.inimigo = inimigo;
 	}
 
 	public MapBuilder getMapBuilder() {
@@ -43,6 +50,7 @@ public class Engine implements Runnable{
 	
 	public void atualizaJogo() {
 		player.update();
+		inimigo.update();
 	}
 	
 	@Override
