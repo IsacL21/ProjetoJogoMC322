@@ -8,6 +8,8 @@ public class Engine implements Runnable{
 	private Thread gameThread;
 	private Player player;
 	private MapBuilder mapBuilder;
+	private InimigoSentinela inimigoSentinela;
+	private EntityFollower inimigoPerseguidor;
 	//private ArrayList<Entity> listaEntidades;
 	
 	private final static int fps = 60;
@@ -18,6 +20,8 @@ public class Engine implements Runnable{
 		gamePanel = new GamePanel(this);
 		player = new Player(gamePanel, keyInput);
 		mapBuilder = new MapBuilder();
+		inimigoSentinela = new InimigoSentinela(gamePanel, 150, 150, 3, 350, 500);
+		inimigoPerseguidor = new EntityFollower(gamePanel, 400, 400, 2, player);
 	}
 	
 	public KeyboardInput getKeyInput() {
@@ -36,12 +40,23 @@ public class Engine implements Runnable{
 		return gamePanel;
 	}
 
+	public InimigoSentinela getInimigoSentinela() {
+		return inimigoSentinela;
+	}
+	
+
+	public EntityFollower getInimigoPerseguidor() {
+		return inimigoPerseguidor;
+	}
+
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 	
 	public void atualizaJogo() {
+		inimigoSentinela.update();
+		inimigoPerseguidor.update();
 		player.update();
 	}
 	

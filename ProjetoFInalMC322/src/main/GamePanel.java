@@ -62,6 +62,10 @@ public class GamePanel extends JPanel{
 		
 		engine.getMapBuilder().draw(g2);
 		
+		engine.getInimigoSentinela().draw(g2);
+		
+		engine.getInimigoPerseguidor().draw(g2);
+		
 		engine.getPlayer().draw(g2);
 
 		g2.dispose();

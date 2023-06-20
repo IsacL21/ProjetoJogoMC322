@@ -23,6 +23,8 @@ public class MapBuilder {
 		carregaBlocosMapa();
 	}
 	
+
+	
 	public void carregaImagemBlocos() {
 		
 		blocos[0] = new Bloco(Arquivos.getTextureimages().get(0),false);
