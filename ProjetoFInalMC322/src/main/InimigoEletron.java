@@ -16,7 +16,7 @@ public class InimigoEletron extends Personagem{
 	
 	public InimigoEletron(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
 			String direction, int spriteNum) {
-		super(200, 200, 3, vida, invencivel, velocidade);
+		super(200, 200, vida, invencivel, velocidade);
 		this.gamePanel = gamePanel;
 		this.direction = direction;
 		this.spriteNum = spriteNum;

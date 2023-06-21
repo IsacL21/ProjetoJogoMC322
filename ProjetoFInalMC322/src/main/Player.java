@@ -18,7 +18,7 @@ public class Player extends Personagem{
 	
 	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
 			KeyboardInput keyInput, String direction, int spriteNum) {
-		super(100, 100, 3, vida, invencivel, velocidade);
+		super(100, 100, vida, invencivel, velocidade);
 		this.gamePanel = gamePanel;
 		this.keyInput = keyInput;
 		this.direction = direction;

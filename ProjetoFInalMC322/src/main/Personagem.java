@@ -6,7 +6,7 @@ public abstract class Personagem extends Entity{
 	private boolean invencivel;
 	private int velocidade;
 	
-	public Personagem(int x, int y, int speed, double vida, boolean invencivel, int velocidade) {
+	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade) {
 		super(x, y, false);
 		this.vida = vida;
 		this.invencivel = invencivel;
