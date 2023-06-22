@@ -10,60 +10,66 @@ import javax.imageio.ImageIO;
 import arquivos.Arquivos;
 
 public class Player extends Personagem{
+
+	//Propriedades
 	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
-	
-	private String direction = "down";
 	private int spriteNum = 0;
+	private Engine engine;
 	
+	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
-			KeyboardInput keyInput, String direction, int spriteNum) {
+			KeyboardInput keyInput, String direcao, int spriteNum, Engine engine) {
 		super(100, 100, vida, invencivel, velocidade);
 		this.gamePanel = gamePanel;
 		this.keyInput = keyInput;
-		this.direction = direction;
 		this.spriteNum = spriteNum;
+		this.engine = engine;
 	}
 
+	//Getters e Setters
+	public KeyboardInput getKeyInput() {
+		return keyInput;
+	}
+
+	public void setKeyInput(KeyboardInput keyInput) {
+		this.keyInput = keyInput;
+	}
+
+	//Métodos
 	public void update() {
-		if (keyInput.isUpPressed()) {
+		if (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed()) {
 			
-			if(!colissionWallUP()) {
-				moveUp();
+			if(keyInput.isUpPressed()) {
+				setDirecao("up");
 			}
-			direction = "up";
+			else if(keyInput.isDownPressed()) {
+				setDirecao("down");
+			}
+			else if(keyInput.isLeftPressed()) {
+				setDirecao("left");
+			}
+			else if(keyInput.isRightPressed()) {
+				setDirecao("right");
+			}
+
+			setColisao(false);
+			engine.getColisaoChecker().checkColisao(this);
+			if (getColisao() == false) {
+				switch(getDirecao()) {
+					case "up": moveUp(); break;
+					case "down": moveDown(); break;
+					case "left": moveLeft(); break;
+					case "right": moveRight(); break;
+				}
+			}
 		}
-			
-		else if (keyInput.isDownPressed()) {
-			
-			if(!colissionWallDown()) {
-				moveDown();
-			}
-			direction = "down";
-			
-		}
-		else if (keyInput.isLeftPressed()) {
-			
-			if(!colissionWallLeft()) {
-				moveLeft();
-			}
-			direction = "left";
-		}
-			
-		else if (keyInput.isRightPressed()) {
-			
-			if(!colissionWallRight()) {
-				moveRight();
-			}
-			
-			direction = "right";
-		}	
 	}
 	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getPlayerimages().get(2);
 		
-		switch (direction) {
+		switch (getDirecao()) {
         case "up":
             if (spriteNum < 10 && keyInput.isUpPressed())
                 image = Arquivos.getPlayerimages().get(1);

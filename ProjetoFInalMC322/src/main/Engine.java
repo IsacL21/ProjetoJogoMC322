@@ -7,6 +7,7 @@ public class Engine implements Runnable{
 	private Player player;
 	private InimigoEletron inimigo;
 	private MapBuilder mapBuilder;
+	private ColisaoChecker colisaoChecker;
 
 	private InimigoSentinela inimigoSentinela;
 	private EntityFollower inimigoPerseguidor;
@@ -19,11 +20,12 @@ public class Engine implements Runnable{
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, gamePanel, keyInput, "down", 0);		
+		player = new Player(100, false, 3, gamePanel, keyInput, "down", 0, this);		
 		inimigo = new InimigoEletron(100, false, 3, gamePanel, "down", 0);		
 		mapBuilder = new MapBuilder();
 		inimigoSentinela = new InimigoSentinela(gamePanel, 150, 150, 3, 350, 500);
 		inimigoPerseguidor = new EntityFollower(gamePanel, 400, 400, 2, player);
+		colisaoChecker = new ColisaoChecker(this);
 	}
 	
 	public KeyboardInput getKeyInput() {
@@ -57,6 +59,10 @@ public class Engine implements Runnable{
 
 	public EntityFollower getInimigoPerseguidor() {
 		return inimigoPerseguidor;
+	}
+
+	public ColisaoChecker getColisaoChecker() {
+		return colisaoChecker;
 	}
 
 	public void startGameThread() {

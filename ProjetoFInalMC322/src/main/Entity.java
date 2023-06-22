@@ -1,13 +1,17 @@
 package main;
 
+import java.awt.Rectangle;
+
 public class Entity {
 	private int x, y;
 	private boolean colisivel;
+	private Rectangle hitBox;
 	
 	public Entity(int x, int y, boolean colisivel) {
 		this.x = x;
 		this.y = y;
 		this.colisivel = colisivel;
+		hitBox = new Rectangle(8, 16, 32, 32);
 	}
 	
 	/*ver se vai ficar assim ainda*/
@@ -69,6 +73,14 @@ public class Entity {
 
 	public void setColisivel(boolean colisivel) {
 		this.colisivel = colisivel;
+	}
+
+	public Rectangle getHitBox() {
+		return hitBox;
+	}
+
+	public void setHitBox(Rectangle hitBox) {
+		this.hitBox = hitBox;
 	}
 	
 }
