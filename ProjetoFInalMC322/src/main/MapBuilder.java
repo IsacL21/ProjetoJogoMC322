@@ -19,9 +19,9 @@ public class MapBuilder {
 	private GamePanel gamePanel;
 
 	//Construtor
-	public MapBuilder(GamePanel gamePanel) {
+	public MapBuilder(int[][] mapa, GamePanel gamePanel) {
 		blocos = new Bloco[10];
-		mapa = new int[gamePanel.getNumeroBlocosVertical()][gamePanel.getNumeroBlocosHorizontal()];
+		this.mapa = mapa;
 		this.gamePanel = gamePanel;
 		carregaImagemBlocos();
 		

@@ -2,22 +2,19 @@ package main;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import arquivos.Arquivos;
 
 public class EntityFollower extends Follower {
-	int xInicial;
-	int yInicial;
 	Entity followed = null;
 	private int spriteNum = 0;
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public EntityFollower (GamePanel gamePanel, int xInicial, int yInicial, int speed, Entity followed) {
-		super(gamePanel, xInicial, yInicial, speed, xInicial, yInicial);
+	public EntityFollower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops, followedX, followedY);
 		this.followed = followed;
-		this.xInicial = xInicial;
-		this.yInicial = yInicial;
 	}
 	
 	private void updateFollowedPosition(){
@@ -34,7 +31,7 @@ public class EntityFollower extends Follower {
 	}
 	
 	public void draw(Graphics2D tela) {
-		tela.setColor(Color.GREEN);
+		// tela.setColor(Color.GREEN);
 		tela.fillRect(this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco());
 		
 
@@ -57,6 +54,6 @@ public class EntityFollower extends Follower {
 		}
 		
 		 spriteNum = (spriteNum + 1) % 20;
-		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
+		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
 }

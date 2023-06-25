@@ -1,16 +1,17 @@
 package main;
 
+import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Follower extends Personagem{
-	private GamePanel gamePanel;
+public class Follower extends Inimigo {
 	int followedX;
 	int followedY;
 	String direction = "Right";
 	
 	//Construtor
-	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
-		super(xInicial, yInicial, gamePanel, 0, false, speed);
+	public Follower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY) {
+		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops);
 		this.followedX = followedX;
 		this.followedY = followedY;
 	}
@@ -37,12 +38,12 @@ public class Follower extends Personagem{
 	public int followInY() {
 		if (followedY - this.getVelocidade() > this.getY()) {
 			direction = "down";
-			this.moveDown();
+			moveBaixo();
 			return 1;
 		}
 		else if ((followedY + this.getVelocidade() < this.getY())){
 			direction = "up";
-			this.moveUp();
+			moveCima();
 			return -1;
 		}
 		else return 0;
@@ -74,5 +75,15 @@ public class Follower extends Personagem{
 	public void levarDano() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void draw(Graphics2D tela) {
+
+	}
+
+	@Override
+	public void update() {
+
 	}
 }

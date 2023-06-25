@@ -38,7 +38,7 @@ public class ColisaoChecker {
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
                 if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
-                    personagem.setColisao(true);
+                    personagem.setColidindo(true);
                 }
                 break;
             case "baixo":
@@ -46,7 +46,7 @@ public class ColisaoChecker {
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemBottomRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemBottomRow][personagemRightCol];
                 if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
-                    personagem.setColisao(true);
+                    personagem.setColidindo(true);
                 }
                 break;
             case "esquerda":
@@ -54,7 +54,7 @@ public class ColisaoChecker {
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
-                    personagem.setColisao(true);
+                    personagem.setColidindo(true);
                 }
                 break;
             case "direita":
@@ -62,7 +62,7 @@ public class ColisaoChecker {
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
                 if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
-                    personagem.setColisao(true);
+                    personagem.setColidindo(true);
                 }
                 break;
         }
