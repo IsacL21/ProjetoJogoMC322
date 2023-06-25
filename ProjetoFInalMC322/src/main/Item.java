@@ -1,5 +1,10 @@
 package main;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import arquivos.Arquivos;
+
 public class Item extends Entity{
 
 	private boolean consumivel;
@@ -12,6 +17,11 @@ public class Item extends Entity{
 
 	public boolean isConsumivel() {
 		return consumivel;
+	}
+	
+	public void draw(Graphics2D tela) {
+		BufferedImage image = Arquivos.getItemimages().get(0);
+		tela.drawImage(image, this.getX(), this.getY(), 25, 25, null);
 	}
 
 	public void setConsumivel(boolean consumivel) {

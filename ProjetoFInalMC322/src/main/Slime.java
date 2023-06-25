@@ -2,11 +2,11 @@ package main;
 
 import java.util.Random;
 
-public abstract class Follower extends Inimigo{
+public abstract class Slime extends Inimigo{
 	int followedX;
 	int followedY;
 	
-	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
+	public Slime (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
 		super(xInicial, yInicial, 0, false, speed, gamePanel);
 		this.followedX = followedX;
 		this.followedY = followedY;

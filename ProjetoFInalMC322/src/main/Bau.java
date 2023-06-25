@@ -1,5 +1,10 @@
 package main;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import arquivos.Arquivos;
+
 public class Bau extends Entity{
 
 	private boolean trancado;
@@ -7,6 +12,11 @@ public class Bau extends Entity{
 	
 	public Bau(int x, int y, boolean colidivel) {
 		super(x, y, colidivel);
+	}
+	
+	public void draw(Graphics2D tela) {
+		BufferedImage image = Arquivos.getBauimages().get(0);
+		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 
 	public boolean isTrancado() {
@@ -24,5 +34,4 @@ public class Bau extends Entity{
 	public void setItem(Item item) {
 		this.item = item;
 	}
-
 }

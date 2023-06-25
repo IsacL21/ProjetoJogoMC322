@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import arquivos.Arquivos;
 
-public class EntityFollower extends Follower {
+public class EntityFollower extends Slime {
 	int xInicial;
 	int yInicial;
 	Entity followed = null;
@@ -49,12 +49,15 @@ public class EntityFollower extends Follower {
 			}else {
 				image = Arquivos.getSlimeimages().get(3);
 			}
-		}else{
-			
-			
 		}
 		
 		 spriteNum = (spriteNum + 1) % 20;
 		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
+		
 	}
 }

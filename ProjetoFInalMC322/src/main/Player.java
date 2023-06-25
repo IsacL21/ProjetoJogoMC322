@@ -3,9 +3,9 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import arquivos.Arquivos;
 
@@ -18,11 +18,17 @@ public class Player extends Personagem{
 	private int framesAnimacaoAtaque = 30; 
 	private Engine engine;
 	private boolean atacando = false;
+	private Inventario inventario;
+	private ArrayList<Bau> bausMapa = new ArrayList<Bau>();
+	private Porta porta;
 	
 	//Construtor
-	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
-			KeyboardInput keyInput, String direcao, Engine engine) {
+	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
+			KeyboardInput keyInput, String direcao, Engine engine, ArrayList<Bau> bausMapa, Porta porta) {
 		super(100, 100, vida, invencivel, velocidade, gamePanel);
+		this.inventario = new Inventario(capacidadeInventario);
+		this.porta = porta;
+		this.bausMapa = bausMapa;
 		this.keyInput = keyInput;
 		this.engine = engine;
 	}
@@ -38,10 +44,25 @@ public class Player extends Personagem{
 
 	//Métodos
 	public void update() {
-		if (keyInput.isXPressed() && !atacando) {
+		if (keyInput.isZPressed() && !atacando) {
 				atacando = true;
 				contadorFrames = 0;
 		}
+		
+		if(keyInput.isVPressed()) {
+			mostrarVida();
+		}
+		
+		if(keyInput.isXPressed()) {
+			
+			/*Informacoes para quando tiver a colisao
+			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
+			
+			
+			
+			
+		}
+		
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
 			atacando = false;
 		}
@@ -142,6 +163,32 @@ public class Player extends Personagem{
 		tela.drawImage(image, imageX, imageY, larguraImagem, alturaImagem, null);
 	}
 	
+	public void mostrarVida() {
+		
+		keyInput.resetaValores();
+		JOptionPane.showMessageDialog(null, "Vida do personagem: "+getVida(), "Vida", JOptionPane.INFORMATION_MESSAGE); 		
+		
+	}
+	
+	public void coletaItem(Item item) {
+		
+		
+		
+	}
+	
+	public void abrirBau() {
+		
+		
+		
+		
+	}
+	
+	public void abrirPorta() {
+		
+		
+		
+	}
+	
 	@Override
 	public void causarDano() {
 		// TODO Auto-generated method stub
@@ -151,6 +198,15 @@ public class Player extends Personagem{
 	@Override
 	public void levarDano() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
+		
+		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
+		
 		
 	}
 

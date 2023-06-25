@@ -1,12 +1,11 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import arquivos.Arquivos;
 
-public class InimigoSentinela extends Follower{
+public class Morcego extends Slime{
 	private int xInicial;
 	private int yInicial;
 	private int xFinal;
@@ -14,7 +13,7 @@ public class InimigoSentinela extends Follower{
 	private int spriteNum;
 	private String followedPoint;
 	
-	public InimigoSentinela (GamePanel gamePanel, int xInicial, int yInicial, int speed, int xFinal, int yFinal) {
+	public Morcego (GamePanel gamePanel, int xInicial, int yInicial, int speed, int xFinal, int yFinal) {
 		super(gamePanel, xInicial, yInicial, speed, xFinal, yFinal);
 		
 		this.xInicial = xInicial;
@@ -24,7 +23,7 @@ public class InimigoSentinela extends Follower{
 		
 		followedPoint = "inicial";
 	}
-	
+
 	private void switchFollowedPoint() {
 		if (followedPoint == "inicial") {
 			this.setFollowedPoint(xFinal, yFinal);
@@ -48,9 +47,9 @@ public class InimigoSentinela extends Follower{
 		
 		switch (getDirecao()) {
         case "up":
-            if (spriteNum < 10)
+            if (spriteNum < 10) {
                 image = Arquivos.getMorcegoimages().get(3);
-            else if (spriteNum <=20 )
+            }else if (spriteNum <=20)
             	image = Arquivos.getMorcegoimages().get(2);
             break;
         case "down":
@@ -73,9 +72,13 @@ public class InimigoSentinela extends Follower{
             break;
         }
         spriteNum = (spriteNum + 1) % 20; 
-		
 		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
 		
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
 		
 	}
 	

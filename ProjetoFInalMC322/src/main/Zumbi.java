@@ -8,17 +8,15 @@ import java.util.Random;
 
 import arquivos.Arquivos;
 
-public class InimigoEletron extends Inimigo{
+public class Zumbi extends Inimigo{
 	
 	private int numero = 0;
-	private int spriteNum = 0;
 	private int xInicial;
 	private int yInicial;
-	private int contMov1 = 0, contMov2 = 0;
-	
+	private int contMov1 = 0;
 	static int counter = 0;
 
-	public InimigoEletron(int xInicial, int yInicial, double vida, int velocidade, GamePanel gamePanel) {
+	public Zumbi(int xInicial, int yInicial, double vida, int velocidade, GamePanel gamePanel) {
 		super(xInicial, yInicial, vida, false, velocidade, gamePanel);
 		this.xInicial = xInicial;
 		this.yInicial = yInicial;
@@ -68,34 +66,32 @@ public class InimigoEletron extends Inimigo{
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getZumbiImages().get(0);
 		
-		
 		switch (getDirecao()) {
         case "cima":
-            if (contMov2 < 10)
-                image = Arquivos.getZumbiImages().get(3);
-            else if (contMov2 <=15 )
-            	image = Arquivos.getZumbiImages().get(2);
+            if (contMov1 < 50)
+                image = Arquivos.getZumbiImages().get(2);
+            else if (contMov1 >=50)
+            	image = Arquivos.getZumbiImages().get(3);
             break;
         case "baixo":
-            if (contMov2  < 10)
-            	image = Arquivos.getZumbiImages().get(1);
-            else if (contMov2 <=15)
+            if (contMov1  < 50)
             	image = Arquivos.getZumbiImages().get(0);
+            else if (contMov1 >=50)
+            	image = Arquivos.getZumbiImages().get(1);
             break;
         case "esquerda":
-            if (contMov2 < 10)
-            	image = Arquivos.getZumbiImages().get(7);
-            else if (contMov2 <=15)
+            if (contMov1 < 50)
             	image = Arquivos.getZumbiImages().get(6);
+            else if (contMov1 >=50)
+            	image = Arquivos.getZumbiImages().get(7);
             break;
         case "direita":
-            if (contMov2 < 10)
+            if (contMov1 < 50)
             	image = Arquivos.getZumbiImages().get(4);
-            else if (contMov2 <=15)
+            else if (contMov1 >=50)
             	image = Arquivos.getZumbiImages().get(5);
             break;
         }
-		contMov2 = (contMov2 + 1) % 15; 
 		
 		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
 	}
@@ -114,5 +110,11 @@ public class InimigoEletron extends Inimigo{
 
 	public void setPosicaoY(int yInicial) {
 		this.yInicial = yInicial;
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
+		
 	}
 }
