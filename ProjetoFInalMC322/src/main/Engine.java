@@ -58,13 +58,14 @@ public class Engine implements Runnable{
 	}
 
 	public void carregaMobs() {
+		
 		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
-			if (mob.get(0) == 1) {
+			if (mob.get(0) == 1) 
 				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
-				System.out.println("novo eletron");
-			}
 			if (mob.get(0) == 2)
-				listaInimigos.add(new EntityFollower(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), 1, 1, player));
+				listaInimigos.add(new EntityFollower(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), player));
+			if (mob.get(0) == 3)
+				listaInimigos.add(new InimigoSentinela(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), mob.get(3) * gamePanel.getTamanhoBloco(), mob.get(4) * gamePanel.getTamanhoBloco(), player));
 		}
 	}
 

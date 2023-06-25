@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -16,12 +17,12 @@ public class InimigoSentinela extends Follower{
 	private String followedPoint;
 	
 	public InimigoSentinela(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops, followedX, followedY);
+		super(x, y, gamePanel, vida, invencivel, velocidade,new Rectangle(0,0,gamePanel.getTamanhoBloco(), gamePanel.getTamanhoBloco()), listaDrops, followedX, followedY);
 		
-		this.xInicial = xInicial;
-		this.xFinal = xFinal;
-		this.yInicial = yInicial;
-		this.yFinal = yFinal;
+		this.xInicial = x;
+		this.xFinal = followedX;
+		this.yInicial = y;
+		this.yFinal = followedY;
 		
 		followedPoint = "inicial";
 	}

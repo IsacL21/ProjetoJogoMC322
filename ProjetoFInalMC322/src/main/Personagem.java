@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public abstract class Personagem extends Entity{
 	
@@ -10,13 +11,15 @@ public abstract class Personagem extends Entity{
 	private int velocidade;
 	private boolean colidindo;
 	private String direcao = "down";
+	private Rectangle hitBox;
 	
 	//Construtor
-	public Personagem(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade) {
+	public Personagem(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, Rectangle hitBox) {
 		super(x, y, false, gamePanel);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
+		this.hitBox = hitBox;
 	}
 
 	//Getters e Setters
@@ -84,6 +87,14 @@ public abstract class Personagem extends Entity{
 	public abstract void update();
 	
 	public abstract void draw(Graphics2D tela);
+
+	public Rectangle getHitBox() {
+		return hitBox;
+	}
+
+	public void setHitBox(Rectangle hitBox) {
+		this.hitBox = hitBox;
+	}
 
 	
 }

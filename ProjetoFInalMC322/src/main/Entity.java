@@ -7,7 +7,6 @@ public class Entity {
 	//Propriedades
 	private int x, y;
 	private boolean colisivel;
-	private Rectangle hitBox;
 	private GamePanel gamePanel;
 	
 	//Construtor
@@ -16,7 +15,6 @@ public class Entity {
 		this.y = y;
 		this.colisivel = colisivel;
 		this.gamePanel = gamePanel;
-		hitBox = new Rectangle(8, 16, 32, 32);
 	}
 	
 	//Getters e Setters
@@ -50,13 +48,5 @@ public class Entity {
 
 	public void setGamePanel(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
-	}
-
-	public Rectangle getHitBox() {
-		return hitBox;
-	}
-
-	public void setHitBox(Rectangle hitBox) {
-		this.hitBox = hitBox;
 	}
 }

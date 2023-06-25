@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Follower extends Inimigo {
@@ -10,8 +11,9 @@ public class Follower extends Inimigo {
 	String direction = "Right";
 	
 	//Construtor
-	public Follower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops);
+	public Follower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, Rectangle hitBox, ArrayList<Item> listaDrops, int followedX, int followedY) {
+		super(x, y, gamePanel, vida, invencivel, velocidade, hitBox, listaDrops);
+
 		this.followedX = followedX;
 		this.followedY = followedY;
 	}

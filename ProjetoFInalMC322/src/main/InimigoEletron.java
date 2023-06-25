@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.ArrayList;
@@ -15,11 +16,13 @@ public class InimigoEletron extends Inimigo {
 	private int xInicial;
 	private int yInicial;
 	private int contMov1 = 0, contMov2 = 0;
-	
+
 	 static int counter = 0;
 	
 	public InimigoEletron(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel, ArrayList<Item> listaDrops) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops);
+		super(x, y, gamePanel, vida, invencivel, velocidade,new Rectangle(0,0,gamePanel.getTamanhoBloco(), gamePanel.getTamanhoBloco()), listaDrops);
+		this.xInicial = x;
+		this.yInicial = y;
 	}
 	
 	public void update() {

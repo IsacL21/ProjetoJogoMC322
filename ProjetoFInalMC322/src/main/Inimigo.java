@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public abstract class Inimigo extends Personagem{
@@ -8,8 +9,8 @@ public abstract class Inimigo extends Personagem{
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();
 	
 	//Construtor
-	public Inimigo(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops) {
-		super(x, y, gamePanel, vida, invencivel, velocidade);
+	public Inimigo(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, Rectangle hitBox , ArrayList<Item> listaDrops) {
+		super(x, y, gamePanel, vida, invencivel, velocidade, hitBox);
 		this.listaDrops = listaDrops;
 	}
 	

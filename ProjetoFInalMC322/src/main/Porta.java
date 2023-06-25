@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Rectangle;
+
 public class Porta extends Entity{
 
 	private boolean trancado;
