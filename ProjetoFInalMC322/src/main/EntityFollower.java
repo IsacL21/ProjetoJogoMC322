@@ -30,13 +30,13 @@ public class EntityFollower extends Follower {
 	
 	public void draw(Graphics2D tela) {
 		
-		if(getDirection().equals("left")) {
+		if(getDirecao().equals("left")) {
 			if(spriteNum < 10) {
 				image = Arquivos.getSlimeimages().get(0);
 			}else {
 				image = Arquivos.getSlimeimages().get(1);
 			}
-		}else if(getDirection().equals("right")) {
+		}else if(getDirecao().equals("right")) {
 			if(spriteNum < 10) {
 				image = Arquivos.getSlimeimages().get(2);
 			}else {
