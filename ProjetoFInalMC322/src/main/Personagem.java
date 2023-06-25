@@ -72,19 +72,19 @@ public abstract class Personagem extends Entity{
 		
 	}
 	
-	public void moveUp() {
+	public void moveCima() {
 		setY(getY() - velocidade);
 	}
 	
-	public void moveDown() {
+	public void moveBaixo() {
 		setY(getY() + velocidade);
 	}
 	
-	public void moveLeft() {
+	public void moveEsquerda() {
 		setX(getX() - velocidade);
 	}
 	
-	public void moveRight() {
+	public void moveDireita() {
 		setX(getX() + velocidade);
 	}
 	

@@ -23,7 +23,7 @@ public class Engine implements Runnable{
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, gamePanel, keyInput, "down", this);		
+		player = new Player(100, false, 3, gamePanel, keyInput, "baixo", this);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa());
 		listaInimigos = new ArrayList<Inimigo> ();
 		carregaMobs();

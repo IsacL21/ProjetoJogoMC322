@@ -19,13 +19,13 @@ public abstract class Follower extends Inimigo{
 
 	public int followInX() {
 		if (followedX - this.getVelocidade() > this.getX() ) {
-			setDirecao("right");
-			this.moveRight();
+			setDirecao("direita");
+			this.moveDireita();
 			return 1;
 		}
 		else if ((followedX + this.getVelocidade() < this.getX())){
-			setDirecao("left");
-			this.moveLeft();
+			setDirecao("esquerda");
+			this.moveEsquerda();
 			return -1;
 		}
 		else return 0;
@@ -33,13 +33,13 @@ public abstract class Follower extends Inimigo{
 	
 	public int followInY() {
 		if (followedY - this.getVelocidade() > this.getY()) {
-			setDirecao("down");
-			this.moveDown();
+			setDirecao("baixo");
+			this.moveBaixo();
 			return 1;
 		}
 		else if ((followedY + this.getVelocidade() < this.getY())){
-			setDirecao("up");
-			this.moveUp();
+			setDirecao("cima");
+			this.moveCima();
 			return -1;
 		}
 		else return 0;
