@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Graphics2D;
+
 public abstract class Personagem extends Entity{
 	
 	//Propriedades
@@ -8,6 +10,7 @@ public abstract class Personagem extends Entity{
 	private int velocidade;
 	private boolean colisao;
 	private String direcao = "down";
+	private GamePanel gamePanel;
 	
 	//Construtor
 	public Personagem(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade) {
@@ -15,6 +18,7 @@ public abstract class Personagem extends Entity{
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
+		this.gamePanel = gamePanel;
 	}
 
 	//Getters e Setters
@@ -49,6 +53,11 @@ public abstract class Personagem extends Entity{
 	public void setDirecao(String direcao) {
 		this.direcao = direcao;
 	}
+	
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
 
 	//Métodos
 	public abstract void causarDano();
@@ -63,21 +72,25 @@ public abstract class Personagem extends Entity{
 		
 	}
 	
-	public void moveUp() {
+	public void moveCima() {
 		setY(getY() - velocidade);
 	}
 	
-	public void moveDown() {
+	public void moveBaixo() {
 		setY(getY() + velocidade);
 	}
 	
-	public void moveLeft() {
+	public void moveEsquerda() {
 		setX(getX() - velocidade);
 	}
 	
-	public void moveRight() {
+	public void moveDireita() {
 		setX(getX() + velocidade);
 	}
+	
+	public abstract void update();
+	
+	public abstract void draw(Graphics2D tela);
 
 	
 }

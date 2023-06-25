@@ -6,8 +6,12 @@ import javax.swing.JFrame;
 
 import arquivos.Arquivos;
 
+
+
 public class Main {
 
+	
+	
 	public static void main(String[] args) {
 		//inicia e tenta carregar arquivos
 		Arquivos arquivosObjeto = new Arquivos();

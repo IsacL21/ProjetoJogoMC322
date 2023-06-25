@@ -23,7 +23,7 @@ public class Bloco {
 		this.textura = textura;
 	}
 
-	public boolean getColidivel() {
+	public boolean isColidivel() {
 		return colidivel;
 	}
 

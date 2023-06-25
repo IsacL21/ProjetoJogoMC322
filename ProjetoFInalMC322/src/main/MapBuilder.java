@@ -24,7 +24,7 @@ public class MapBuilder {
 		mapa = new int[gamePanel.getNumeroBlocosVertical()][gamePanel.getNumeroBlocosHorizontal()];
 		this.gamePanel = gamePanel;
 		carregaImagemBlocos();
-		carregaBlocosMapa();
+		
 	}
 
 	//Getters e Setters

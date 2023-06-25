@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public class Inimigo extends Personagem {
+public abstract class Inimigo extends Personagem{
 
 	//Propriedades
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();

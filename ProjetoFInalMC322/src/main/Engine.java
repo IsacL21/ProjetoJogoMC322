@@ -1,5 +1,9 @@
 package main;
 
+import java.util.ArrayList;
+
+import arquivos.Arquivos;
+
 public class Engine implements Runnable{
 
 	//Propriedades
@@ -7,12 +11,11 @@ public class Engine implements Runnable{
 	private KeyboardInput keyInput;
 	private Thread gameThread;
 	private Player player;
-	private InimigoEletron inimigo;
 	private MapBuilder mapBuilder;
 	private ColisaoChecker colisaoChecker;
+	
+	private ArrayList<Inimigo> listaInimigos;
 
-	private InimigoSentinela inimigoSentinela;
-	private EntityFollower inimigoPerseguidor;
 	//private ArrayList<Entity> listaEntidades;
 
 	
@@ -23,11 +26,10 @@ public class Engine implements Runnable{
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, gamePanel, keyInput, "down", 0, this);		
-		inimigo = new InimigoEletron(100, false, 3, gamePanel, 0);		
-		mapBuilder = new MapBuilder(gamePanel);
-		inimigoSentinela = new InimigoSentinela(gamePanel, 150, 150, 3, 350, 500);
-		inimigoPerseguidor = new EntityFollower(gamePanel, 400, 400, 2, player);
+		player = new Player(100, false, 3, gamePanel, keyInput, "baixo", this);		
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa());
+		listaInimigos = new ArrayList<Inimigo> ();
+		carregaMobs();
 		colisaoChecker = new ColisaoChecker(this);
 	}
 	
@@ -40,14 +42,6 @@ public class Engine implements Runnable{
 		return player;
 	}
 
-	public InimigoEletron getInimigo() {
-		return inimigo;
-	}
-
-	public void setInimigo(InimigoEletron inimigo) {
-		this.inimigo = inimigo;
-	}
-
 	public MapBuilder getMapBuilder() {
 		return mapBuilder;
 	}
@@ -56,30 +50,34 @@ public class Engine implements Runnable{
 		return gamePanel;
 	}
 
-	public InimigoSentinela getInimigoSentinela() {
-		return inimigoSentinela;
-	}
-	
-
-	public EntityFollower getInimigoPerseguidor() {
-		return inimigoPerseguidor;
-	}
-
 	public ColisaoChecker getColisaoChecker() {
 		return colisaoChecker;
 	}
+	
+	public ArrayList<Inimigo> getListaInimigos() {
+		return listaInimigos;
+	}
 
-	//Métodos
-	public void startGameThread() {
+	public void carregaMobs() {
+		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
+			if (mob.get(0) == 1) {
+				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, 3, gamePanel));
+				System.out.println("novo eletron");
+			}
+			if (mob.get(0) == 2)
+				listaInimigos.add(new EntityFollower(gamePanel, mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 2, player));
+		}
+	}
+
+	public void startGameThread() {  
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 	
 	public void atualizaJogo() {
-		inimigoSentinela.update();
-		inimigoPerseguidor.update();
+		for (Personagem i : listaInimigos)
+			i.update();
 		player.update();
-		inimigo.update();
 	}
 	
 	@Override

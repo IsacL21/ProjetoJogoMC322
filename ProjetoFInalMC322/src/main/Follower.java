@@ -2,11 +2,11 @@ package main;
 
 import java.util.Random;
 
-public class Follower extends Personagem {
-
-	//Propriedades
-	private int followedX;
-	private int followedY;
+public class Follower extends Personagem{
+	private GamePanel gamePanel;
+	int followedX;
+	int followedY;
+	String direction = "Right";
 	
 	//Construtor
 	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
@@ -19,16 +19,16 @@ public class Follower extends Personagem {
 		followedX = x;
 		followedY = y;
 	}
-	
+
 	public int followInX() {
 		if (followedX - this.getVelocidade() > this.getX() ) {
-			setDirecao("right");
-			moveRight();
+			setDirecao("direita");
+			this.moveDireita();
 			return 1;
 		}
 		else if ((followedX + this.getVelocidade() < this.getX())){
-			setDirecao("left");
-			moveLeft();
+			setDirecao("esquerda");
+			this.moveEsquerda();
 			return -1;
 		}
 		else return 0;
@@ -36,13 +36,13 @@ public class Follower extends Personagem {
 	
 	public int followInY() {
 		if (followedY - this.getVelocidade() > this.getY()) {
-			setDirecao("down");
-			moveDown();
+			direction = "down";
+			this.moveDown();
 			return 1;
 		}
 		else if ((followedY + this.getVelocidade() < this.getY())){
-			setDirecao("up");
-			moveUp();
+			direction = "up";
+			this.moveUp();
 			return -1;
 		}
 		else return 0;
@@ -63,7 +63,7 @@ public class Follower extends Personagem {
 		else
 		followInX();
 	}
-
+	
 	@Override
 	public void causarDano() {
 		// TODO Auto-generated method stub

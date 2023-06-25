@@ -13,15 +13,17 @@ public class Player extends Personagem{
 
 	//Propriedades
 	private KeyboardInput keyInput;
-	private int spriteNum = 0;
+	private int contadorFrames = 0;
+	private int framesAnimacaoAndar = 20; 
+	private int framesAnimacaoAtaque = 30; 
 	private Engine engine;
+	private boolean atacando = false;
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
 			KeyboardInput keyInput, String direcao, int spriteNum, Engine engine) {
 		super(100, 100, gamePanel, vida, invencivel, velocidade);
 		this.keyInput = keyInput;
-		this.spriteNum = spriteNum;
 		this.engine = engine;
 	}
 
@@ -36,64 +38,106 @@ public class Player extends Personagem{
 
 	//Métodos
 	public void update() {
-		if (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed()) {
+		if (keyInput.isXPressed() && !atacando) {
+				atacando = true;
+				contadorFrames = 0;
+		}
+		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
+			atacando = false;
+		}
+		
+		else if (!atacando && (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed())) {
 			
 			if(keyInput.isUpPressed()) {
-				setDirecao("up");
+				setDirecao("cima");
 			}
 			else if(keyInput.isDownPressed()) {
-				setDirecao("down");
+				setDirecao("baixo");
 			}
 			else if(keyInput.isLeftPressed()) {
-				setDirecao("left");
+				setDirecao("esquerda");
 			}
 			else if(keyInput.isRightPressed()) {
-				setDirecao("right");
+				setDirecao("direita");
 			}
 
 			setColisao(false);
 			engine.getColisaoChecker().checkColisao(this);
 			if (getColisao() == false) {
 				switch(getDirecao()) {
-					case "up": moveUp(); break;
-					case "down": moveDown(); break;
-					case "left": moveLeft(); break;
-					case "right": moveRight(); break;
+					case "cima": moveCima(); break;
+					case "baixo": moveBaixo(); break;
+					case "esquerda": moveEsquerda(); break;
+					case "direita": moveDireita(); break;
 				}
 			}
 		}
+		contadorFrames = contadorFrames + 1 % 60; 
 	}
 	
 	public void draw(Graphics2D tela) {
-		BufferedImage image = Arquivos.getPlayerimages().get(2);
+		BufferedImage image = Arquivos.getPlayerimages().get(0);
+		int alturaImagem= 42;
+		int larguraImagem = 26;
+		int imageX = getX();
+		int imageY = getY();
 		
 		switch (getDirecao()) {
-        case "up":
-            if (spriteNum < 10 && keyInput.isUpPressed())
-                image = Arquivos.getPlayerimages().get(1);
-            else if (spriteNum <=20 )
+        case "cima":
+            if (atacando) {
+            	alturaImagem *= 2;
+            	imageY -= getGamePanel().getTamanhoBloco();
+            	if (contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2)
+            		image = Arquivos.getPlayerimages().get(10);
+            	else image = Arquivos.getPlayerimages().get(11);
+            }
+            else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isUpPressed())
+                image = Arquivos.getPlayerimages().get(3);
+            else
+            	image = Arquivos.getPlayerimages().get(2);
+            break;
+        case "baixo":
+        	if (atacando) {
+        		alturaImagem *= 2;
+            	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
+            		image = Arquivos.getPlayerimages().get(8);
+            	else image = Arquivos.getPlayerimages().get(9);
+            }
+        	else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isDownPressed())
+            	image = Arquivos.getPlayerimages().get(1);
+            else
             	image = Arquivos.getPlayerimages().get(0);
             break;
-        case "down":
-            if (spriteNum < 10 && keyInput.isDownPressed())
-            	image = Arquivos.getPlayerimages().get(3);
-            else if (spriteNum <=20)
-            	image = Arquivos.getPlayerimages().get(2);;
-            break;
-        case "left":
-            if (spriteNum < 10 && keyInput.isLeftPressed())
-            	image = Arquivos.getPlayerimages().get(5);
-            else if (spriteNum <=20)
-            	image = Arquivos.getPlayerimages().get(4);
-            break;
-        case "right":
-            if (spriteNum < 10 && keyInput.isRightPressed())
+        case "esquerda":
+        	if (atacando) {
+            	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
+            		image = Arquivos.getPlayerimages().get(14);
+            	else {
+            		imageX -= larguraImagem;
+            		larguraImagem *= 2;
+            		image = Arquivos.getPlayerimages().get(15);
+            	}
+            }
+        	else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isLeftPressed())
             	image = Arquivos.getPlayerimages().get(7);
-            else if (spriteNum <=20)
+            else
             	image = Arquivos.getPlayerimages().get(6);
             break;
+        case "direita":
+        	if (atacando) {
+            	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
+            		image = Arquivos.getPlayerimages().get(12);
+            	else {
+            		larguraImagem *= 2;
+            		image = Arquivos.getPlayerimages().get(13);
+            	}
+            }
+        	else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isRightPressed())
+            	image = Arquivos.getPlayerimages().get(5);
+            else
+            	image = Arquivos.getPlayerimages().get(4);
+            break;
         }
-        spriteNum = (spriteNum + 1) % 20; 
 		
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
