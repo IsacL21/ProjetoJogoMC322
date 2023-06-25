@@ -77,16 +77,14 @@ public class Player extends Personagem{
 	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getPlayerimages().get(0);
-		int alturaImagem= 42;
-		int larguraImagem = 26;
+		int alturaImagem= 43*3;
+		int larguraImagem = 43*3;
 		int imageX = getX();
 		int imageY = getY();
 		
 		switch (getDirecao()) {
         case "cima":
             if (atacando) {
-            	alturaImagem *= 2;
-            	imageY -= getGamePanel().getTamanhoBloco();
             	if (contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2)
             		image = Arquivos.getPlayerimages().get(10);
             	else image = Arquivos.getPlayerimages().get(11);
@@ -98,7 +96,6 @@ public class Player extends Personagem{
             break;
         case "baixo":
         	if (atacando) {
-        		alturaImagem *= 2;
             	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
             		image = Arquivos.getPlayerimages().get(8);
             	else image = Arquivos.getPlayerimages().get(9);
@@ -113,8 +110,6 @@ public class Player extends Personagem{
             	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
             		image = Arquivos.getPlayerimages().get(14);
             	else {
-            		imageX -= larguraImagem;
-            		larguraImagem *= 2;
             		image = Arquivos.getPlayerimages().get(15);
             	}
             }
@@ -128,7 +123,6 @@ public class Player extends Personagem{
             	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
             		image = Arquivos.getPlayerimages().get(12);
             	else {
-            		larguraImagem *= 2;
             		image = Arquivos.getPlayerimages().get(13);
             	}
             }
