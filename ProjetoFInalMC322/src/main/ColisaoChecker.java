@@ -20,7 +20,7 @@ public class ColisaoChecker {
 
         int tileNum1, tileNum2;
         switch(personagem.getDirecao()) {
-            case "up":
+            case "cima":
                 personagemTopRow = (personagemTopY - personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
@@ -28,7 +28,7 @@ public class ColisaoChecker {
                     personagem.setColisao(true);
                 }
                 break;
-            case "down":
+            case "baixo":
                 personagemBottomRow = (personagemBottomY + personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemBottomRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemBottomRow][personagemRightCol];
@@ -36,7 +36,7 @@ public class ColisaoChecker {
                     personagem.setColisao(true);
                 }
                 break;
-            case "left":
+            case "esquerda":
                 personagemLeftCol = (personagemLeftX - personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
@@ -44,7 +44,7 @@ public class ColisaoChecker {
                     personagem.setColisao(true);
                 }
                 break;
-            case "right":
+            case "direita":
                 personagemRightCol = (personagemRightX + personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];

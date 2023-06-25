@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class Follower extends Inimigo{
 	int followedX;
 	int followedY;
-	String direction = "Right";
+	String direction = "direita";
 	
 	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
 		super(xInicial, yInicial, 0, false, speed, gamePanel);
@@ -28,13 +28,13 @@ public abstract class Follower extends Inimigo{
 
 	public int followInX() {
 		if (followedX - this.getVelocidade() > this.getX() ) {
-			direction = "right";
-			this.moveRight();
+			direction = "direita";
+			this.moveDireita();
 			return 1;
 		}
 		else if ((followedX + this.getVelocidade() < this.getX())){
-			direction = "left";
-			this.moveLeft();
+			direction = "esquerda";
+			this.moveEsquerda();
 			return -1;
 		}
 		else return 0;
@@ -42,13 +42,13 @@ public abstract class Follower extends Inimigo{
 	
 	public int followInY() {
 		if (followedY - this.getVelocidade() > this.getY()) {
-			direction = "down";
-			this.moveDown();
+			direction = "baixo";
+			this.moveBaixo();
 			return 1;
 		}
 		else if ((followedY + this.getVelocidade() < this.getY())){
-			direction = "up";
-			this.moveUp();
+			direction = "cima";
+			this.moveCima();
 			return -1;
 		}
 		else return 0;
