@@ -67,32 +67,32 @@ public class Player extends Personagem{
 	}
 	
 	public void draw(Graphics2D tela) {
-		BufferedImage image = Arquivos.getPlayerimages().get(2);
+		BufferedImage image = Arquivos.getPlayerimages().get(0);
 		
 		switch (getDirecao()) {
         case "up":
             if (spriteNum < 10 && keyInput.isUpPressed())
-                image = Arquivos.getPlayerimages().get(1);
+                image = Arquivos.getPlayerimages().get(3);
             else if (spriteNum <=20 )
-            	image = Arquivos.getPlayerimages().get(0);
+            	image = Arquivos.getPlayerimages().get(2);
             break;
         case "down":
             if (spriteNum < 10 && keyInput.isDownPressed())
-            	image = Arquivos.getPlayerimages().get(3);
+            	image = Arquivos.getPlayerimages().get(1);
             else if (spriteNum <=20)
-            	image = Arquivos.getPlayerimages().get(2);
+            	image = Arquivos.getPlayerimages().get(0);
             break;
         case "left":
             if (spriteNum < 10 && keyInput.isLeftPressed())
-            	image = Arquivos.getPlayerimages().get(5);
-            else if (spriteNum <=20)
-            	image = Arquivos.getPlayerimages().get(4);
-            break;
-        case "right":
-            if (spriteNum < 10 && keyInput.isRightPressed())
             	image = Arquivos.getPlayerimages().get(7);
             else if (spriteNum <=20)
             	image = Arquivos.getPlayerimages().get(6);
+            break;
+        case "right":
+            if (spriteNum < 10 && keyInput.isRightPressed())
+            	image = Arquivos.getPlayerimages().get(5);
+            else if (spriteNum <=20)
+            	image = Arquivos.getPlayerimages().get(4);
             break;
         }
         spriteNum = (spriteNum + 1) % 20; 
