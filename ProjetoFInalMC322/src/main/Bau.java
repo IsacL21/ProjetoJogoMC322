@@ -1,12 +1,14 @@
 package main;
 
+import java.awt.Rectangle;
+
 public class Bau extends Entity{
 
 	private boolean trancado;
 	private Item item;
 	
 	public Bau(int x, int y, boolean colidivel) {
-		super(x, y, colidivel);
+		super(0, 0, colidivel, new Rectangle(x, y, GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco()));
 	}
 
 	public boolean isTrancado() {

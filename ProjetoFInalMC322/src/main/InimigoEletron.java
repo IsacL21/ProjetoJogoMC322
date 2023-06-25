@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -19,7 +20,7 @@ public class InimigoEletron extends Inimigo{
 	static int counter = 0;
 
 	public InimigoEletron(int xInicial, int yInicial, double vida, int velocidade, GamePanel gamePanel) {
-		super(xInicial, yInicial, vida, false, velocidade, gamePanel);
+		super(xInicial, yInicial, vida, false, velocidade, gamePanel,new Rectangle(0,0,GamePanel.getTamanhoBloco(), gamePanel.getTamanhoBloco()));
 		this.xInicial = xInicial;
 		this.yInicial = yInicial;
 	}

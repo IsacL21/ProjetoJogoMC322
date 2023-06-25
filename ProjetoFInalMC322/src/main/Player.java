@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -14,15 +15,16 @@ public class Player extends Personagem{
 	//Propriedades
 	private KeyboardInput keyInput;
 	private int contadorFrames = 0;
-	private int framesAnimacaoAndar = 20; 
+	private int framesAnimacaoAndar = 30; 
 	private int framesAnimacaoAtaque = 30; 
 	private Engine engine;
 	private boolean atacando = false;
+	private boolean andando = false;
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
 			KeyboardInput keyInput, String direcao, Engine engine) {
-		super(100, 100, vida, invencivel, velocidade, gamePanel);
+		super(100, 100, vida, invencivel, velocidade, gamePanel, new Rectangle(50, 86, 28, 25));
 		this.keyInput = keyInput;
 		this.engine = engine;
 	}
@@ -40,6 +42,7 @@ public class Player extends Personagem{
 	public void update() {
 		if (keyInput.isXPressed() && !atacando) {
 				atacando = true;
+				andando = false;
 				contadorFrames = 0;
 		}
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
@@ -47,7 +50,7 @@ public class Player extends Personagem{
 		}
 		
 		else if (!atacando && (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed())) {
-			
+			andando = true;
 			if(keyInput.isUpPressed()) {
 				setDirecao("cima");
 			}
@@ -72,68 +75,63 @@ public class Player extends Personagem{
 				}
 			}
 		}
+		else andando = false;
 		contadorFrames = contadorFrames + 1 % 60; 
 	}
 	
+	BufferedImage getImagemAtaque() {
+		switch (getDirecao()) {
+		case "baixo":
+			return Arquivos.getPlayerDownattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+		case "cima":
+			return Arquivos.getPlayerUpattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerUpattack().size()-1)));
+		case "direita":
+			return Arquivos.getPlayerRightattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerRightattack().size()-1)));
+		case "esquerda":
+			return Arquivos.getPlayerLeftattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerLeftattack().size()-1)));
+		}
+		return Arquivos.getPlayerDownattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+	}
+	
+	BufferedImage getImagemAndar() {
+		switch (getDirecao()) {
+		case "baixo":
+			return Arquivos.getPlayerDownwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+		case "cima":
+			return Arquivos.getPlayerUpwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerUpwalk().size()-1)));
+		case "direita":
+			return Arquivos.getPlayerRightwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerRightwalk().size()-1)));
+		case "esquerda":
+			return Arquivos.getPlayerLeftwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerLeftwalk().size()-1)));
+		}
+		return Arquivos.getPlayerDownwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+	}
+	
+	BufferedImage getImagemParado() {
+		switch (getDirecao()) {
+		case "baixo":
+			return Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size() - 1);
+		case "cima":
+			return Arquivos.getPlayerUpwalk().get(Arquivos.getPlayerUpwalk().size() - 1);
+		case "direita":
+			return Arquivos.getPlayerRightwalk().get(Arquivos.getPlayerRightwalk().size() - 1);
+		case "esquerda":
+			return Arquivos.getPlayerLeftwalk().get(Arquivos.getPlayerLeftwalk().size() - 1);
+		}
+		return Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size() - 1);
+	}
+	
 	public void draw(Graphics2D tela) {
-		BufferedImage image = Arquivos.getPlayerimages().get(0);
+		BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
 		int alturaImagem= 43*3;
 		int larguraImagem = 43*3;
-		int imageX = getX();
-		int imageY = getY();
 		
-		switch (getDirecao()) {
-        case "cima":
-            if (atacando) {
-            	if (contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2)
-            		image = Arquivos.getPlayerimages().get(10);
-            	else image = Arquivos.getPlayerimages().get(11);
-            }
-            else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isUpPressed())
-                image = Arquivos.getPlayerimages().get(3);
-            else
-            	image = Arquivos.getPlayerimages().get(2);
-            break;
-        case "baixo":
-        	if (atacando) {
-            	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
-            		image = Arquivos.getPlayerimages().get(8);
-            	else image = Arquivos.getPlayerimages().get(9);
-            }
-        	else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isDownPressed())
-            	image = Arquivos.getPlayerimages().get(1);
-            else
-            	image = Arquivos.getPlayerimages().get(0);
-            break;
-        case "esquerda":
-        	if (atacando) {
-            	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
-            		image = Arquivos.getPlayerimages().get(14);
-            	else {
-            		image = Arquivos.getPlayerimages().get(15);
-            	}
-            }
-        	else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isLeftPressed())
-            	image = Arquivos.getPlayerimages().get(7);
-            else
-            	image = Arquivos.getPlayerimages().get(6);
-            break;
-        case "direita":
-        	if (atacando) {
-            	if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
-            		image = Arquivos.getPlayerimages().get(12);
-            	else {
-            		image = Arquivos.getPlayerimages().get(13);
-            	}
-            }
-        	else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isRightPressed())
-            	image = Arquivos.getPlayerimages().get(5);
-            else
-            	image = Arquivos.getPlayerimages().get(4);
-            break;
-        }
-		
-		tela.drawImage(image, imageX, imageY, larguraImagem, alturaImagem, null);
+		if (atacando)
+			image = getImagemAtaque();
+		else if (andando)
+			image = getImagemAndar();
+		else image = getImagemParado();
+		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
 	}
 	
 	@Override

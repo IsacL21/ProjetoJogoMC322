@@ -7,11 +7,11 @@ public class Entity {
 	private boolean colisivel;
 	private Rectangle hitBox;
 	
-	public Entity(int x, int y, boolean colisivel) {
+	public Entity(int x, int y, boolean colisivel,Rectangle hitBox) {
 		this.x = x;
 		this.y = y;
 		this.colisivel = colisivel;
-		hitBox = new Rectangle(8, 16, 32, 32);
+		this.hitBox = hitBox;
 	}
 	
 	/*ver se vai ficar assim ainda*/

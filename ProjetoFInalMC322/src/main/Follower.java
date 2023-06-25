@@ -1,13 +1,14 @@
 package main;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 public abstract class Follower extends Inimigo{
 	int followedX;
 	int followedY;
 	
-	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
-		super(xInicial, yInicial, 0, false, speed, gamePanel);
+	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY, Rectangle hitBox) {
+		super(xInicial, yInicial, 0, false, speed, gamePanel, hitBox);
 		this.followedX = followedX;
 		this.followedY = followedY;
 	}

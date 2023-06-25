@@ -1,12 +1,14 @@
 package main;
 
+import java.awt.Rectangle;
+
 public class Item extends Entity{
 
 	private boolean consumivel;
 	private String nome;
 	
-	public Item(int x, int y, boolean colisivel) {
-		super(x, y, colisivel);
+	public Item(int x, int y, boolean colisivel, Rectangle hitBox) {
+		super(x, y, colisivel, hitBox);
 		// TODO Auto-generated constructor stub
 	}
 

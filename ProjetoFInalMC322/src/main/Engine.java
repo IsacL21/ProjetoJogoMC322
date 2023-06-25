@@ -55,6 +55,7 @@ public class Engine implements Runnable{
 	}
 
 	public void carregaMobs() {
+		
 		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
 			if (mob.get(0) == 1) {
 				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, 3, gamePanel));

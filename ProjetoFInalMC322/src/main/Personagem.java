@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public abstract class Personagem extends Entity{
 	
@@ -13,8 +14,8 @@ public abstract class Personagem extends Entity{
 	private GamePanel gamePanel;
 	
 	//Construtor
-	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel) {
-		super(x, y, false);
+	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel, Rectangle hitBox) {
+		super(x, y, false, hitBox);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;

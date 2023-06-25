@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import arquivos.Arquivos;
@@ -8,20 +9,20 @@ import arquivos.Arquivos;
 public class EntityFollower extends Follower {
 	int xInicial;
 	int yInicial;
-	Entity followed = null;
+	Personagem followed = null;
 	private int spriteNum = 0;
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public EntityFollower (GamePanel gamePanel, int xInicial, int yInicial, int speed, Entity followed) {
-		super(gamePanel, xInicial, yInicial, speed, xInicial, yInicial);
+	public EntityFollower (GamePanel gamePanel, int xInicial, int yInicial, int speed, Personagem followed) {
+		super(gamePanel, xInicial, yInicial, speed, xInicial, yInicial, new Rectangle(0,0,gamePanel.getTamanhoBloco(),gamePanel.getTamanhoBloco()));
 		this.followed = followed;
 		this.xInicial = xInicial;
 		this.yInicial = yInicial;
 	}
 	
 	private void updateFollowedPosition(){
-		this.setFollowedPoint(followed.getX(), followed.getY());
+		this.setFollowedPoint(followed.getX() + followed.getHitBox().x, followed.getY() + followed.getHitBox().y);
 	}
 	
 	public void update() {
