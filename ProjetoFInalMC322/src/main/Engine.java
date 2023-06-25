@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import arquivos.Arquivos;
 
 public class Engine implements Runnable{
+
+	//Propriedades
 	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
 	private Thread gameThread;
 	private Player player;
 	private MapBuilder mapBuilder;
 	private ColisaoChecker colisaoChecker;
-	
 	private ArrayList<Inimigo> listaInimigos;
 
 	//private ArrayList<Entity> listaEntidades;
@@ -20,16 +21,18 @@ public class Engine implements Runnable{
 	private final static int fps = 60;
 	private final static double updateInterval = 1000/fps;
 	
+	//Construtor
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, gamePanel, keyInput, "baixo", this);		
-		mapBuilder = new MapBuilder(Arquivos.getVetorMapa());
+		player = new Player(100, false, 3, gamePanel, keyInput, this);		
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(), gamePanel);
 		listaInimigos = new ArrayList<Inimigo> ();
 		carregaMobs();
 		colisaoChecker = new ColisaoChecker(this);
 	}
 	
+	//Getters e Setters
 	public KeyboardInput getKeyInput() {
 		return keyInput;
 	}
@@ -57,11 +60,11 @@ public class Engine implements Runnable{
 	public void carregaMobs() {
 		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
 			if (mob.get(0) == 1) {
-				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, 3, gamePanel));
+				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
 				System.out.println("novo eletron");
 			}
 			if (mob.get(0) == 2)
-				listaInimigos.add(new EntityFollower(gamePanel, mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 2, player));
+				listaInimigos.add(new EntityFollower(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), 1, 1, player));
 		}
 	}
 

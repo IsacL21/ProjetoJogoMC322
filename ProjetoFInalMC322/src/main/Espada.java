@@ -2,16 +2,19 @@ package main;
 
 public class Espada {
 	
+	//Propriedades
 	private double ataque;
 	private int alcance;
 	private double velocidadeAtaque;
 	
+	//Construtor
 	public Espada(double ataque, int alcance, double velocidadeAtaque) {
 		this.ataque = ataque;
 		this.alcance = alcance;
 		this.velocidadeAtaque = velocidadeAtaque;
 	}
 	
+	//Getters e Setters
 	public double getAtaque() {
 		return ataque;
 	}

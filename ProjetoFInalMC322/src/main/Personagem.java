@@ -8,17 +8,15 @@ public abstract class Personagem extends Entity{
 	private double vida;
 	private boolean invencivel;
 	private int velocidade;
-	private boolean colisao;
+	private boolean colidindo;
 	private String direcao = "down";
-	private GamePanel gamePanel;
 	
 	//Construtor
-	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel) {
-		super(x, y, false);
+	public Personagem(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade) {
+		super(x, y, false, gamePanel);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
-		this.gamePanel = gamePanel;
 	}
 
 	//Getters e Setters
@@ -41,22 +39,17 @@ public abstract class Personagem extends Entity{
 	public void setVelocidade(int velocidade) {
 		this.velocidade = velocidade;
 	}
-	public boolean getColisao() {
-		return colisao;
+	public boolean getColidindo() {
+		return colidindo;
 	}
-	public void setColisao(boolean colisao) {
-		this.colisao = colisao;
+	public void setColidindo(boolean colisao) {
+		this.colidindo = colisao;
 	}
 	public String getDirecao() {
 		return direcao;
 	}
 	public void setDirecao(String direcao) {
 		this.direcao = direcao;
-	}
-	
-
-	public GamePanel getGamePanel() {
-		return gamePanel;
 	}
 
 	//Métodos

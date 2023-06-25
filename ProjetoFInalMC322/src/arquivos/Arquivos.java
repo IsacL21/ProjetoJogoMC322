@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+import main.Mapa;
 
 public class Arquivos {
 
@@ -19,9 +19,8 @@ public class Arquivos {
 	private final static ArrayList<BufferedImage> zumbiImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> textureImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<InputStream> mapList = new ArrayList<InputStream>();
-	private static int[][] vetorMapa = new int[GamePanel.getNumeroBlocosVertical()][GamePanel.getNumeroBlocosHorizontal()];
+	private static int[][] vetorMapa = new int[Mapa.QTDE_BLOCOS_VERTICAL.getPosicao()][Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao()];
 	private static ArrayList<ArrayList<Integer>> vetorMobs = new ArrayList<ArrayList<Integer>>();
-	
 	
 	public void loadFiles() throws IOException{
 			
@@ -106,9 +105,9 @@ public class Arquivos {
 		InputStream file = getClass().getResourceAsStream("/rooms/room1");
 		BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
 		try {
-			for (int i=0; i < GamePanel.getNumeroBlocosVertical(); i++) {
+			for (int i=0; i < Mapa.QTDE_BLOCOS_VERTICAL.getPosicao(); i++) {
 				String[] numeroColuna = entrada.readLine().split(" ");
-				for (int j=0; j < GamePanel.getNumeroBlocosHorizontal(); j++) {
+				for (int j=0; j < Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao(); j++) {
 					vetorMapa[i][j] = Integer.parseInt(numeroColuna[j]);
 				}
 			}

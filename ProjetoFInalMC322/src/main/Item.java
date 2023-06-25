@@ -2,15 +2,20 @@ package main;
 
 public class Item extends Entity{
 
+	//Propriedades
 	private boolean consumivel;
 	private String nome;
 	
-	public Item(int x, int y, boolean colisivel) {
-		super(x, y, colisivel);
+	//Construtor
+	public Item(int x, int y, boolean colisivel, GamePanel gamePanel, boolean consumivel, String nome) {
+		super(x, y, colisivel, gamePanel);
+		this.consumivel = colisivel;
+		this.nome = nome;
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean isConsumivel() {
+	//Getters e Setters
+	public boolean getConsumivel() {
 		return consumivel;
 	}
 
@@ -25,5 +30,4 @@ public class Item extends Entity{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 }

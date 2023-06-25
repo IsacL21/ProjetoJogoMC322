@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import arquivos.Arquivos;
 
@@ -14,8 +15,8 @@ public class InimigoSentinela extends Follower{
 	private int spriteNum;
 	private String followedPoint;
 	
-	public InimigoSentinela (GamePanel gamePanel, int xInicial, int yInicial, int speed, int xFinal, int yFinal) {
-		super(gamePanel, xInicial, yInicial, speed, xFinal, yFinal);
+	public InimigoSentinela(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops, followedX, followedY);
 		
 		this.xInicial = xInicial;
 		this.xFinal = xFinal;
@@ -74,7 +75,7 @@ public class InimigoSentinela extends Follower{
         }
         spriteNum = (spriteNum + 1) % 20; 
 		
-		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
+		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 		
 		
 	}

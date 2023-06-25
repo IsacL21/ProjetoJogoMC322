@@ -4,24 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.ArrayList;
 
 
 import arquivos.Arquivos;
 
-public class InimigoEletron extends Inimigo{
+public class InimigoEletron extends Inimigo {
 	
 	private int numero = 0;
-	private int spriteNum = 0;
 	private int xInicial;
 	private int yInicial;
 	private int contMov1 = 0, contMov2 = 0;
 	
-	static int counter = 0;
-
-	public InimigoEletron(int xInicial, int yInicial, double vida, int velocidade, GamePanel gamePanel) {
-		super(xInicial, yInicial, vida, false, velocidade, gamePanel);
-		this.xInicial = xInicial;
-		this.yInicial = yInicial;
+	 static int counter = 0;
+	
+	public InimigoEletron(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel, ArrayList<Item> listaDrops) {
+		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops);
 	}
 	
 	public void update() {
@@ -97,7 +95,7 @@ public class InimigoEletron extends Inimigo{
         }
 		contMov2 = (contMov2 + 1) % 15; 
 		
-		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
+		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
 	
 	public int getXinicial() {
