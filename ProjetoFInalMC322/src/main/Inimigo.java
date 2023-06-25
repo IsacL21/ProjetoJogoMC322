@@ -6,8 +6,8 @@ public abstract class Inimigo extends Personagem{
 
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();
 	
-	public Inimigo(int x, int y, double vida, boolean invencivel, int velocidade) {
-		super(x, y, vida, invencivel, velocidade);
+	public Inimigo(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel) {
+		super(x, y, vida, invencivel, velocidade, gamePanel);
 		// TODO Auto-generated constructor stub
 	}
 	

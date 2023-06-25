@@ -6,17 +6,15 @@ import java.util.Random;
 
 public class InimigoEletron extends Inimigo{
 	
-	private GamePanel gamePanel;
 	private int numero = 0;
-	
-	private String direction = "down";
 	private int spriteNum = 0;
-	
-	 static int counter = 0;
-	
-	public InimigoEletron(int xInicial, int yInicial, double vida, boolean invencivel, int velocidade, GamePanel gamePanel) {
-		super(xInicial, yInicial, vida, invencivel, velocidade);
-		this.gamePanel = gamePanel;
+	private int xInicial;
+	private int yInicial;
+
+	public InimigoEletron(int xInicial, int yInicial, double vida, int velocidade, GamePanel gamePanel) {
+		super(xInicial, yInicial, vida, false, velocidade, gamePanel);
+		this.xInicial = xInicial;
+		this.yInicial = yInicial;
 	}
 	
 	public void update() {
@@ -31,13 +29,13 @@ public class InimigoEletron extends Inimigo{
 				Random aleatorio = new Random();
 				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
 				
-			}else if(numero == 1) {
+			}else if(numero == 1 && (getY()-yInicial)<40) {
 				moveDown();
-			}else if(numero == 2) {
+			}else if(numero == 2 && (getY()-yInicial)>-40) {
 				moveUp();
-			}else if(numero == 3) {
+			}else if(numero == 3 && (getX()-xInicial)>-40) {
 				moveLeft();
-			}else {
+			}else if((getX()-xInicial)<40){
 				moveRight();
 			}
 		}

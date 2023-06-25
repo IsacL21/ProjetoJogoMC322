@@ -3,24 +3,20 @@ package main;
 import java.util.Random;
 
 public abstract class Follower extends Inimigo{
-	private GamePanel gamePanel;
 	int followedX;
 	int followedY;
 	String direction = "Right";
 	
 	public Follower (GamePanel gamePanel, int xInicial, int yInicial, int speed, int followedX, int followedY) {
-		super(xInicial, yInicial, 0, false, speed);
+		super(xInicial, yInicial, 0, false, speed, gamePanel);
 		this.followedX = followedX;
 		this.followedY = followedY;
-		this.gamePanel = gamePanel;	
 	}
 	
 	public void setFollowedPoint(int x, int y) {
 		followedX = x;
 		followedY = y;
 	}
-	
-	
 	
 	public String getDirection() {
 		return direction;
@@ -73,7 +69,7 @@ public abstract class Follower extends Inimigo{
 		else
 		followInX();
 	}
-
+	
 	@Override
 	public void causarDano() {
 		// TODO Auto-generated method stub

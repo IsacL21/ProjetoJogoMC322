@@ -10,13 +10,15 @@ public abstract class Personagem extends Entity{
 	private int velocidade;
 	private boolean colisao;
 	private String direcao = "down";
+	private GamePanel gamePanel;
 	
 	//Construtor
-	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade) {
+	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel) {
 		super(x, y, false);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
+		this.gamePanel = gamePanel;
 	}
 
 	//Getters e Setters
@@ -50,6 +52,11 @@ public abstract class Personagem extends Entity{
 	}
 	public void setDirecao(String direcao) {
 		this.direcao = direcao;
+	}
+	
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
 	}
 
 	//Métodos
