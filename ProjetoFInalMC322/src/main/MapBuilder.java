@@ -16,13 +16,13 @@ public class MapBuilder {
 	//Propriedades
 	private Bloco[] blocos;
 	private int[][] mapa;
-
+	
 	//Construtor
-	public MapBuilder() {
+	public MapBuilder(int[][] mapa) {
 		blocos = new Bloco[10];
-		mapa = new int[GamePanel.getNumeroBlocosVertical()][GamePanel.getNumeroBlocosHorizontal()];
+		this.mapa = mapa;
 		carregaImagemBlocos();
-		carregaBlocosMapa();
+		
 	}
 
 	//Getters e Setters
@@ -49,23 +49,6 @@ public class MapBuilder {
 		blocos[1] = new Bloco(Arquivos.getTextureimages().get(1),false);
 		blocos[2] = new Bloco(Arquivos.getTextureimages().get(2),true);
 		
-	}
-	
-	public void carregaBlocosMapa() {
-		
-		InputStream file = getClass().getResourceAsStream("/rooms/room1");
-		BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
-		try {
-			for (int i=0; i < GamePanel.getNumeroBlocosVertical(); i++) {
-				String[] numeroColuna = entrada.readLine().split(" ");
-				for (int j=0; j < GamePanel.getNumeroBlocosHorizontal(); j++) {
-					mapa[i][j] = Integer.parseInt(numeroColuna[j]);
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void draw(Graphics2D tela) {

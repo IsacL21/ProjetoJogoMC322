@@ -16,6 +16,7 @@ public class Player extends Personagem{
 	private KeyboardInput keyInput;
 	private int spriteNum = 0;
 	private Engine engine;
+	private boolean atacando = false;
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
@@ -38,6 +39,11 @@ public class Player extends Personagem{
 
 	//Métodos
 	public void update() {
+		if (keyInput.isXPressed()) {
+			if (atacando == false)
+				spriteNum = 0
+		}
+		
 		if (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed()) {
 			
 			if(keyInput.isUpPressed()) {

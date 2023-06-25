@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
 
-public class InimigoEletron extends Personagem{
+public class InimigoEletron extends Inimigo{
 	
 	private GamePanel gamePanel;
 	private int numero = 0;
@@ -14,12 +14,9 @@ public class InimigoEletron extends Personagem{
 	
 	 static int counter = 0;
 	
-	public InimigoEletron(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
-			String direction, int spriteNum) {
-		super(200, 200, vida, invencivel, velocidade);
+	public InimigoEletron(int xInicial, int yInicial, double vida, boolean invencivel, int velocidade, GamePanel gamePanel) {
+		super(xInicial, yInicial, vida, invencivel, velocidade);
 		this.gamePanel = gamePanel;
-		this.direction = direction;
-		this.spriteNum = spriteNum;
 	}
 	
 	public void update() {

@@ -24,7 +24,7 @@ public class ColisaoChecker {
                 personagemTopRow = (personagemTopY - personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
-                if (engine.getMapBuilder().getBlocos()[tileNum1].getColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].getColidivel() == true) {
+                if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
                     personagem.setColisao(true);
                 }
                 break;
@@ -32,7 +32,7 @@ public class ColisaoChecker {
                 personagemBottomRow = (personagemBottomY + personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemBottomRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemBottomRow][personagemRightCol];
-                if (engine.getMapBuilder().getBlocos()[tileNum1].getColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].getColidivel() == true) {
+                if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
                     personagem.setColisao(true);
                 }
                 break;
@@ -40,7 +40,7 @@ public class ColisaoChecker {
                 personagemLeftCol = (personagemLeftX - personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
-                if (engine.getMapBuilder().getBlocos()[tileNum1].getColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].getColidivel() == true) {
+                if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
                     personagem.setColisao(true);
                 }
                 break;
@@ -48,7 +48,7 @@ public class ColisaoChecker {
                 personagemRightCol = (personagemRightX + personagem.getVelocidade())/engine.getGamePanel().getTamanhoBloco();
                 tileNum1 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
                 tileNum2 = engine.getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
-                if (engine.getMapBuilder().getBlocos()[tileNum1].getColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].getColidivel() == true) {
+                if (engine.getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || engine.getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
                     personagem.setColisao(true);
                 }
                 break;

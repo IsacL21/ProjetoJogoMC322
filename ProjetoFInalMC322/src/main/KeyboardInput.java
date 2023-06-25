@@ -9,6 +9,7 @@ public class KeyboardInput implements KeyListener{
 	private boolean downPressed;
 	private boolean leftPressed;
 	private boolean rightPressed;
+	private boolean xPressed;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -34,6 +35,9 @@ public class KeyboardInput implements KeyListener{
 		if (code == KeyEvent.VK_RIGHT) {
 			rightPressed = true;
 		}
+		if (code == KeyEvent.VK_X) {
+			xPressed = true;
+		}
 	}
 
 	//setta tecla como nao pressionada ao solta-la
@@ -52,6 +56,9 @@ public class KeyboardInput implements KeyListener{
 		if (code == KeyEvent.VK_RIGHT) {
 			rightPressed = false;
 		}
+		if (code == KeyEvent.VK_X) {
+			xPressed = false;
+		}
 		
 	}
 
@@ -69,6 +76,10 @@ public class KeyboardInput implements KeyListener{
 
 	public boolean isRightPressed() {
 		return rightPressed;
+	}
+	
+	public boolean isXPressed() {
+		return xPressed;
 	}
 
 }

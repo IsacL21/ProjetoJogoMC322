@@ -10,17 +10,10 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel{
 	
 	private final Engine engine;
-	private final static int tamanhoOriginalBloco = 16; //tamanho dos "blocos" em pixel
-	private final static int fatorAjusteTamanho = 3; 
 	
-	private final static int tamanhoBloco = fatorAjusteTamanho * tamanhoOriginalBloco;
+	private final static int tamanhoBloco = 48;
 	private final static int numeroBlocosHorizontal = 16;
 	private final static int numeroBlocosVertical = 12;	
-	
-	private final static int telaLargura = tamanhoBloco * numeroBlocosHorizontal; //768
-	private final static int telaAltura = tamanhoBloco * numeroBlocosVertical; //576
-	
-	
 	
 	public static int getTamanhoBloco() {
 		return tamanhoBloco;
@@ -35,17 +28,17 @@ public class GamePanel extends JPanel{
 	}
 	
 	public static int getTelaLargura() {
-		return telaLargura;
+		return tamanhoBloco * numeroBlocosHorizontal;
 	}
 	
 	public static int getTelaAltura() {
-		return telaAltura;
+		return tamanhoBloco * numeroBlocosVertical;
 	}
 
 	
 	public GamePanel(Engine engine) {
 		this.engine = engine;
-		this.setPreferredSize(new Dimension(telaLargura, telaAltura));
+		this.setPreferredSize(new Dimension(getTelaLargura(), getTelaAltura()));
 		this.setBackground(Color.DARK_GRAY);
 		this.setDoubleBuffered(true);
 		
@@ -62,13 +55,12 @@ public class GamePanel extends JPanel{
 		
 		engine.getMapBuilder().draw(g2);
 		
-		engine.getInimigoSentinela().draw(g2);
-		
-		engine.getInimigoPerseguidor().draw(g2);
+		for (Personagem i : engine.getListaInimigos())
+			i.draw(g2);
 		
 		engine.getPlayer().draw(g2);
 
-		engine.getInimigo().draw(g2);
+		
 		g2.dispose();
 	}
 }

@@ -2,7 +2,7 @@ package main;
 
 import java.util.Random;
 
-public class Follower extends Personagem{
+public abstract class Follower extends Inimigo{
 	private GamePanel gamePanel;
 	int followedX;
 	int followedY;

@@ -5,8 +5,8 @@ public class Bau extends Entity{
 	private boolean trancado;
 	private Item item;
 	
-	public Bau(int x, int y, boolean colisivel) {
-		super(x, y, colisivel);
+	public Bau(int x, int y, boolean colidivel) {
+		super(x, y, colidivel);
 	}
 
 	public boolean isTrancado() {

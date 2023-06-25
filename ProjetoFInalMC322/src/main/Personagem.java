@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Graphics2D;
+
 public abstract class Personagem extends Entity{
 	
 	//Propriedades
@@ -78,6 +80,10 @@ public abstract class Personagem extends Entity{
 	public void moveRight() {
 		setX(getX() + velocidade);
 	}
+	
+	public abstract void update();
+	
+	public abstract void draw(Graphics2D tela);
 
 	
 }
