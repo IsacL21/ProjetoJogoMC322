@@ -1,6 +1,9 @@
 package main;
 
-import java.awt.Rectangle;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import arquivos.Arquivos;
 
 public class Bau extends Entity{
 
@@ -13,6 +16,11 @@ public class Bau extends Entity{
 		super(x, y, colisivel, gamePanel);
 		this.trancado = trancado;
 		this.item = item;
+	}
+	
+	public void draw(Graphics2D tela) {
+		BufferedImage image = Arquivos.getBauimages().get(0);
+		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 
 	//Getters e Setetrs
@@ -31,5 +39,4 @@ public class Bau extends Entity{
 	public void setItem(Item item) {
 		this.item = item;
 	}
-
 }

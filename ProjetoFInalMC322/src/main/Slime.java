@@ -7,13 +7,14 @@ import java.util.ArrayList;
 
 import arquivos.Arquivos;
 
-public class EntityFollower extends Follower {
+
+public class Slime extends Follower {
 	Personagem followed = null;
 	private int spriteNum = 0;
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public EntityFollower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
+	public Slime (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
 		super(x, y, gamePanel, vida, invencivel, velocidade, new Rectangle(0,0,gamePanel.getTamanhoBloco(),gamePanel.getTamanhoBloco()), listaDrops, x, y);
 		this.followed = followed;
 	}
@@ -45,12 +46,15 @@ public class EntityFollower extends Follower {
 			}else {
 				image = Arquivos.getSlimeimages().get(3);
 			}
-		}else{
-			
-			
 		}
 		
 		 spriteNum = (spriteNum + 1) % 20;
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -12,6 +12,10 @@ public class Inventario {
 		this.capacidade = capacidade;
 	}
 	
+	public Inventario(int capacidade) {
+		this.capacidade = capacidade;
+	}
+	
 	public boolean addItem() {
 		
 		return true;

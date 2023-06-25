@@ -6,20 +6,13 @@ import javax.swing.JFrame;
 
 import arquivos.Arquivos;
 
-
-
 public class Main {
-
-	
 	
 	public static void main(String[] args) {
 		//inicia e tenta carregar arquivos
 		Arquivos arquivosObjeto = new Arquivos();
 		try {
 			arquivosObjeto.loadFiles();
-		}catch (IOException e) {
-			System.out.println("Erro ao carregar as imagens!");
-		}
 		
 		//inicia a janela
 		JFrame window = new JFrame();
@@ -40,6 +33,10 @@ public class Main {
 		engine.startGameThread();
 			
 		window.setVisible(true);
+		
+		}catch (IOException e) {
+			System.out.println("Erro ao carregar as imagens!");
+		}
 	}
 
 }

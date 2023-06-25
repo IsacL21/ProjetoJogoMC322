@@ -60,13 +60,7 @@ public abstract class Personagem extends Entity{
 
 	public abstract void levarDano();
 
-	public void morrer() {
-		
-	}
-	
-	public void mostrarVida() {
-		
-	}
+	public abstract void morrer();
 	
 	public void moveCima() {
 		setY(getY() - velocidade);

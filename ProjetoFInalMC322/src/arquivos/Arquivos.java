@@ -16,6 +16,9 @@ public class Arquivos {
 	private final static ArrayList<BufferedImage> slimeImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> morcegoImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> zumbiImages = new ArrayList<BufferedImage>();
+	private final static ArrayList<BufferedImage> bauImages = new ArrayList<BufferedImage>();
+	private final static ArrayList<BufferedImage> portaImages = new ArrayList<BufferedImage>();
+	private final static ArrayList<BufferedImage> itemImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> textureImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<InputStream> mapList = new ArrayList<InputStream>();
 	private static int[][] vetorMapa = new int[Mapa.QTDE_BLOCOS_VERTICAL.getPosicao()][Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao()];
@@ -100,12 +103,36 @@ public class Arquivos {
 			zumbiImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/zumbi/Left-1.png")));
 			zumbiImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/zumbi/Left-2.png")));
 			
+			bauImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/bau/bau1.png")));
+			bauImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/bau/bau2.png")));
+			
+			portaImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/porta/door1.png")));
+			portaImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/porta/door2.png")));
+			
+			itemImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/items/chave.png")));
+			itemImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/items/pocao.png")));
+			
 			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/grass.png")));
 			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/earth.png")));
 			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/wall.png")));
 			
 			carregaBlocosMapa();
-			
+	}
+	
+	public static ArrayList<BufferedImage> getZumbiimages() {
+		return zumbiImages;
+	}
+
+	public static ArrayList<BufferedImage> getBauimages() {
+		return bauImages;
+	}
+
+	public static ArrayList<BufferedImage> getPortaimages() {
+		return portaImages;
+	}
+
+	public static ArrayList<BufferedImage> getItemimages() {
+		return itemImages;
 	}
 
 	public static ArrayList<BufferedImage> getMorcegoimages() {
@@ -176,7 +203,6 @@ public class Arquivos {
 					vetorMobs.get(i).add(Integer.parseInt(linha[j]));
 				}
 			}
-			
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
