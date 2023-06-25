@@ -1,12 +1,25 @@
 package main;
 
 public class ColisaoChecker {
+    
+    //Propriedades
     Engine engine;
 
+    //Construtor
     public ColisaoChecker(Engine engine) {
         this.engine = engine;
     }
 
+    //Getters e Setters
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
+    //Métodos
     public void checkColisao(Personagem personagem) {
         int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
         int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;

@@ -4,11 +4,12 @@ public class Porta extends Entity{
 
 	private boolean trancado;
 	
-	public Porta(int x, int y, boolean colisivel) {
-		super(x, y, colisivel);
+	public Porta(int x, int y, boolean colisivel, GamePanel gamePanel, boolean trancado) {
+		super(x, y, colisivel, gamePanel);
+		this.trancado = trancado;
 	}
 
-	public boolean isTrancado() {
+	public boolean getTrancado() {
 		return trancado;
 	}
 

@@ -16,11 +16,13 @@ public class MapBuilder {
 	//Propriedades
 	private Bloco[] blocos;
 	private int[][] mapa;
+	private GamePanel gamePanel;
 
 	//Construtor
-	public MapBuilder() {
+	public MapBuilder(GamePanel gamePanel) {
 		blocos = new Bloco[10];
-		mapa = new int[GamePanel.getNumeroBlocosVertical()][GamePanel.getNumeroBlocosHorizontal()];
+		mapa = new int[gamePanel.getNumeroBlocosVertical()][gamePanel.getNumeroBlocosHorizontal()];
+		this.gamePanel = gamePanel;
 		carregaImagemBlocos();
 		carregaBlocosMapa();
 	}
@@ -56,9 +58,9 @@ public class MapBuilder {
 		InputStream file = getClass().getResourceAsStream("/rooms/room1");
 		BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
 		try {
-			for (int i=0; i < GamePanel.getNumeroBlocosVertical(); i++) {
+			for (int i = 0; i < gamePanel.getNumeroBlocosVertical(); i++) {
 				String[] numeroColuna = entrada.readLine().split(" ");
-				for (int j=0; j < GamePanel.getNumeroBlocosHorizontal(); j++) {
+				for (int j = 0; j < gamePanel.getNumeroBlocosHorizontal(); j++) {
 					mapa[i][j] = Integer.parseInt(numeroColuna[j]);
 				}
 			}
@@ -69,9 +71,9 @@ public class MapBuilder {
 	}
 	
 	public void draw(Graphics2D tela) {
-		int tamanhoBloco = GamePanel.getTamanhoBloco();
-		for (int i=0; i < GamePanel.getNumeroBlocosVertical(); i++) {
-			for (int j=0; j < GamePanel.getNumeroBlocosHorizontal(); j++) {
+		int tamanhoBloco = gamePanel.getTamanhoBloco();
+		for (int i = 0; i < gamePanel.getNumeroBlocosVertical(); i++) {
+			for (int j = 0; j < gamePanel.getNumeroBlocosHorizontal(); j++) {
 				tela.drawImage(blocos[mapa[i][j]].getTextura(), j * tamanhoBloco, i * tamanhoBloco,tamanhoBloco ,tamanhoBloco,null);
 			}
 		}

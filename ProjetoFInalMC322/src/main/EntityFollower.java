@@ -26,6 +26,6 @@ public class EntityFollower extends Follower {
 	
 	public void draw(Graphics2D tela) {
 		tela.setColor(Color.GREEN);
-		tela.fillRect(this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco());
+		tela.fillRect(this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco());
 	}
 }

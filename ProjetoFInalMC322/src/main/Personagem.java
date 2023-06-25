@@ -10,8 +10,8 @@ public abstract class Personagem extends Entity{
 	private String direcao = "down";
 	
 	//Construtor
-	public Personagem(int x, int y, double vida, boolean invencivel, int velocidade) {
-		super(x, y, false);
+	public Personagem(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade) {
+		super(x, y, false, gamePanel);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;

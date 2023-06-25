@@ -12,7 +12,6 @@ import arquivos.Arquivos;
 public class Player extends Personagem{
 
 	//Propriedades
-	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
 	private int spriteNum = 0;
 	private Engine engine;
@@ -20,8 +19,7 @@ public class Player extends Personagem{
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
 			KeyboardInput keyInput, String direcao, int spriteNum, Engine engine) {
-		super(100, 100, vida, invencivel, velocidade);
-		this.gamePanel = gamePanel;
+		super(100, 100, gamePanel, vida, invencivel, velocidade);
 		this.keyInput = keyInput;
 		this.spriteNum = spriteNum;
 		this.engine = engine;
@@ -97,7 +95,7 @@ public class Player extends Personagem{
         }
         spriteNum = (spriteNum + 1) % 20; 
 		
-		tela.drawImage(image, this.getX(), this.getY(), GamePanel.getTamanhoBloco(), GamePanel.getTamanhoBloco(), null);
+		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
 	
 	@Override

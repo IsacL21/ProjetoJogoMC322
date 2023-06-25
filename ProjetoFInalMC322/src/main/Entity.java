@@ -3,54 +3,23 @@ package main;
 import java.awt.Rectangle;
 
 public class Entity {
+
+	//Propriedades
 	private int x, y;
 	private boolean colisivel;
 	private Rectangle hitBox;
+	private GamePanel gamePanel;
 	
-	public Entity(int x, int y, boolean colisivel) {
+	//Construtor
+	public Entity(int x, int y, boolean colisivel, GamePanel gamePanel) {
 		this.x = x;
 		this.y = y;
 		this.colisivel = colisivel;
+		this.gamePanel = gamePanel;
 		hitBox = new Rectangle(8, 16, 32, 32);
 	}
 	
-	/*ver se vai ficar assim ainda*/
-	public boolean colissionWallUP() {
-		
-		if(y <= 5) {
-			return true;
-		}
-				
-		return false;
-	}
-	
-	public boolean colissionWallDown() {
-		
-		if(y>= GamePanel.getTelaAltura()-48) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean colissionWallRight() {
-		
-		if(x >= GamePanel.getTelaLargura()-48) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean colissionWallLeft() {
-		
-		if(x <= 0) {
-			return true;
-		}
-		
-		return false;
-	}
-	
+	//Getters e Setters
 	public int getX() {
 		return x;
 	}
@@ -67,12 +36,20 @@ public class Entity {
 		this.y = y;
 	}
 
-	public boolean isColisivel() {
+	public boolean getColisivel() {
 		return colisivel;
 	}
 
 	public void setColisivel(boolean colisivel) {
 		this.colisivel = colisivel;
+	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public void setGamePanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
 	}
 
 	public Rectangle getHitBox() {
@@ -82,5 +59,4 @@ public class Entity {
 	public void setHitBox(Rectangle hitBox) {
 		this.hitBox = hitBox;
 	}
-	
 }

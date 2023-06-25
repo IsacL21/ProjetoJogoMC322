@@ -2,27 +2,18 @@ package main;
 
 import java.util.ArrayList;
 
-public class Inimigo extends Personagem{
+public class Inimigo extends Personagem {
 
+	//Propriedades
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();
 	
-	public Inimigo(int x, int y, double vida, boolean invencivel, int velocidade) {
-		super(x, y, vida, invencivel, velocidade);
-		// TODO Auto-generated constructor stub
+	//Construtor
+	public Inimigo(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops) {
+		super(x, y, gamePanel, vida, invencivel, velocidade);
+		this.listaDrops = listaDrops;
 	}
 	
-	@Override
-	public void causarDano() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void levarDano() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	//Getters e Setters
 	public ArrayList<Item> getListaDrops() {
 		return listaDrops;
 	}
@@ -30,5 +21,18 @@ public class Inimigo extends Personagem{
 	public void setListaDrops(ArrayList<Item> listaDrops) {
 		this.listaDrops = listaDrops;
 	}
+
+	//Métodos
+	@Override
+	public void causarDano() {
+		
+	}
+
+	@Override
+	public void levarDano() {
+		
+	}
+
+	
 
 }

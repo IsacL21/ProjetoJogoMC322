@@ -1,6 +1,8 @@
 package main;
 
 public class Engine implements Runnable{
+
+	//Propriedades
 	private GamePanel gamePanel;
 	private KeyboardInput keyInput;
 	private Thread gameThread;
@@ -17,17 +19,19 @@ public class Engine implements Runnable{
 	private final static int fps = 60;
 	private final static double updateInterval = 1000/fps;
 	
+	//Construtor
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
 		player = new Player(100, false, 3, gamePanel, keyInput, "down", 0, this);		
-		inimigo = new InimigoEletron(100, false, 3, gamePanel, "down", 0);		
-		mapBuilder = new MapBuilder();
+		inimigo = new InimigoEletron(100, false, 3, gamePanel, 0);		
+		mapBuilder = new MapBuilder(gamePanel);
 		inimigoSentinela = new InimigoSentinela(gamePanel, 150, 150, 3, 350, 500);
 		inimigoPerseguidor = new EntityFollower(gamePanel, 400, 400, 2, player);
 		colisaoChecker = new ColisaoChecker(this);
 	}
 	
+	//Getters e Setters
 	public KeyboardInput getKeyInput() {
 		return keyInput;
 	}
@@ -65,6 +69,7 @@ public class Engine implements Runnable{
 		return colisaoChecker;
 	}
 
+	//Métodos
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();

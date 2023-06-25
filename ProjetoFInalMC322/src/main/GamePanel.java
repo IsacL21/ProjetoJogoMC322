@@ -10,35 +10,35 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel{
 	
 	private final Engine engine;
-	private final static int tamanhoOriginalBloco = 16; //tamanho dos "blocos" em pixel
-	private final static int fatorAjusteTamanho = 3; 
+	private final int tamanhoOriginalBloco = 16; //tamanho dos "blocos" em pixel
+	private final int fatorAjusteTamanho = 3; 
 	
-	private final static int tamanhoBloco = fatorAjusteTamanho * tamanhoOriginalBloco;
-	private final static int numeroBlocosHorizontal = 16;
-	private final static int numeroBlocosVertical = 12;	
+	private final int tamanhoBloco = fatorAjusteTamanho * tamanhoOriginalBloco;
+	private final int numeroBlocosHorizontal = 16;
+	private final int numeroBlocosVertical = 12;	
 	
-	private final static int telaLargura = tamanhoBloco * numeroBlocosHorizontal; //768
-	private final static int telaAltura = tamanhoBloco * numeroBlocosVertical; //576
+	private final int telaLargura = tamanhoBloco * numeroBlocosHorizontal; //768
+	private final int telaAltura = tamanhoBloco * numeroBlocosVertical; //576
 	
 	
 	
-	public static int getTamanhoBloco() {
+	public int getTamanhoBloco() {
 		return tamanhoBloco;
 	}
 	
-	public static int getNumeroBlocosHorizontal() {
+	public int getNumeroBlocosHorizontal() {
 		return numeroBlocosHorizontal;
 	}
 	
-	public static int getNumeroBlocosVertical() {
+	public int getNumeroBlocosVertical() {
 		return numeroBlocosVertical;
 	}
 	
-	public static int getTelaLargura() {
+	public int getTelaLargura() {
 		return telaLargura;
 	}
 	
-	public static int getTelaAltura() {
+	public int getTelaAltura() {
 		return telaAltura;
 	}
 

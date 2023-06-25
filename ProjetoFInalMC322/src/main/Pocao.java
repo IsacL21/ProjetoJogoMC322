@@ -4,9 +4,9 @@ public class Pocao extends Item{
 
 	private int vida;
 	
-	public Pocao(int x, int y, boolean colisivel) {
-		super(x, y, colisivel);
-		// TODO Auto-generated constructor stub
+	public Pocao(int x, int y, boolean colisivel, GamePanel gamePanel, int vida) {
+		super(x, y, colisivel, gamePanel, true, "pocao");
+		this.vida = vida;
 	}
 
 	public int getVida() {
