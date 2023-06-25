@@ -20,8 +20,6 @@ public class Follower extends Personagem{
 		followedY = y;
 	}
 	
-	
-	
 	public String getDirection() {
 		return direction;
 	}
@@ -73,7 +71,7 @@ public class Follower extends Personagem{
 		else
 		followInX();
 	}
-
+	
 	@Override
 	public void causarDano() {
 		// TODO Auto-generated method stub

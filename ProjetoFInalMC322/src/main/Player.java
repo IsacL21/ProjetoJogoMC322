@@ -80,7 +80,7 @@ public class Player extends Personagem{
             if (spriteNum < 10 && keyInput.isDownPressed())
             	image = Arquivos.getPlayerimages().get(3);
             else if (spriteNum <=20)
-            	image = Arquivos.getPlayerimages().get(2);;
+            	image = Arquivos.getPlayerimages().get(2);
             break;
         case "left":
             if (spriteNum < 10 && keyInput.isLeftPressed())

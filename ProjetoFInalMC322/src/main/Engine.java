@@ -5,7 +5,7 @@ public class Engine implements Runnable{
 	private KeyboardInput keyInput;
 	private Thread gameThread;
 	private Player player;
-	private InimigoEletron inimigo;
+	private InimigoEletron inimigoEletron;
 	private MapBuilder mapBuilder;
 	private ColisaoChecker colisaoChecker;
 
@@ -21,7 +21,7 @@ public class Engine implements Runnable{
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
 		player = new Player(100, false, 3, gamePanel, keyInput, "down", 0, this);		
-		inimigo = new InimigoEletron(100, false, 3, gamePanel, "down", 0);		
+		inimigoEletron = new InimigoEletron(200, 200, 100, false, 3, gamePanel, "down", 0);		
 		mapBuilder = new MapBuilder();
 		inimigoSentinela = new InimigoSentinela(gamePanel, 150, 150, 3, 350, 500);
 		inimigoPerseguidor = new EntityFollower(gamePanel, 400, 400, 2, player);
@@ -37,11 +37,11 @@ public class Engine implements Runnable{
 	}
 
 	public InimigoEletron getInimigo() {
-		return inimigo;
+		return inimigoEletron;
 	}
 
-	public void setInimigo(InimigoEletron inimigo) {
-		this.inimigo = inimigo;
+	public void setInimigoEletron(InimigoEletron inimigo) {
+		this.inimigoEletron = inimigo;
 	}
 
 	public MapBuilder getMapBuilder() {
@@ -74,7 +74,7 @@ public class Engine implements Runnable{
 		inimigoSentinela.update();
 		inimigoPerseguidor.update();
 		player.update();
-		inimigo.update();
+		inimigoEletron.update();
 	}
 	
 	@Override

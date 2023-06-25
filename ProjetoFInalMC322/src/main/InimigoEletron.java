@@ -8,18 +8,20 @@ public class InimigoEletron extends Personagem{
 	
 	private GamePanel gamePanel;
 	private int numero = 0;
-	
+	private int posicaoX, posicaoY;
 	private String direction = "down";
 	private int spriteNum = 0;
 	
 	 static int counter = 0;
 	
-	public InimigoEletron(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
+	public InimigoEletron(int posicaoX, int posicaoY, double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
 			String direction, int spriteNum) {
-		super(200, 200, vida, invencivel, velocidade);
+		super(posicaoX, posicaoY, vida, invencivel, velocidade);
 		this.gamePanel = gamePanel;
 		this.direction = direction;
 		this.spriteNum = spriteNum;
+		this.posicaoX = posicaoX;
+		this.posicaoY = posicaoY;
 	}
 	
 	public void update() {
@@ -34,13 +36,13 @@ public class InimigoEletron extends Personagem{
 				Random aleatorio = new Random();
 				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
 				
-			}else if(numero == 1) {
+			}else if(numero == 1 && (getY()-posicaoY)<40) {
 				moveDown();
-			}else if(numero == 2) {
+			}else if(numero == 2 && (getY()-posicaoY)>-40) {
 				moveUp();
-			}else if(numero == 3) {
+			}else if(numero == 3 && (getX()-posicaoX)>-40) {
 				moveLeft();
-			}else {
+			}else if((getX()-posicaoX)<40){
 				moveRight();
 			}
 		}
