@@ -31,12 +31,16 @@ public class Engine implements Runnable{
 		
 		///Vai ter que atualizar na criacao de mapa
 		morcego = new Morcego(gamePanel, 100, 100, 2, 200, 200);
-		bausMapa.add((new Bau(200, 200, false)));
+		
+		/////////////Vai ter que definir o item que o bau vai ter na matriz
+		/////////////Vai ter que redefinir como voces vao querer spawnar os itens pelo mapa
+		
+		bausMapa.add((new Bau(200, 200, false, new Item(1, 1, false, "Chave"))));
 		
 		player = new Player(100, false, 3, 5, gamePanel, keyInput, "baixo", this, bausMapa, porta);		
 		
-		item = new Item(500, 500, false);
-		pocao = new Pocao(350, 300, false);
+		item = new Item(500, 500, false, "Chave");
+		pocao = new Pocao(350, 300, false, "Pocao");
 		
 		carregaMobs();
 		colisaoChecker = new ColisaoChecker(this);
@@ -115,6 +119,7 @@ public class Engine implements Runnable{
 				listaInimigos.add(new EntityFollower(gamePanel, mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 2, player));
 		
 		}
+		
 	}
 
 	public void startGameThread() {  
@@ -152,9 +157,5 @@ public class Engine implements Runnable{
 				gamePanel.repaint();
 				framesDesenhados++;
 				delta--;
-			}
-		}
-		
-	}
-
+		}}}
 }

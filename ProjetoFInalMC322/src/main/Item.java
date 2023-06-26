@@ -10,9 +10,9 @@ public class Item extends Entity{
 	private boolean consumivel;
 	private String nome;
 	
-	public Item(int x, int y, boolean colisivel) {
+	public Item(int x, int y, boolean colisivel, String nome) {
 		super(x, y, colisivel);
-		// TODO Auto-generated constructor stub
+		this.nome = nome;
 	}
 
 	public boolean isConsumivel() {

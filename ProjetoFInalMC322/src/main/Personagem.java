@@ -60,9 +60,9 @@ public abstract class Personagem extends Entity{
 	}
 
 	//Métodos
-	public abstract void causarDano();
+	public abstract void causarDano(Personagem personagem);
 
-	public abstract void levarDano();
+	public abstract boolean levarDano(int danoRecebido);
 
 	public abstract void morrer();
 	

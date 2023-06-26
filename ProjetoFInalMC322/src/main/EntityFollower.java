@@ -34,7 +34,6 @@ public class EntityFollower extends Slime {
 	}
 	
 	public void draw(Graphics2D tela) {
-		
 
 		if(direcaoOlhar.equals("esquerda")) {
 			if(spriteNum < 10) {

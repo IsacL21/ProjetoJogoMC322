@@ -10,12 +10,19 @@ public class Bau extends Entity{
 	private boolean trancado;
 	private Item item;
 	
-	public Bau(int x, int y, boolean colidivel) {
+	public Bau(int x, int y, boolean colidivel, Item item) {
 		super(x, y, colidivel);
+		this.trancado = true;
+		this.item = item;
 	}
 	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getBauimages().get(0);
+		
+		if(trancado == false) {
+			image = Arquivos.getBauimages().get(1);
+		}
+		
 		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 

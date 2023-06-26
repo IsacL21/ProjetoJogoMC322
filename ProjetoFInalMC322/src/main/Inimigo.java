@@ -12,15 +12,14 @@ public abstract class Inimigo extends Personagem{
 	}
 	
 	@Override
-	public void causarDano() {
+	public void causarDano(Personagem player) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void levarDano() {
+	public boolean levarDano(int danoRecebido) {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 
 	public ArrayList<Item> getListaDrops() {

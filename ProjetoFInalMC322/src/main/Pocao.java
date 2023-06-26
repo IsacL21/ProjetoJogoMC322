@@ -9,9 +9,9 @@ public class Pocao extends Item{
 
 	private int vida;
 	
-	public Pocao(int x, int y, boolean colisivel) {
-		super(x, y, colisivel);
-		// TODO Auto-generated constructor stub
+	public Pocao(int x, int y, boolean colisivel, String nome) {
+		super(x, y, colisivel, nome);
+		this.vida = 30;
 	}
 	
 	public void draw(Graphics2D tela) {
