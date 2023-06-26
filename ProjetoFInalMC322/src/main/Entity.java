@@ -1,8 +1,9 @@
 package main;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class Entity {
+public abstract class Entity implements Desenhavel{
 
 	//Propriedades
 	private int x, y;

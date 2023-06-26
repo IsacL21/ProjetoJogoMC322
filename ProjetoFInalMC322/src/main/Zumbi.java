@@ -30,23 +30,23 @@ public class Zumbi extends Inimigo{
 		if(contMov1 == 59) {
 			numero = 0;
 			
-		}else if(contMov1 >= 50) {
+		}else if(contMov1 >= 20) {
 			
 			if(numero == 0) {
 				Random aleatorio = new Random();
 				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
 				
-			}else if(numero == 1 && (getY()-yInicial)<40) {
+			}else if(numero == 1 && (getY()-yInicial)<120) {
 				moveBaixo();
 				setDirecao("baixo");
 
-			}else if(numero == 2 && (getY()-yInicial)>-40) {
+			}else if(numero == 2 && (getY()-yInicial)>-120) {
 				moveCima();
 				setDirecao("cima");
-			}else if(numero == 3 && (getX()-xInicial)>-40) {
+			}else if(numero == 3 && (getX()-xInicial)>-120) {
 				moveEsquerda();
 				setDirecao ("esquerda");
-			}else if((getX()-xInicial)<40){
+			}else if((getX()-xInicial)<120){
 				moveDireita();
 				setDirecao("direita");
 			}

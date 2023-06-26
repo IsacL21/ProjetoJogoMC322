@@ -7,11 +7,10 @@ import arquivos.Arquivos;
 
 public class Pocao extends Item{
 
-	private int vida;
+	private int vida = 1;
 	
-	public Pocao(int x, int y, boolean colisivel, GamePanel gamePanel, int vida) {
-		super(x, y, colisivel, gamePanel, true, "pocao");
-		this.vida = vida;
+	public Pocao(int x, int y, GamePanel gamePanel) {
+		super(x, y, true, gamePanel, true, "pocao");
 	}
 	
 	public void draw(Graphics2D tela) {

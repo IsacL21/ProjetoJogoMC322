@@ -3,7 +3,7 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public abstract class Personagem extends Entity{
+public abstract class Personagem extends Entity implements Atualizavel{
 	
 	//Propriedades
 	private double vida;

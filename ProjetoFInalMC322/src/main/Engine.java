@@ -14,13 +14,9 @@ public class Engine implements Runnable{
 	private MapBuilder mapBuilder;
 	private ColisaoChecker colisaoChecker;
 	private int estadoJogo = 0; //utilizado para congelar jogo em menus, estado normal = 0
-
-	private ArrayList<Bau> bausMapa = new ArrayList<Bau>();
-	private Porta porta;
-	private Item item;
-	private Pocao pocao;
 	
 	private ArrayList<Inimigo> listaInimigos;
+	private ArrayList<Entity> listaEntidades;
 
 	private final static int fps = 60;
 	private final static double updateInterval = 1000/fps;
@@ -29,18 +25,13 @@ public class Engine implements Runnable{
 	public Engine(int mapa_atual) {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, 5, gamePanel, keyInput, this, bausMapa, porta);		
+		player = new Player(100, false, 3, 5, gamePanel, keyInput, this);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 
 		listaInimigos = new ArrayList<Inimigo> ();
-		porta = new Porta(336, 0, true, gamePanel, true);
-		
-		item = new Item(500, 500, true, gamePanel, false, "FUCK");
-		
-		bausMapa.add((new Bau(200, 200, true, gamePanel, true, item)));
+		listaEntidades = new ArrayList<Entity> ();
 		
 		
-		pocao = new Pocao(350, 300, true, gamePanel, 20);
 		
 		carregaMobs(mapa_atual);
 
@@ -72,52 +63,40 @@ public class Engine implements Runnable{
 		return listaInimigos;
 	}
 	
-	public Porta getPorta() {
-		return porta;
-	}
-
-	public void setPorta(Porta porta) {
-		this.porta = porta;
-	}
-
-	public ArrayList<Bau> getBausMapa() {
-		return bausMapa;
-	}
-
-	public void setBausMapa(ArrayList<Bau> bausMapa) {
-		this.bausMapa = bausMapa;
-	}
-	
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
-
-	public Pocao getPocao() {
-		return pocao;
-	}
-
-	public void setPocao(Pocao pocao) {
-		this.pocao = pocao;
-	}
-	
 	public void setEstadoJogo(int estadoJogo) {
 		this.estadoJogo = estadoJogo;
 		System.out.println(this.estadoJogo);
 	}
+	
 
+
+	public ArrayList<Entity> getListaEntidades() {
+		return listaEntidades;
+	}
 
 	public void carregaMobs(int mapa_atual) {
-		for (ArrayList<Integer> mob : Arquivos.getVetorMobs(mapa_atual)) {
-			if (mob.get(0) == 1) 
-				listaInimigos.add(new Zumbi(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
-			if (mob.get(0) == 2)
-				listaInimigos.add(new Slime(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), player));
-			if (mob.get(0) == 3)
-				listaInimigos.add(new Morcego(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), mob.get(3) * gamePanel.getTamanhoBloco(), mob.get(4) * gamePanel.getTamanhoBloco(), player));
+		for (ArrayList<Integer> entidade : Arquivos.getVetorEntidades(mapa_atual)) {
+			if (entidade.get(0) == 1) 
+				listaInimigos.add(new Zumbi(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
+			if (entidade.get(0) == 2)
+				listaInimigos.add(new Slime(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), player));
+			if (entidade.get(0) == 3)
+				listaInimigos.add(new Morcego(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), entidade.get(3) * gamePanel.getTamanhoBloco(), entidade.get(4) * gamePanel.getTamanhoBloco(), player));
+			if(entidade.get(0) == 4)
+				listaEntidades.add(new Porta(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), true, gamePanel, true));
+			if(entidade.get(0) == 5)
+				listaEntidades.add(new Pocao(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel));
+			if(entidade.get(0) == 6)
+				listaEntidades.add(new Chave(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel));
+			if(entidade.get(0) == 7) {
+					Item tempItem = null;
+					if (entidade.get(3) == 5)
+						tempItem = new Chave(-100, -100, gamePanel);
+					if (entidade.get(3) == 6)
+						tempItem = new Chave(-100, -100, gamePanel);
+					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),gamePanel, false, tempItem));
+			}
+				
 		}
 	}
 

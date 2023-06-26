@@ -45,7 +45,7 @@ public class GamePanel extends JPanel{
 	public GamePanel(Engine engine) {
 		this.engine = engine;
 		this.setPreferredSize(new Dimension(getTelaLargura(), getTelaAltura()));
-		this.setBackground(Color.DARK_GRAY);
+		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		
 		this.addKeyListener(engine.getKeyInput());
@@ -59,13 +59,13 @@ public class GamePanel extends JPanel{
 		
 		engine.getMapBuilder().draw(g2);
 		
+		for (Entity i : engine.getListaEntidades())
+			i.draw(g2);
+		
 		for (Personagem i : engine.getListaInimigos())
 			i.draw(g2);
 		
-		engine.getBausMapa().get(0).draw(g2);
-		engine.getPorta().draw(g2);
-		engine.getItem().draw(g2);
-		engine.getPocao().draw(g2);
+
 		
 		engine.getPlayer().draw(g2);
 		

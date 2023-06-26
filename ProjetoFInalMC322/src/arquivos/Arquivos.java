@@ -23,7 +23,7 @@ public class Arquivos {
 	private final static ArrayList<BufferedImage> textureImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<InputStream> mapList = new ArrayList<InputStream>();
 	private static int[][][] vetorMapa = new int[Mapas.values().length][Mapa.QTDE_BLOCOS_VERTICAL.getPosicao()][Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao()];
-	private static ArrayList<ArrayList<ArrayList<Integer>>> vetorMobs = new ArrayList<ArrayList<ArrayList<Integer>>>();
+	private static ArrayList<ArrayList<ArrayList<Integer>>> vetorEntidades = new ArrayList<ArrayList<ArrayList<Integer>>>();
 	
 
 	static class PlayerImages{
@@ -113,9 +113,10 @@ public class Arquivos {
 			itemImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/items/chave.png")));
 			itemImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/items/pocao.png")));
 			
-			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/grass.png")));
-			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/earth.png")));
-			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/wall.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/null.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/floor_1.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/wall_mid.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/floor_spikes.png")));
 			
 			carregaBlocosMapa();
 	}
@@ -181,8 +182,8 @@ public class Arquivos {
 		return vetorMapa[index];
 	}
 
-	public static ArrayList<ArrayList<Integer>> getVetorMobs(int index) {
-		return vetorMobs.get(index);
+	public static ArrayList<ArrayList<Integer>> getVetorEntidades(int index) {
+		return vetorEntidades.get(index);
 	}
 
 	public void carregaBlocosMapa() {
@@ -204,13 +205,13 @@ public class Arquivos {
 				
 				int qtdMobs = Integer.parseInt(entrada.readLine());
 				
-				vetorMobs.add(new ArrayList<ArrayList<Integer>>());
+				vetorEntidades.add(new ArrayList<ArrayList<Integer>>());
 					for (int i = 0; i < qtdMobs; i++) {
 						System.out.println(i);
 						String[] linha = entrada.readLine().split(" ");
-						vetorMobs.get(k).add(new ArrayList<Integer>());
+						vetorEntidades.get(k).add(new ArrayList<Integer>());
 						for (int j=0; j < linha.length ; j++) {
-							vetorMobs.get(k).get(i).add(Integer.parseInt(linha[j]));
+							vetorEntidades.get(k).get(i).add(Integer.parseInt(linha[j]));
 						}
 					}
 			} catch (IOException e) {

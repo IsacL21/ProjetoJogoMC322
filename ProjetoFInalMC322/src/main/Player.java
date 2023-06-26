@@ -22,16 +22,12 @@ public class Player extends Personagem{
 	
 
 	private Inventario inventario;
-	private ArrayList<Bau> bausMapa = new ArrayList<Bau>();
-	private Porta porta;
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
-			KeyboardInput keyInput, Engine engine, ArrayList<Bau> bausMapa, Porta porta) {
-		super(100, 100, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
+			KeyboardInput keyInput, Engine engine) {
+		super(0, 0, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
 		this.inventario = new Inventario(capacidadeInventario);
-		this.porta = porta;
-		this.bausMapa = bausMapa;
 		this.keyInput = keyInput;
 		this.engine = engine;
 	}
