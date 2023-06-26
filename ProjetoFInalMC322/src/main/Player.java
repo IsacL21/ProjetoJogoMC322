@@ -19,7 +19,6 @@ public class Player extends Personagem{
 	private boolean atacando = false;
 	private boolean andando = false;
 	
-
 	private Inventario inventario;
 	
 	//Construtor
@@ -46,16 +45,15 @@ public class Player extends Personagem{
 				contadorFrames = 0;
 		}
 		
+		/*
 		if(keyInput.isVPressed()) {
 			mostrarVida();
 		}
+		*/
 		
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
-			
-			
-			
 			
 		}
 		
@@ -89,13 +87,29 @@ public class Player extends Personagem{
 
 			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos());
 			
-			boolean colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
+			Personagem colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
 			boolean colisaoMapa = checarColisaoMapa(this);
-			boolean colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
+			Entity colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
 
-			boolean colisao = colisaoPersonagem || colisaoMapa || colisaoEntidade;
+			//boolean colisao = colisaoPersonagem || colisaoMapa || colisaoEntidade;
 
-			setColidindo(colisao);
+			if(colisaoPersonagem == null && colisaoEntidade == null && colisaoMapa == false) {
+				setColidindo(false);
+				setObjetoColidido(null);
+			}else {
+				setObjetoColidido(colisaoEntidade);
+				if(colisaoEntidade != null) {
+					if(colisaoEntidade.getClass().getName().equals("main.Chave") ||
+							colisaoEntidade.getClass().getName().equals("main.Pocao")) {
+							
+						coletaItem((Item)colisaoEntidade);
+						
+					}
+				}
+				
+				setColidindo(true);
+			}
+			
 			if (getColidindo() == false) {
 				switch(getDirecao()) {
 					case "cima": moveCima(); break;
@@ -191,16 +205,27 @@ public class Player extends Personagem{
 		}
 	}
 	
+	/*
 	public void mostrarVida() {
 		
 		keyInput.resetaValores();
 		JOptionPane.showMessageDialog(null, "Vida do personagem: "+getVida(), "Vida", JOptionPane.INFORMATION_MESSAGE); 		
 		
 	}
+	*/
 	
 	public void coletaItem(Item item) {
 		
+		inventario.addItem(item);
 		
+		for(int i = 0; i < getEngine().getListaEntidades().size(); i++) {
+			
+			if(getEngine().getListaEntidades().get(i) == item) {
+				getEngine().getListaEntidades().remove(i);
+				
+			}
+			
+		}
 		
 	}
 	

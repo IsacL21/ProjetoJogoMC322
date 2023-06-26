@@ -16,8 +16,9 @@ public class Inventario {
 		this.capacidade = capacidade;
 	}
 	
-	public boolean addItem() {
+	public boolean addItem(Item item) {
 		
+		listaItens.add(item);
 		return true;
 	}
 	
