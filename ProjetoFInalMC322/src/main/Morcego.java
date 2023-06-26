@@ -1,13 +1,13 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import arquivos.Arquivos;
 
-public class InimigoSentinela extends Follower{
+public class Morcego extends Follower{
 	private int xInicial;
 	private int yInicial;
 	private int xFinal;
@@ -15,17 +15,17 @@ public class InimigoSentinela extends Follower{
 	private int spriteNum;
 	private String followedPoint;
 	
-	public InimigoSentinela(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, followedX, followedY);
+	public Morcego(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, gamePanel, vida, invencivel, velocidade,new Rectangle(0,0,gamePanel.getTamanhoBloco(), gamePanel.getTamanhoBloco()), listaDrops, followedX, followedY);
 		
-		this.xInicial = xInicial;
-		this.xFinal = xFinal;
-		this.yInicial = yInicial;
-		this.yFinal = yFinal;
+		this.xInicial = x;
+		this.xFinal = followedX;
+		this.yInicial = y;
+		this.yFinal = followedY;
 		
 		followedPoint = "inicial";
 	}
-	
+
 	private void switchFollowedPoint() {
 		if (followedPoint == "inicial") {
 			this.setFollowedPoint(xFinal, yFinal);
@@ -49,9 +49,9 @@ public class InimigoSentinela extends Follower{
 		
 		switch (getDirecao()) {
         case "up":
-            if (spriteNum < 10)
+            if (spriteNum < 10) {
                 image = Arquivos.getMorcegoimages().get(3);
-            else if (spriteNum <=20 )
+            }else if (spriteNum <=20)
             	image = Arquivos.getMorcegoimages().get(2);
             break;
         case "down":
@@ -77,6 +77,11 @@ public class InimigoSentinela extends Follower{
 		
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 		
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -2,13 +2,15 @@ package main;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.awt.Rectangle;
 import java.util.Random;
 
-public class Follower extends Inimigo {
+public abstract class Follower extends Inimigo {
 	int followedX;
 	int followedY;
 	String direction = "Right";
 	
+
 	//Construtor
 	public Follower (int x, int y,Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY) {
 		super(x, y, engine, vida, invencivel, velocidade, listaDrops);

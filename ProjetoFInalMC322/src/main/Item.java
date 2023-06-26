@@ -1,6 +1,10 @@
 package main;
 
-public class Item extends Entity{
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import arquivos.Arquivos;
+public abstract class Item extends Entity{
 
 	//Propriedades
 	private boolean consumivel;

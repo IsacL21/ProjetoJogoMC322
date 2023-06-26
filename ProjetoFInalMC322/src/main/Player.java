@@ -1,11 +1,11 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import arquivos.Arquivos;
 
@@ -14,13 +14,20 @@ public class Player extends Personagem{
 	//Propriedades
 	private KeyboardInput keyInput;
 	private int contadorFrames = 0;
-	private int framesAnimacaoAndar = 20; 
+	private int framesAnimacaoAndar = 30; 
 	private int framesAnimacaoAtaque = 30; 
 	private boolean atacando = false;
+	private boolean andando = false;
+	private Engine engine;
+	
+
+	private Inventario inventario;
 	
 	//Construtor
-	public Player(double vida, boolean invencivel, int velocidade, Engine engine, KeyboardInput keyInput) {
-		super(300, 300, engine, vida, invencivel, velocidade);
+	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
+			KeyboardInput keyInput, Engine engine) {
+		super(0, 0, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
+		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
 	}
 
@@ -35,16 +42,31 @@ public class Player extends Personagem{
 
 	//Métodos
 	public void update() {
-		if (keyInput.isXPressed() && !atacando) {
-			atacando = true;
-			contadorFrames = 0;
+		if (keyInput.isZPressed() && !atacando) {
+				atacando = true;
+				andando = false;
+				contadorFrames = 0;
 		}
+		
+		if(keyInput.isVPressed()) {
+			mostrarVida();
+		}
+		
+		if(keyInput.isXPressed()) {
+			/*Informacoes para quando tiver a colisao
+			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
+			
+			
+			
+			
+		}
+		
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
 			atacando = false;
 		}
 		
 		else if (!atacando && (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed())) {
-			
+			andando = true;
 			if(keyInput.isUpPressed()) {
 				setDirecao("cima");
 			}
@@ -77,73 +99,89 @@ public class Player extends Personagem{
 				updateHitBox();
 			}
 		}
+		else andando = false;
 		contadorFrames = contadorFrames + 1 % 60; 
 	}
 	
-	public void draw(Graphics2D tela) {
-		BufferedImage image = Arquivos.getPlayerimages().get(0);
-		int alturaImagem= 42;
-		int larguraImagem = 26;
-		int imageX = getX();
-		int imageY = getY();
-		
+	BufferedImage getImagemAtaque() {
 		switch (getDirecao()) {
-        	case "cima":
-            	if (atacando) {
-					alturaImagem *= 2;
-					imageY -= getGamePanel().getTamanhoBloco();
-					if (contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2)
-						image = Arquivos.getPlayerimages().get(10);
-					else image = Arquivos.getPlayerimages().get(11);
-				}
-				else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isUpPressed())
-					image = Arquivos.getPlayerimages().get(3);
-				else
-					image = Arquivos.getPlayerimages().get(2);
-				break;
-			case "baixo":
-				if (atacando) {
-					alturaImagem *= 2;
-					if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
-						image = Arquivos.getPlayerimages().get(8);
-					else image = Arquivos.getPlayerimages().get(9);
-				}
-				else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isDownPressed())
-					image = Arquivos.getPlayerimages().get(1);
-				else
-					image = Arquivos.getPlayerimages().get(0);
-				break;
-			case "esquerda":
-				if (atacando) {
-					if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
-						image = Arquivos.getPlayerimages().get(14);
-					else {
-						imageX -= larguraImagem;
-						larguraImagem *= 2;
-						image = Arquivos.getPlayerimages().get(15);
-					}
-				}
-				else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isLeftPressed())
-					image = Arquivos.getPlayerimages().get(7);
-				else
-					image = Arquivos.getPlayerimages().get(6);
-				break;
-			case "direita":
-				if (atacando) {
-					if (contadorFrames % framesAnimacaoAtaque < framesAnimacaoAtaque/2)
-						image = Arquivos.getPlayerimages().get(12);
-					else {
-						larguraImagem *= 2;
-						image = Arquivos.getPlayerimages().get(13);
-					}
-				}
-				else if ((contadorFrames % framesAnimacaoAndar < framesAnimacaoAndar/2) && keyInput.isRightPressed())
-					image = Arquivos.getPlayerimages().get(5);
-				else
-					image = Arquivos.getPlayerimages().get(4);
-				break;
-        }
-		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
+		case "baixo":
+			return Arquivos.getPlayerDownattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+		case "cima":
+			return Arquivos.getPlayerUpattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerUpattack().size()-1)));
+		case "direita":
+			return Arquivos.getPlayerRightattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerRightattack().size()-1)));
+		case "esquerda":
+			return Arquivos.getPlayerLeftattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerLeftattack().size()-1)));
+		}
+		return Arquivos.getPlayerDownattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+	}
+	
+	BufferedImage getImagemAndar() {
+		switch (getDirecao()) {
+		case "baixo":
+			return Arquivos.getPlayerDownwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+		case "cima":
+			return Arquivos.getPlayerUpwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerUpwalk().size()-1)));
+		case "direita":
+			return Arquivos.getPlayerRightwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerRightwalk().size()-1)));
+		case "esquerda":
+			return Arquivos.getPlayerLeftwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerLeftwalk().size()-1)));
+		}
+		return Arquivos.getPlayerDownwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+	}
+	
+	BufferedImage getImagemParado() {
+		switch (getDirecao()) {
+		case "baixo":
+			return Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size() - 1);
+		case "cima":
+			return Arquivos.getPlayerUpwalk().get(Arquivos.getPlayerUpwalk().size() - 1);
+		case "direita":
+			return Arquivos.getPlayerRightwalk().get(Arquivos.getPlayerRightwalk().size() - 1);
+		case "esquerda":
+			return Arquivos.getPlayerLeftwalk().get(Arquivos.getPlayerLeftwalk().size() - 1);
+		}
+		return Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size() - 1);
+	}
+	
+	public void draw(Graphics2D tela) {
+		BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
+		int alturaImagem= 43*3;
+		int larguraImagem = 43*3;
+		
+		if (atacando)
+			image = getImagemAtaque();
+		else if (andando)
+			image = getImagemAndar();
+		else image = getImagemParado();
+		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
+	}
+	
+	public void mostrarVida() {
+		
+		keyInput.resetaValores();
+		JOptionPane.showMessageDialog(null, "Vida do personagem: "+getVida(), "Vida", JOptionPane.INFORMATION_MESSAGE); 		
+		
+	}
+	
+	public void coletaItem(Item item) {
+		
+		
+		
+	}
+	
+	public void abrirBau() {
+		
+		
+		
+		
+	}
+	
+	public void abrirPorta() {
+		
+		
+		
 	}
 	
 	@Override
@@ -155,6 +193,15 @@ public class Player extends Personagem{
 	@Override
 	public void levarDano() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void morrer() {
+		// TODO Auto-generated method stub
+		
+		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
+		
 		
 	}
 
