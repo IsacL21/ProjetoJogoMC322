@@ -26,11 +26,11 @@ public class Engine implements Runnable{
 	private final static double updateInterval = 1000/fps;
 	
 	//Construtor
-	public Engine() {
+	public Engine(int mapa_atual) {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
 		player = new Player(100, false, 3, 5, gamePanel, keyInput, this, bausMapa, porta);		
-		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(), gamePanel);
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 
 		listaInimigos = new ArrayList<Inimigo> ();
 		porta = new Porta(336, 0, true, gamePanel, true);
@@ -42,7 +42,8 @@ public class Engine implements Runnable{
 		
 		pocao = new Pocao(350, 300, true, gamePanel, 20);
 		
-		carregaMobs();
+		carregaMobs(mapa_atual);
+
 		colisaoChecker = new ColisaoChecker(this);
 	}
 	
@@ -108,9 +109,9 @@ public class Engine implements Runnable{
 		System.out.println(this.estadoJogo);
 	}
 
-	public void carregaMobs() {
-		
-		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
+
+	public void carregaMobs(int mapa_atual) {
+		for (ArrayList<Integer> mob : Arquivos.getVetorMobs(mapa_atual)) {
 			if (mob.get(0) == 1) 
 				listaInimigos.add(new Zumbi(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
 			if (mob.get(0) == 2)
