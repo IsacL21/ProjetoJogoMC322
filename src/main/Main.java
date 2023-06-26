@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -35,7 +37,21 @@ public class Main {
 		engine.startGameThread();
 			
 		window.setVisible(true);
+		
 		Save.salvar(mapa_atual, nome);
+		
+		window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                
+            	Save.salvar(mapa_atual, nome);
+            	
+                System.out.println("A janela foi fechada.");
+                
+                System.exit(0);
+            }
+        });
+		
 		}catch (IOException e) {
 			System.out.println("Erro ao carregar as imagens!");
 		}
