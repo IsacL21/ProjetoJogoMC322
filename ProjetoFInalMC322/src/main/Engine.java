@@ -25,7 +25,7 @@ public class Engine implements Runnable{
 	public Engine(int mapa_atual) {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, 5, gamePanel, keyInput, this);		
+		player = new Player(100, false, 3, 5, this, keyInput);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 
 		listaInimigos = new ArrayList<Inimigo> ();
@@ -77,24 +77,24 @@ public class Engine implements Runnable{
 	public void carregaMobs(int mapa_atual) {
 		for (ArrayList<Integer> entidade : Arquivos.getVetorEntidades(mapa_atual)) {
 			if (entidade.get(0) == 1) 
-				listaInimigos.add(new Zumbi(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
+				listaInimigos.add(new Zumbi(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, this, new ArrayList<Item>()));
 			if (entidade.get(0) == 2)
-				listaInimigos.add(new Slime(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), player));
+				listaInimigos.add(new Slime(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), player));
 			if (entidade.get(0) == 3)
-				listaInimigos.add(new Morcego(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), entidade.get(3) * gamePanel.getTamanhoBloco(), entidade.get(4) * gamePanel.getTamanhoBloco(), player));
+				listaInimigos.add(new Morcego(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), entidade.get(3) * gamePanel.getTamanhoBloco(), entidade.get(4) * gamePanel.getTamanhoBloco(), player));
 			if(entidade.get(0) == 4)
-				listaEntidades.add(new Porta(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), true, gamePanel, true));
+				listaEntidades.add(new Porta(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), true, this, true));
 			if(entidade.get(0) == 5)
-				listaEntidades.add(new Pocao(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel));
+				listaEntidades.add(new Pocao(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this));
 			if(entidade.get(0) == 6)
-				listaEntidades.add(new Chave(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel));
+				listaEntidades.add(new Chave(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this));
 			if(entidade.get(0) == 7) {
 					Item tempItem = null;
 					if (entidade.get(3) == 5)
-						tempItem = new Chave(-100, -100, gamePanel);
+						tempItem = new Chave(-100, -100, this);
 					if (entidade.get(3) == 6)
-						tempItem = new Chave(-100, -100, gamePanel);
-					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),gamePanel, false, tempItem));
+						tempItem = new Chave(-100, -100, this);
+					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),this, false, tempItem));
 			}
 				
 		}
@@ -107,8 +107,8 @@ public class Engine implements Runnable{
 	
 	public void atualizaJogo() {
 		if (estadoJogo == 0) { //updates do modo normal
-		for (Personagem i : listaInimigos)
-			i.update();
+		// for (Personagem i : listaInimigos)
+		// 	i.update();
 		player.update();
 		}
 		else if (estadoJogo == 1) { //modo de menu

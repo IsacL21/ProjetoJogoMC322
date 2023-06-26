@@ -112,16 +112,16 @@ public abstract class Personagem extends Entity implements Atualizavel{
                 personagemLeftX -= personagem.getVelocidade();
                 personagemLeftCol = personagemLeftX/Mapa.TAMANHO_BLOCO.getPosicao();
                 tileNum1 = getEngine().getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
-                tileNum2 = getEngine().getMapBuilder().getMapa()[personagemTopRow][personagemLeftCol];
+                tileNum2 = getEngine().getMapBuilder().getMapa()[personagemBottomRow][personagemLeftCol];
                 break;
             case "direita":
                 personagemRightX += personagem.getVelocidade();
                 personagemRightCol = personagemRightX/Mapa.TAMANHO_BLOCO.getPosicao();
                 tileNum1 = getEngine().getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
-                tileNum2 = getEngine().getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
+                tileNum2 = getEngine().getMapBuilder().getMapa()[personagemBottomRow][personagemLeftCol];
                 break;
         }
-        if (getEngine().getMapBuilder().getBlocos()[tileNum1].isColidivel() == true || getEngine().getMapBuilder().getBlocos()[tileNum2].isColidivel() == true) {
+        if (getEngine().getMapBuilder().getBlocos()[tileNum1].isColidivel() || getEngine().getMapBuilder().getBlocos()[tileNum2].isColidivel()) {
             return true;
         }
 		return false;

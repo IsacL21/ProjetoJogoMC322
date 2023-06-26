@@ -12,8 +12,8 @@ public class Bau extends Entity{
 	private Item item;
 	
 	//Construtor
-	public Bau(int x, int y, boolean colisivel, Engine engine, boolean trancado, Item item) {
-		super(x, y, colisivel, engine);
+	public Bau(int x, int y, Engine engine, boolean trancado, Item item) {
+		super(x, y, true, engine);
 		this.trancado = trancado;
 		this.item = item;
 	}

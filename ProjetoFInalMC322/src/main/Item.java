@@ -11,11 +11,10 @@ public abstract class Item extends Entity{
 	private String nome;
 	
 	//Construtor
-	public Item(int x, int y, boolean colisivel, Engine engine, boolean consumivel, String nome) {
-		super(x, y, colisivel, engine);
-		this.consumivel = colisivel;
+	public Item(int x, int y, Engine engine, boolean consumivel, String nome) {
+		super(x, y, true, engine);
+		this.consumivel = consumivel;
 		this.nome = nome;
-		// TODO Auto-generated constructor stub
 	}
 
 	//Getters e Setters

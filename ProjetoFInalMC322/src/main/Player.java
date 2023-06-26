@@ -18,15 +18,13 @@ public class Player extends Personagem{
 	private int framesAnimacaoAtaque = 30; 
 	private boolean atacando = false;
 	private boolean andando = false;
-	private Engine engine;
 	
 
 	private Inventario inventario;
 	
 	//Construtor
-	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
-			KeyboardInput keyInput, Engine engine) {
-		super(0, 0, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
+	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
+		super(100, 100, engine, vida, invencivel, velocidade);
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
 	}
@@ -80,15 +78,18 @@ public class Player extends Personagem{
 				setDirecao("direita");
 			}
 			// setColidindo(engine.getColisaoChecker().checkColisaoInimigos(this, engine.getListaInimigos()));
-			boolean colisaoMapa = checarColisaoMapa(this);
+			// boolean colisao = checarColisaoMapa(this);
 			// boolean colisaoObjeto = checarColisaoEntidades(this, ;
-			boolean colisao = colisaoMapa; //&& colisaoObjeto;
+			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos()); //&& colisaoObjeto;
 
 			// if (colisaoPersonagem) {
 			// 	levarDano();
 			// }
+			// setColidindo(false);
+
+			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this);
+			boolean colisao = checarColisaoMapa(this);
 			setColidindo(colisao);
-			
 			if (getColidindo() == false) {
 				switch(getDirecao()) {
 					case "cima": moveCima(); break;
@@ -96,12 +97,14 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
-				updateHitBox();
 			}
+			updateHitBox();
 		}
 		else andando = false;
 		contadorFrames = contadorFrames + 1 % 60; 
 	}
+
+	// BufferedIma
 	
 	BufferedImage getImagemAtaque() {
 		switch (getDirecao()) {
@@ -156,6 +159,15 @@ public class Player extends Personagem{
 			image = getImagemAndar();
 		else image = getImagemParado();
 		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
+
+		int alturaCoracao = 32;
+		int larguraCoracao = 32;
+		int xTemp = 0;
+
+		// for (BufferedImage i : getImagemBarraVida()) {
+		// 	tela.drawImage(i, xTemp, 0, larguraCoracao, alturaCoracao, null);
+		// 	xTemp += larguraCoracao;
+		// }
 	}
 	
 	public void mostrarVida() {
@@ -186,19 +198,16 @@ public class Player extends Personagem{
 	
 	@Override
 	public void causarDano() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void levarDano() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void morrer() {
-		// TODO Auto-generated method stub
 		
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
 		

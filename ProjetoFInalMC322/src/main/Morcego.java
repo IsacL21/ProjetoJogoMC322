@@ -15,8 +15,8 @@ public class Morcego extends Follower{
 	private int spriteNum;
 	private String followedPoint;
 	
-	public Morcego(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, gamePanel, vida, invencivel, velocidade,new Rectangle(0,0,gamePanel.getTamanhoBloco(), gamePanel.getTamanhoBloco()), listaDrops, followedX, followedY);
+	public Morcego(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, followedX, followedY);
 		
 		this.xInicial = x;
 		this.xFinal = followedX;
