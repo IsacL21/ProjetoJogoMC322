@@ -3,7 +3,7 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import arquivos.Arquivos;
@@ -18,18 +18,15 @@ public class Player extends Personagem{
 	private boolean atacando = false;
 	private boolean andando = false;
 	private Engine engine;
+	
 
 	private Inventario inventario;
-	private ArrayList<Bau> bausMapa = new ArrayList<Bau>();
-	private Porta porta;
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
-			KeyboardInput keyInput, Engine engine, ArrayList<Bau> bausMapa, Porta porta) {
-		super(100, 100, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
+			KeyboardInput keyInput, Engine engine) {
+		super(0, 0, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
 		this.inventario = new Inventario(capacidadeInventario);
-		this.porta = porta;
-		this.bausMapa = bausMapa;
 		this.keyInput = keyInput;
 		this.engine = engine;
 	}
@@ -57,10 +54,13 @@ public class Player extends Personagem{
 		
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
-			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/		
+			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
+			
+			
+			
 			
 		}
-
+		
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
 			atacando = false;
 		}
@@ -149,7 +149,7 @@ public class Player extends Personagem{
 		else image = getImagemParado();
 		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
 	}
-
+	
 	public void mostrarVida() {
 		
 		keyInput.resetaValores();

@@ -9,6 +9,7 @@ public abstract class Follower extends Inimigo {
 	int followedX;
 	int followedY;
 	String direction = "Right";
+	
 
 	//Construtor
 	public Follower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, Rectangle hitBox, ArrayList<Item> listaDrops, int followedX, int followedY) {

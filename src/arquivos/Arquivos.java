@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import main.Mapa;
+import main.Mapas;
 
 public class Arquivos {
 
@@ -21,8 +22,8 @@ public class Arquivos {
 	private final static ArrayList<BufferedImage> itemImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> textureImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<InputStream> mapList = new ArrayList<InputStream>();
-	private static int[][] vetorMapa = new int[Mapa.QTDE_BLOCOS_VERTICAL.getPosicao()][Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao()];
-	private static ArrayList<ArrayList<Integer>> vetorMobs = new ArrayList<ArrayList<Integer>>();
+	private static int[][][] vetorMapa = new int[Mapas.values().length][Mapa.QTDE_BLOCOS_VERTICAL.getPosicao()][Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao()];
+	private static ArrayList<ArrayList<ArrayList<Integer>>> vetorEntidades = new ArrayList<ArrayList<ArrayList<Integer>>>();
 	
 
 	static class PlayerImages{
@@ -102,7 +103,7 @@ public class Arquivos {
 			zumbiImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/zumbi/Right-2.png")));
 			zumbiImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/zumbi/Left-1.png")));
 			zumbiImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/zumbi/Left-2.png")));
-
+			
 			bauImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/bau/bau1.png")));
 			bauImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/bau/bau2.png")));
 			
@@ -112,12 +113,12 @@ public class Arquivos {
 			itemImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/items/chave.png")));
 			itemImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/items/pocao.png")));
 			
-			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/grass.png")));
-			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/earth.png")));
-			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/wall.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/null.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/floor_1.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/wall_mid.png")));
+			textureImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/floor_spikes.png")));
 			
 			carregaBlocosMapa();
-
 	}
 	
 	public static ArrayList<BufferedImage> getZumbiimages() {
@@ -134,7 +135,6 @@ public class Arquivos {
 
 	public static ArrayList<BufferedImage> getItemimages() {
 		return itemImages;
-
 	}
 
 	public static ArrayList<BufferedImage> getMorcegoimages() {
@@ -178,39 +178,51 @@ public class Arquivos {
 		return slimeImages;
 	}
 	
-	public static int[][] getVetorMapa() {
-		return vetorMapa;
+	public static int[][] getVetorMapa(int index) {
+		return vetorMapa[index];
 	}
 
-	public static ArrayList<ArrayList<Integer>> getVetorMobs() {
-		return vetorMobs;
+	public static ArrayList<ArrayList<Integer>> getVetorEntidades(int index) {
+		return vetorEntidades.get(index);
 	}
 
 	public void carregaBlocosMapa() {
 		
-		InputStream file = getClass().getResourceAsStream("/rooms/room1");
-		BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
-		try {
-			for (int i=0; i < Mapa.QTDE_BLOCOS_VERTICAL.getPosicao(); i++) {
-				String[] numeroColuna = entrada.readLine().split(" ");
-				for (int j=0; j < Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao(); j++) {
-					vetorMapa[i][j] = Integer.parseInt(numeroColuna[j]);
-				}
-			}
-			int qtdMobs = Integer.parseInt(entrada.readLine());
-			for (int i = 0; i < qtdMobs; i++) {
-				String[] linha = entrada.readLine().split(" ");
-				vetorMobs.add(new ArrayList<Integer>());
-				for (int j=0; j < linha.length ; j++) {
-					vetorMobs.get(i).add(Integer.parseInt(linha[j]));
-				}
-			}
+		for (int k = 0; k < Mapas.values().length; k++) {
+			System.out.println("Here");
+			System.out.println(Mapas.values()[k].getAdress());
+			InputStream file = getClass().getResourceAsStream(Mapas.values()[k].getAdress());
 			
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+			BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
+			
+			try {
+				for (int i=0; i < Mapa.QTDE_BLOCOS_VERTICAL.getPosicao(); i++) {
+					String[] numeroColuna = entrada.readLine().split(" ");
+					for (int j=0; j < Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao(); j++) {
+						vetorMapa[k][i][j] = Integer.parseInt(numeroColuna[j]);
+					}
+				}
+				
+				int qtdMobs = Integer.parseInt(entrada.readLine());
+				
+				vetorEntidades.add(new ArrayList<ArrayList<Integer>>());
+					for (int i = 0; i < qtdMobs; i++) {
+						System.out.println(i);
+						String[] linha = entrada.readLine().split(" ");
+						vetorEntidades.get(k).add(new ArrayList<Integer>());
+						for (int j=0; j < linha.length ; j++) {
+							vetorEntidades.get(k).get(i).add(Integer.parseInt(linha[j]));
+						}
+					}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 	
+			}
+				
+		}
+
+	}
 }
+	
+

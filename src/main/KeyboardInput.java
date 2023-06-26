@@ -158,4 +158,5 @@ public class KeyboardInput implements KeyListener{
 	public void SetisVPressed(boolean valor) {
 		vPressed = valor;
 	}
+
 }

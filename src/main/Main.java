@@ -1,12 +1,15 @@
 package main;
 
 import java.io.IOException;
+
 import javax.swing.JFrame;
+
 import arquivos.Arquivos;
 
 public class Main {
-	
-	public static void main(String[] args) {
+
+	public static void main(boolean b, String nome) {
+		
 		//inicia e tenta carregar arquivos
 		Arquivos arquivosObjeto = new Arquivos();
 		try {
@@ -19,8 +22,9 @@ public class Main {
 		window.setTitle("Jogo 2D");
 		window.setLocationRelativeTo(null);
 		
+		int mapa_atual = Save.define_mapa(b, nome);
 		//cria engine
-		Engine engine = new Engine();
+		Engine engine = new Engine(mapa_atual);
 		
 		//adiciona e ajusta a janela ao gamepanel
 		
@@ -31,10 +35,11 @@ public class Main {
 		engine.startGameThread();
 			
 		window.setVisible(true);
-		
+		Save.salvar(mapa_atual, nome);
 		}catch (IOException e) {
 			System.out.println("Erro ao carregar as imagens!");
 		}
+	
 	}
 
 }

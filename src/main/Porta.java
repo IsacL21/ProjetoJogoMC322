@@ -1,7 +1,9 @@
 package main;
 
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import arquivos.Arquivos;
 
 public class Porta extends Entity{
@@ -12,7 +14,7 @@ public class Porta extends Entity{
 		super(x, y, colisivel, gamePanel);
 		this.trancado = trancado;
 	}
-
+	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getPortaimages().get(0);
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
@@ -26,4 +28,3 @@ public class Porta extends Entity{
 		this.trancado = trancado;
 	}
 }
-

@@ -1,6 +1,6 @@
 package main;
 
-public class Entity {
+public abstract class Entity implements Desenhavel{
 
 	//Propriedades
 	private int x, y;

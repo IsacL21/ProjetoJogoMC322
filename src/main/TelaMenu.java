@@ -1,6 +1,31 @@
+/*
+  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │                                                                                       x                      │
+  │                                   xxx                                                 xxx                    │
+  │      xxxxxxxxxx                  xxx                                                  xxx x                  │
+  │      xxxxxxxxxxxxx              xxxx                                                  xxxx                   │
+  │     xxxxxxxxxxxxx               xxx                                                   xxxx                   │
+  │     xxxx                        xxx                                                   xxxx                   │
+  │     xxxx                        xxx                                                   xxxx                   │
+  │     xxxx                        xxx                                                    xxx                   │
+  │    xxxxx                        xxx                 xx        xxxx                     xxx                   │
+  │    xxxxxxx          x xxxxxxxxx xx                 xxxx   x xxxxxxxxxx     xxxxxxxxxxxxxx                    │
+  │    xxxxxxxxxxxx      xxxxxxxxxxxx xx        xx    xxxxx   xxxxx     xx    xxxxxxxxxxxxxxxx    xxxxxxx        │
+  │    xxxxxxxxxx xx   xxxxx       xx xx        xxx  x x  xxx xxx      xxx    xxxxx       xxxxx xxxxxxxxxxxx     │
+  │    xxxxxxx xxxx    xxxx        xx xxx        xx  xxx  xxxx xx     xxxx    xxx          xxxx x       xxxxxx   │
+  │    xxxxx           xxxxx       xx  xx        xx xxx    xxx xx xxxx xx     xxxx          xxx xx        xx xx  │
+  │    xxxxxxx         xxxxx       xx  xxx       xx xxxxxx xxx  xx xxxxxx     xxxxx         xxx xxx        xxxx  │
+  │    xxxxxxxxxxxxxxxxxxx xxxxxxxxx    xxx      x  xxxxxxxxxxx xx     xxxx   xxxxxxxxxxxxxxx   xxxxx     xxxx   │
+  │       xxxxxxxxxxxxx  xxxxxxxxx       xxxx   xx xx       xxx xx       xxxx  xxxxxxxxxxxxxx     xxxxxxxxxxx    │
+  │                                       xxxxxxxx  x        xx xx       xxxxxx         xxx                      │
+  │                                          xxxx               xx         xxxxx                                 │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+*/
+
 package main;
 
 import javax.swing.LayoutStyle;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import java.awt.event.ActionEvent;
@@ -11,7 +36,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
 import javax.swing.border.EtchedBorder;
 import java.awt.FontFormatException;
 import java.io.IOException;
@@ -29,7 +53,6 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.BoxLayout;
 
-
 public class TelaMenu extends JFrame
 {
     private static final long serialVersionUID = 1L;
@@ -38,7 +61,7 @@ public class TelaMenu extends JFrame
     private int windowHeightSize = 576;
     private JTextField SaveName;
     
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -213,9 +236,7 @@ public class TelaMenu extends JFrame
         //Lista de saves
         JPanel painelSaves = new JPanel();
         painelSaves.setLayout(new BoxLayout(painelSaves, BoxLayout.Y_AXIS));
-        ArrayList<String> listanomes = new ArrayList<>();
-        listanomes.add("nome1");
-        listanomes.add("nome2");
+        ArrayList<String> listanomes = Save.listar_saves();
         for (String nome: listanomes) {
             JPanel painelBotao = new JPanel();
             painelBotao.setPreferredSize(new Dimension(400, 50)); // Define o tamanho do painel
@@ -223,11 +244,19 @@ public class TelaMenu extends JFrame
             painelBotao.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza o painel horizontalmente
             
             JButton botaovar = new JButton(nome);
+            botaovar.setFont(new Font("Arial", 0, 20));
             botaovar.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza o botão dentro do painel
 
             botaovar.addActionListener(new ActionListener() {
                 public void actionPerformed(final ActionEvent e) {
-                    Main.main(false, listanomes.indexOf(nome));
+                	
+                    // Fechar a janela atual
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(botaovar);
+                    frame.dispose();
+                    
+                    // Iniciar o jogo
+                    Main.main(false, nome);
+                    
                 }
             });
             
@@ -294,7 +323,13 @@ public class TelaMenu extends JFrame
                     TextWhenNameError.setVisible(true);
                 } else
                 {
-                	Main.main(true, 0);
+                    // Fechar a janela atual
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(IniciarJogo);
+                    frame.dispose();
+                    
+                    // Iniciar o jogo
+                    Main.main(true, SaveName.getText());
+                	
                 }
             }
         });

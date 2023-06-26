@@ -2,8 +2,8 @@ package main;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import arquivos.Arquivos;
 
+import arquivos.Arquivos;
 
 public class Bau extends Entity{
 
@@ -12,8 +12,8 @@ public class Bau extends Entity{
 	private Item item;
 	
 	//Construtor
-	public Bau(int x, int y, boolean colisivel, GamePanel gamePanel, boolean trancado, Item item) {
-		super(x, y, colisivel, gamePanel);
+	public Bau(int x, int y, GamePanel gamePanel, boolean trancado, Item item) {
+		super(x, y, true, gamePanel);
 		this.trancado = trancado;
 		this.item = item;
 	}
