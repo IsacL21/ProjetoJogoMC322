@@ -24,7 +24,7 @@ public class Player extends Personagem{
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
-		super(100, 100, engine, vida, invencivel, velocidade,new Rectangle(50, 86, 28, 25));
+		super(100, 100, engine, vida, invencivel, velocidade);
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
 	}
@@ -89,9 +89,12 @@ public class Player extends Personagem{
 
 			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos());
 			
-			// boolean colisao = checarColisaoPersonagens(this, getEngine().getListaInimigos());
+			boolean colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
+			boolean colisaoMapa = checarColisaoMapa(this);
+			boolean colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
 
-			boolean colisao = checarColisaoMapa(this);
+			boolean colisao = colisaoPersonagem || colisaoMapa || colisaoEntidade;
+
 			setColidindo(colisao);
 			if (getColidindo() == false) {
 				switch(getDirecao()) {
@@ -100,13 +103,12 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
+				// updateHitBox();
 			}
 		}
 		else andando = false;
 		contadorFrames = contadorFrames + 1 % 60; 
 	}
-
-	// BufferedIma
 	
 	BufferedImage[] getImagemBarraVida() {
 		BufferedImage[] listaCoracoes = new BufferedImage[3];

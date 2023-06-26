@@ -2,7 +2,6 @@ package main;
 
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import arquivos.Arquivos;
@@ -12,7 +11,7 @@ public class Porta extends Entity{
 	private boolean trancado;
 	
 	public Porta(int x, int y, boolean colisivel, Engine engine, boolean trancado) {
-		super(x, y, colisivel, engine,new Rectangle(0,0,0,0));
+		super(x, y, colisivel, engine);
 		this.trancado = trancado;
 	}
 	

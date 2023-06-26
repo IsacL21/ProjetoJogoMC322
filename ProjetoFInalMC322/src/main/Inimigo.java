@@ -10,7 +10,7 @@ public abstract class Inimigo extends Personagem{
 	
 	//Construtor
 	public Inimigo(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(0,0,0,0));
+		super(x, y, engine, vida, invencivel, velocidade);
 		this.listaDrops = listaDrops;
 	}
 	

@@ -14,11 +14,12 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	private String direcao = "down";
 	
 	//Construtor
-	public Personagem(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade,Rectangle hitBox) {
-		super(x, y, false, engine, hitBox);
+	public Personagem(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade) {
+		super(x, y, false, engine);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
+		setHitBox(new Rectangle(50, 86, 28, 25));
 	}
 
 	//Getters e Setters
@@ -82,10 +83,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	public abstract void draw(Graphics2D tela);
 
 	public boolean checarColisaoMapa(Personagem personagem) {
-		// int personagemLeftX = personagem.getX() + 8;
-        // int personagemRightX = personagem.getX() + 40;
-        // int personagemTopY = personagem.getY() + 16;
-        // int personagemBottomY = personagem.getY() + 48;
 		int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
         int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;
         int personagemTopY = personagem.getY() + personagem.getHitBox().y;
@@ -96,7 +93,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
         int personagemRightCol = personagemRightX/Mapa.TAMANHO_BLOCO.getPosicao();
         int personagemTopRow = personagemTopY/Mapa.TAMANHO_BLOCO.getPosicao();
         int personagemBottomRow = personagemBottomY/Mapa.TAMANHO_BLOCO.getPosicao();
-		System.out.println(personagemLeftCol + " " + personagemRightCol + " " + personagemTopRow + " " + personagemBottomRow);
 
         int tileNum1 = 0, tileNum2 = 0;
         switch(personagem.getDirecao()) {
@@ -122,7 +118,7 @@ public abstract class Personagem extends Entity implements Atualizavel{
                 personagemRightX += personagem.getVelocidade();
                 personagemRightCol = personagemRightX/Mapa.TAMANHO_BLOCO.getPosicao();
                 tileNum1 = getEngine().getMapBuilder().getMapa()[personagemTopRow][personagemRightCol];
-                tileNum2 = getEngine().getMapBuilder().getMapa()[personagemBottomRow][personagemLeftCol];
+                tileNum2 = getEngine().getMapBuilder().getMapa()[personagemBottomRow][personagemRightCol];
                 break;
         }
         if (getEngine().getMapBuilder().getBlocos()[tileNum1].isColidivel() || getEngine().getMapBuilder().getBlocos()[tileNum2].isColidivel()) {
@@ -132,11 +128,12 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	}
 
 	public boolean checarColisaoPersonagens(Personagem personagem, ArrayList<Inimigo> listaPersonagens) {
-		int personagemLeftX = personagem.getX() + 8;
-        int personagemRightX = personagem.getX() + 40;
-        int personagemTopY = personagem.getY() + 16;
-        int personagemBottomY = personagem.getY() + 48;
-		switch(personagem.getDirecao()) {
+		int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
+        int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;
+        int personagemTopY = personagem.getY() + personagem.getHitBox().y;
+        int personagemBottomY = personagem.getY() + personagem.getHitBox().y + personagem.getHitBox().height;
+
+        switch(personagem.getDirecao()) {
             case "cima":
                 personagemTopY -= personagem.getVelocidade();
                 break;
@@ -149,11 +146,12 @@ public abstract class Personagem extends Entity implements Atualizavel{
             case "direita":
                 personagemRightX += personagem.getVelocidade();
                 break;
-		}
+        }
 		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
 		for (Personagem personagem2 : listaPersonagens) {
-			if (hitBoxFutura.intersects(personagem2.getHitBox())) {
-				System.out.println("colidindo");
+			Rectangle hitBoxPersonagem2 = new Rectangle(personagem2.getX(), personagem2.getY(), 48, 48);
+			if (hitBoxFutura.intersects(hitBoxPersonagem2)) {
+				System.out.println("TESTE");
 				return true;
 			}
 		}
@@ -161,10 +159,10 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	}
 
 	public boolean checarColisaoEntidades(Personagem personagem, ArrayList<Entity> listaEntidades) {
-		int personagemLeftX = personagem.getX() + 8;
-        int personagemRightX = personagem.getX() + 40;
-        int personagemTopY = personagem.getY() + 16;
-        int personagemBottomY = personagem.getY() + 48;
+		int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
+        int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;
+        int personagemTopY = personagem.getY() + personagem.getHitBox().y;
+        int personagemBottomY = personagem.getY() + personagem.getHitBox().y + personagem.getHitBox().height;
 
 		switch(personagem.getDirecao()) {
             case "cima":
@@ -182,7 +180,9 @@ public abstract class Personagem extends Entity implements Atualizavel{
 		}
 		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
 		for (Entity entidade : listaEntidades) {
-			if (hitBoxFutura.intersects(entidade.getHitBox())) {
+			Rectangle hitBoxEntidade = new Rectangle(entidade.getX(), entidade.getY(), 48, 48);
+			if (hitBoxFutura.intersects(hitBoxEntidade)) {
+				System.out.println("TESTE ITEM");
 				return true;
 			}
 		}

@@ -111,8 +111,8 @@ public class Engine implements Runnable{
 	
 	public void atualizaJogo() {
 		if (estadoJogo == 0) { //updates do modo normal
-		// for (Personagem i : listaInimigos)
-		// 	i.update();
+		for (Personagem i : listaInimigos)
+			i.update();
 		player.update();
 		}
 		else if (estadoJogo == 1) { //modo de menu

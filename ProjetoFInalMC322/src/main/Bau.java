@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import arquivos.Arquivos;
@@ -14,7 +13,7 @@ public class Bau extends Entity{
 	
 	//Construtor
 	public Bau(int x, int y, Engine engine, boolean trancado, Item item) {
-		super(x, y, true, engine,new Rectangle(0,0,0,0));
+		super(x, y, true, engine);
 		this.trancado = trancado;
 		this.item = item;
 	}
