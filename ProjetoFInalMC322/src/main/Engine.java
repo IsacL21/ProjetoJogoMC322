@@ -74,6 +74,7 @@ public class Engine implements Runnable{
 		return listaEntidades;
 	}
 
+	//Métodos
 	public void carregaMobs(int mapa_atual) {
 		for (ArrayList<Integer> entidade : Arquivos.getVetorEntidades(mapa_atual)) {
 			if (entidade.get(0) == 1) 
@@ -82,13 +83,13 @@ public class Engine implements Runnable{
 				listaInimigos.add(new Slime(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), player));
 			if (entidade.get(0) == 3)
 				listaInimigos.add(new Morcego(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), entidade.get(3) * gamePanel.getTamanhoBloco(), entidade.get(4) * gamePanel.getTamanhoBloco(), player));
-			if(entidade.get(0) == 4)
+			if (entidade.get(0) == 4)
 				listaEntidades.add(new Porta(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), true, this, true));
-			if(entidade.get(0) == 5)
+			if (entidade.get(0) == 5)
 				listaEntidades.add(new Pocao(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this));
-			if(entidade.get(0) == 6)
+			if (entidade.get(0) == 6)
 				listaEntidades.add(new Chave(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), this));
-			if(entidade.get(0) == 7) {
+			if (entidade.get(0) == 7) {
 					Item tempItem = null;
 					if (entidade.get(3) == 5)
 						tempItem = new Chave(-100, -100, this);
@@ -125,7 +126,6 @@ public class Engine implements Runnable{
 		long lastTime = System.currentTimeMillis();
 		long currentTime;
 		long timer = 0;
-		int framesDesenhados = 0;
 		
 		while(gameThread != null) {
 			 currentTime = System.currentTimeMillis();
@@ -133,15 +133,12 @@ public class Engine implements Runnable{
 			 timer += (currentTime - lastTime);
 			 lastTime = currentTime;
 			 if (timer >= 1000) { //um segundo passou
-				System.out.println("FPS:" + framesDesenhados);
-				framesDesenhados = 0;
 				timer = 0;
 			}
 			
 			if (delta >= 1) {
 				atualizaJogo();
 				gamePanel.repaint();
-				framesDesenhados++;
 				delta--;
 			}
 		}

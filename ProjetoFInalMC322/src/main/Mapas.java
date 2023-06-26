@@ -3,7 +3,7 @@ package main;
 public enum Mapas {
 	MAPA_1(0, "/rooms/room1"),
 	MAPA_2(1, "/rooms/room2"),
-	MAPA_3(1, "/rooms/room3");
+	MAPA_3(2, "/rooms/room3");
 	
 	private final int index;
     private final String adress;

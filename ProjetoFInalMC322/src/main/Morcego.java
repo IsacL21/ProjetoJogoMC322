@@ -47,7 +47,7 @@ public class Morcego extends Follower{
 		
 		BufferedImage image = Arquivos.getMorcegoimages().get(0);
 		
-		System.out.print("drawing morcego");
+		// System.out.print("drawing morcego");
 
 		switch (getDirecao()) {
 		case "cima":

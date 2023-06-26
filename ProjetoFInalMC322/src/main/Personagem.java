@@ -84,15 +84,20 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	public abstract void draw(Graphics2D tela);
 
 	public boolean checarColisaoMapa(Personagem personagem) {
-		int personagemLeftX = personagem.getX() + 8;
-        int personagemRightX = personagem.getX() + 40;
-        int personagemTopY = personagem.getY() + 16;
-        int personagemBottomY = personagem.getY() + 48;
+		// int personagemLeftX = personagem.getX() + 8;
+        // int personagemRightX = personagem.getX() + 40;
+        // int personagemTopY = personagem.getY() + 16;
+        // int personagemBottomY = personagem.getY() + 48;
+		int personagemLeftX = personagem.getX();
+        int personagemRightX = personagem.getX();
+        int personagemTopY = personagem.getY();
+        int personagemBottomY = personagem.getY();
 
         int personagemLeftCol = personagemLeftX/Mapa.TAMANHO_BLOCO.getPosicao();
         int personagemRightCol = personagemRightX/Mapa.TAMANHO_BLOCO.getPosicao();
         int personagemTopRow = personagemTopY/Mapa.TAMANHO_BLOCO.getPosicao();
         int personagemBottomRow = personagemBottomY/Mapa.TAMANHO_BLOCO.getPosicao();
+		System.out.println(personagemLeftCol + " " + personagemRightCol + " " + personagemTopRow + " " + personagemBottomRow);
 
         int tileNum1 = 0, tileNum2 = 0;
         switch(personagem.getDirecao()) {
@@ -122,8 +127,37 @@ public abstract class Personagem extends Entity implements Atualizavel{
                 break;
         }
         if (getEngine().getMapBuilder().getBlocos()[tileNum1].isColidivel() || getEngine().getMapBuilder().getBlocos()[tileNum2].isColidivel()) {
-            return true;
+            return false;
         }
+		return false;
+	}
+
+	public boolean checarColisaoPersonagens(Personagem personagem, ArrayList<Inimigo> listaPersonagens) {
+		int personagemLeftX = personagem.getX() + 8;
+        int personagemRightX = personagem.getX() + 40;
+        int personagemTopY = personagem.getY() + 16;
+        int personagemBottomY = personagem.getY() + 48;
+		switch(personagem.getDirecao()) {
+            case "cima":
+                personagemTopY -= personagem.getVelocidade();
+                break;
+            case "baixo":
+                personagemBottomY += personagem.getVelocidade();
+                break;
+            case "esquerda":
+                personagemLeftX -= personagem.getVelocidade();
+                break;
+            case "direita":
+                personagemRightX += personagem.getVelocidade();
+                break;
+		}
+		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
+		for (Personagem personagem2 : listaPersonagens) {
+			if (hitBoxFutura.intersects(personagem2.getHitBox())) {
+				System.out.println("colidindo");
+				return true;
+			}
+		}
 		return false;
 	}
 

@@ -87,7 +87,10 @@ public class Player extends Personagem{
 			// }
 			// setColidindo(false);
 
-			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this);
+			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos());
+			
+			// boolean colisao = checarColisaoPersonagens(this, getEngine().getListaInimigos());
+
 			boolean colisao = checarColisaoMapa(this);
 			setColidindo(colisao);
 			if (getColidindo() == false) {
@@ -97,8 +100,8 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
+				updateHitBox();
 			}
-			updateHitBox();
 		}
 		else andando = false;
 		contadorFrames = contadorFrames + 1 % 60; 

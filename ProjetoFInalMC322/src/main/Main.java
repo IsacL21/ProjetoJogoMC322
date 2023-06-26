@@ -21,7 +21,7 @@ public class Main {
 		window.setTitle("Jogo 2D");
 		window.setLocationRelativeTo(null);
 		
-		int mapa_atual = 1;
+		int mapa_atual = 0;
 		//cria engine
 		Engine engine = new Engine(mapa_atual);
 		
