@@ -7,8 +7,8 @@ public class Item extends Entity{
 	private String nome;
 	
 	//Construtor
-	public Item(int x, int y, boolean colisivel, GamePanel gamePanel, boolean consumivel, String nome) {
-		super(x, y, colisivel, gamePanel);
+	public Item(int x, int y, boolean colisivel, Engine engine, boolean consumivel, String nome) {
+		super(x, y, colisivel, engine);
 		this.consumivel = colisivel;
 		this.nome = nome;
 		// TODO Auto-generated constructor stub

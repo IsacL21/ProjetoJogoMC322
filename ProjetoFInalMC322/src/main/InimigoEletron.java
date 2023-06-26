@@ -18,8 +18,8 @@ public class InimigoEletron extends Inimigo {
 	
 	 static int counter = 0;
 	
-	public InimigoEletron(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel, ArrayList<Item> listaDrops) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops);
+	public InimigoEletron(int x, int y, double vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops);
 	}
 	
 	public void update() {
@@ -48,7 +48,8 @@ public class InimigoEletron extends Inimigo {
 				setDirecao("direita");
 			}
 		}
-		contMov1 = (contMov1 + 1) % 60; 
+		contMov1 = (contMov1 + 1) % 60;
+		updateHitBox();
 	}
 
 	@Override

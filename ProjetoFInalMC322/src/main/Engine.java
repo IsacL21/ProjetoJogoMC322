@@ -15,7 +15,7 @@ public class Engine implements Runnable{
 	private ColisaoChecker colisaoChecker;
 	private ArrayList<Inimigo> listaInimigos;
 
-	//private ArrayList<Entity> listaEntidades;
+	// private ArrayList<Entity> listaEntidades;
 
 	
 	private final static int fps = 60;
@@ -25,7 +25,7 @@ public class Engine implements Runnable{
 	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, gamePanel, keyInput, this);		
+		player = new Player(100, false, 3, this, keyInput);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(), gamePanel);
 		listaInimigos = new ArrayList<Inimigo> ();
 		carregaMobs();
@@ -60,11 +60,11 @@ public class Engine implements Runnable{
 	public void carregaMobs() {
 		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
 			if (mob.get(0) == 1) {
-				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
+				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, this, new ArrayList<Item>()));
 				System.out.println("novo eletron");
 			}
 			if (mob.get(0) == 2)
-				listaInimigos.add(new EntityFollower(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), 1, 1, player));
+				listaInimigos.add(new EntityFollower(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), 1, 1, player));
 		}
 	}
 

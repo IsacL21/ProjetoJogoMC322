@@ -10,8 +10,8 @@ public class Follower extends Inimigo {
 	String direction = "Right";
 	
 	//Construtor
-	public Follower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops);
+	public Follower (int x, int y,Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops);
 		this.followedX = followedX;
 		this.followedY = followedY;
 	}

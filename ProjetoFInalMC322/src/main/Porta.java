@@ -4,8 +4,8 @@ public class Porta extends Entity{
 
 	private boolean trancado;
 	
-	public Porta(int x, int y, boolean colisivel, GamePanel gamePanel, boolean trancado) {
-		super(x, y, colisivel, gamePanel);
+	public Porta(int x, int y, boolean colisivel, Engine engine, boolean trancado) {
+		super(x, y, colisivel, engine);
 		this.trancado = trancado;
 	}
 

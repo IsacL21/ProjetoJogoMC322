@@ -8,15 +8,17 @@ public class Entity {
 	private int x, y;
 	private boolean colisivel;
 	private Rectangle hitBox;
+	private Engine engine;
 	private GamePanel gamePanel;
 	
 	//Construtor
-	public Entity(int x, int y, boolean colisivel, GamePanel gamePanel) {
+	public Entity(int x, int y, boolean colisivel, Engine engine) {
 		this.x = x;
 		this.y = y;
 		this.colisivel = colisivel;
-		this.gamePanel = gamePanel;
-		hitBox = new Rectangle(8, 16, 32, 32);
+		this.engine = engine;
+		this.gamePanel = engine.getGamePanel();
+		hitBox = new Rectangle(x+8, y+16, 32, 32);
 	}
 	
 	//Getters e Setters
@@ -44,6 +46,14 @@ public class Entity {
 		this.colisivel = colisivel;
 	}
 
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
@@ -58,5 +68,10 @@ public class Entity {
 
 	public void setHitBox(Rectangle hitBox) {
 		this.hitBox = hitBox;
+	}
+
+	//Métodos
+	public void updateHitBox() {
+		hitBox = new Rectangle(x + 8, y + 16, 32, 32);
 	}
 }

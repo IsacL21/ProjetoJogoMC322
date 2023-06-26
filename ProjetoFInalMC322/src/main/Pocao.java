@@ -4,8 +4,8 @@ public class Pocao extends Item{
 
 	private int vida;
 	
-	public Pocao(int x, int y, boolean colisivel, GamePanel gamePanel, int vida) {
-		super(x, y, colisivel, gamePanel, true, "pocao");
+	public Pocao(int x, int y, boolean colisivel, Engine engine, int vida) {
+		super(x, y, colisivel, engine, true, "pocao");
 		this.vida = vida;
 	}
 

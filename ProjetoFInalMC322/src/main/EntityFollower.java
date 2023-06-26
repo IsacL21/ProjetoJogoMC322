@@ -12,8 +12,8 @@ public class EntityFollower extends Follower {
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public EntityFollower (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, listaDrops, followedX, followedY);
+	public EntityFollower (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, followedX, followedY);
 		this.followed = followed;
 	}
 	
@@ -22,12 +22,14 @@ public class EntityFollower extends Follower {
 	}
 	
 	public void update() {
-		if (getDirecao() == "direita" || getDirecao() == "esquerda")
+		updateHitBox();
+		if (getDirecao() == "direita" || getDirecao() == "esquerda") {
 			direcaoOlhar = getDirecao();
-		
+		}
+		// boolean colisao = .getColisaoChecker().checkColisao(this, engine.getListaInimigos());
+		// setColidindo(colisao);			
 		updateFollowedPosition();
-		this.longestFollow();
-		
+		longestFollow();
 	}
 	
 	public void draw(Graphics2D tela) {

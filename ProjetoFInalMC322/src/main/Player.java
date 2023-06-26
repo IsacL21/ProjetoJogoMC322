@@ -17,14 +17,11 @@ public class Player extends Personagem{
 	private int framesAnimacaoAndar = 20; 
 	private int framesAnimacaoAtaque = 30; 
 	private boolean atacando = false;
-	private Engine engine;
 	
 	//Construtor
-	public Player(double vida, boolean invencivel, int velocidade, GamePanel gamePanel,
-			KeyboardInput keyInput, Engine engine) {
-		super(100, 100, gamePanel, vida, invencivel, velocidade);
+	public Player(double vida, boolean invencivel, int velocidade, Engine engine, KeyboardInput keyInput) {
+		super(300, 300, engine, vida, invencivel, velocidade);
 		this.keyInput = keyInput;
-		this.engine = engine;
 	}
 
 	//Getters e Setters
@@ -39,8 +36,8 @@ public class Player extends Personagem{
 	//Métodos
 	public void update() {
 		if (keyInput.isXPressed() && !atacando) {
-				atacando = true;
-				contadorFrames = 0;
+			atacando = true;
+			contadorFrames = 0;
 		}
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
 			atacando = false;
@@ -60,9 +57,16 @@ public class Player extends Personagem{
 			else if(keyInput.isRightPressed()) {
 				setDirecao("direita");
 			}
+			// setColidindo(engine.getColisaoChecker().checkColisaoInimigos(this, engine.getListaInimigos()));
+			boolean colisaoMapa = checarColisaoMapa(this);
+			// boolean colisaoObjeto = checarColisaoEntidades(this, ;
+			boolean colisao = colisaoMapa; //&& colisaoObjeto;
 
-			setColidindo(false);
-			engine.getColisaoChecker().checkColisao(this);
+			// if (colisaoPersonagem) {
+			// 	levarDano();
+			// }
+			setColidindo(colisao);
+			
 			if (getColidindo() == false) {
 				switch(getDirecao()) {
 					case "cima": moveCima(); break;
@@ -70,6 +74,7 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
+				updateHitBox();
 			}
 		}
 		contadorFrames = contadorFrames + 1 % 60; 
