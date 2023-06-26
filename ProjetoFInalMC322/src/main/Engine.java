@@ -96,7 +96,10 @@ public class Engine implements Runnable{
 						tempItem = new Chave(-100, -100, this);
 					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),this, false, tempItem));
 			}
-				
+			if (entidade.get(0) == 0) {
+				player.setX(entidade.get(1)* gamePanel.getTamanhoBloco());
+				player.setY(entidade.get(2)* gamePanel.getTamanhoBloco());
+			}
 		}
 	}
 

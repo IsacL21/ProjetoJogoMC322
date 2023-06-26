@@ -35,6 +35,7 @@ public class Arquivos {
 		private final static ArrayList<BufferedImage> downAttack = new ArrayList<BufferedImage>();
 		private final static ArrayList<BufferedImage> rightAttack = new ArrayList<BufferedImage>();
 		private final static ArrayList<BufferedImage> leftAttack = new ArrayList<BufferedImage>();
+		private final static ArrayList<BufferedImage> barraVida = new ArrayList<BufferedImage>();
 	}
 	
 	
@@ -80,6 +81,9 @@ public class Arquivos {
 			PlayerImages.leftAttack.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/ataque-left2.png")));
 			PlayerImages.leftAttack.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/ataque-left3.png")));
 			PlayerImages.leftAttack.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/ataque-left4.png")));
+			PlayerImages.barraVida.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/heart_full.png")));
+			PlayerImages.barraVida.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/heart_half.png")));
+			PlayerImages.barraVida.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/heart_empty.png")));
 			
 			slimeImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/slime/Idle_Left.png")));
 			slimeImages.add(ImageIO.read(getClass().getResourceAsStream("/sprites/slime/JumpLeft2.png")));
@@ -168,6 +172,9 @@ public class Arquivos {
 	}
 	public static ArrayList<BufferedImage> getPlayerLeftattack() {
 		return PlayerImages.leftAttack;
+	}
+	public static ArrayList<BufferedImage> getPlayerBarraVida() {
+		return PlayerImages.barraVida;
 	}
 
 	public static ArrayList<BufferedImage> getTextureimages() {

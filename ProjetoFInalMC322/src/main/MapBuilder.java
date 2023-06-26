@@ -47,9 +47,10 @@ public class MapBuilder {
 	//Métodos
 	public void carregaImagemBlocos() {
 		
-		blocos[0] = new Bloco(Arquivos.getTextureimages().get(0),false);
+		blocos[0] = new Bloco(Arquivos.getTextureimages().get(0),true);
 		blocos[1] = new Bloco(Arquivos.getTextureimages().get(1),false);
 		blocos[2] = new Bloco(Arquivos.getTextureimages().get(2),true);
+		blocos[3] = new Bloco(Arquivos.getTextureimages().get(1),true);
 		
 	}
 	
