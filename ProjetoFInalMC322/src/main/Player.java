@@ -45,15 +45,42 @@ public class Player extends Personagem{
 				contadorFrames = 0;
 		}
 		
-		/*
-		if(keyInput.isVPressed()) {
-			mostrarVida();
+		if(keyInput.isCPressed()) {
+			keyInput.resetaValores();
+			
+			for(int i = 0; i < inventario.getListaItens().size(); i++) {
+				
+				if(inventario.getListaItens().get(i).getNome().equals("pocao")) {
+					Pocao pocao = (Pocao)inventario.getListaItens().get(i);
+					setVida(getVida() + pocao.getVida());
+					inventario.removeItem(i);
+					break;
+				}
+			}
 		}
-		*/
+		
 		
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
+			
+			keyInput.resetaValores();
+			
+			if(getObjetoColidido() != null) {
+				if(getObjetoColidido().getClass().getName().equals("main.Bau")) {
+						
+					abrirBau((Bau)getObjetoColidido());
+					
+				}
+			}
+			
+			if(getObjetoColidido() != null) {
+				if(getObjetoColidido().getClass().getName().equals("main.Porta")) {
+						
+					abrirPorta((Porta)getObjetoColidido());
+					
+				}
+			}
 			
 		}
 		
@@ -91,8 +118,6 @@ public class Player extends Personagem{
 			boolean colisaoMapa = checarColisaoMapa(this);
 			Entity colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
 
-			//boolean colisao = colisaoPersonagem || colisaoMapa || colisaoEntidade;
-
 			if(colisaoPersonagem == null && colisaoEntidade == null && colisaoMapa == false) {
 				setColidindo(false);
 				setObjetoColidido(null);
@@ -103,7 +128,12 @@ public class Player extends Personagem{
 							colisaoEntidade.getClass().getName().equals("main.Pocao")) {
 							
 						coletaItem((Item)colisaoEntidade);
+					}else if(colisaoEntidade.getClass().getName().equals("main.Porta")) {
+						Porta porta = (Porta)colisaoEntidade;
 						
+						if(!porta.getTrancado()) {
+							System.out.println("Passou de fase");
+						}
 					}
 				}
 				
@@ -205,15 +235,6 @@ public class Player extends Personagem{
 		}
 	}
 	
-	/*
-	public void mostrarVida() {
-		
-		keyInput.resetaValores();
-		JOptionPane.showMessageDialog(null, "Vida do personagem: "+getVida(), "Vida", JOptionPane.INFORMATION_MESSAGE); 		
-		
-	}
-	*/
-	
 	public void coletaItem(Item item) {
 		
 		inventario.addItem(item);
@@ -229,17 +250,35 @@ public class Player extends Personagem{
 		
 	}
 	
-	public void abrirBau() {
+	public void abrirBau(Bau bau) {
 		
-		
-		
+		if(bau.isTrancado()) {
+			bau.setTrancado(false);
+			coletaItem(bau.getItem());
+			keyInput.resetaValores();
+			keyInput.SetisXPressed(false);
+			JOptionPane.showMessageDialog(null, "Voce coletou: "+bau.getItem().getNome(), "Coleta de item", JOptionPane.INFORMATION_MESSAGE); 
+		}
 		
 	}
 	
-	public void abrirPorta() {
+	public void abrirPorta(Porta portaTeste) {
 		
+		if(portaTeste.getTrancado()) {
+			if(procuraChave()) {
+				keyInput.resetaValores();
+				portaTeste.setTrancado(false);
+		}}
+	}
+	
+	public boolean procuraChave(){
 		
-		
+		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
+			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override

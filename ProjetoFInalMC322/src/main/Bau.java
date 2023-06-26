@@ -20,11 +20,15 @@ public class Bau extends Entity{
 	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getBauimages().get(0);
+		
+		if(trancado == false) {
+			image = Arquivos.getBauimages().get(1);
+		}
+		
 		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 
-	//Getters e Setetrs
-	public boolean getTrancado() {
+	public boolean isTrancado() {
 		return trancado;
 	}
 

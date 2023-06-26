@@ -17,6 +17,10 @@ public class Porta extends Entity{
 	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getPortaimages().get(0);
+		
+		if(trancado == false) {
+			image = Arquivos.getPortaimages().get(1);
+		}
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
 

@@ -25,13 +25,11 @@ public class Engine implements Runnable{
 	public Engine(int mapa_atual) {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(100, false, 3, 5, this, keyInput);		
+		player = new Player(1, false, 3, 5, this, keyInput);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 
 		listaInimigos = new ArrayList<Inimigo> ();
 		listaEntidades = new ArrayList<Entity> ();
-		
-		
 		
 		carregaMobs(mapa_atual);
 
@@ -67,8 +65,6 @@ public class Engine implements Runnable{
 		this.estadoJogo = estadoJogo;
 		System.out.println(this.estadoJogo);
 	}
-	
-
 
 	public ArrayList<Entity> getListaEntidades() {
 		return listaEntidades;
@@ -95,7 +91,7 @@ public class Engine implements Runnable{
 						tempItem = new Chave(-100, -100, this);
 					if (entidade.get(3) == 6)
 						tempItem = new Chave(-100, -100, this);
-					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),this, false, tempItem));
+					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),this, true, tempItem));
 			}
 			if (entidade.get(0) == 0) {
 				player.setX(entidade.get(1)* gamePanel.getTamanhoBloco());
