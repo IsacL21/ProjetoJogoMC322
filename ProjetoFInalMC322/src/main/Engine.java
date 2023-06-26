@@ -22,13 +22,13 @@ public class Engine implements Runnable{
 	private final static double updateInterval = 1000/fps;
 	
 	//Construtor
-	public Engine() {
+	public Engine(int mapa_atual) {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
 		player = new Player(100, false, 3, gamePanel, keyInput, this);		
-		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(), gamePanel);
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 		listaInimigos = new ArrayList<Inimigo> ();
-		carregaMobs();
+		carregaMobs(mapa_atual);
 		colisaoChecker = new ColisaoChecker(this);
 	}
 	
@@ -57,8 +57,8 @@ public class Engine implements Runnable{
 		return listaInimigos;
 	}
 
-	public void carregaMobs() {
-		for (ArrayList<Integer> mob : Arquivos.getVetorMobs()) {
+	public void carregaMobs(int mapa_atual) {
+		for (ArrayList<Integer> mob : Arquivos.getVetorMobs(mapa_atual)) {
 			if (mob.get(0) == 1) {
 				listaInimigos.add(new InimigoEletron(mob.get(1) * gamePanel.getTamanhoBloco(), mob.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
 				System.out.println("novo eletron");

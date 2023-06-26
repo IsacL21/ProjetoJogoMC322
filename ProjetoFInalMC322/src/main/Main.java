@@ -28,8 +28,9 @@ public class Main {
 		window.setTitle("Jogo 2D");
 		window.setLocationRelativeTo(null);
 		
+		int mapa_atual = 0;
 		//cria engine
-		Engine engine = new Engine();
+		Engine engine = new Engine(mapa_atual);
 		
 		//adiciona e ajusta a janela ao gamepanel
 		
