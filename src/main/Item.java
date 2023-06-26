@@ -7,11 +7,10 @@ public abstract class Item extends Entity{
 	private String nome;
 	
 	//Construtor
-	public Item(int x, int y, boolean colisivel, GamePanel gamePanel, boolean consumivel, String nome) {
+	public Item(int x, int y, boolean colisivel, GamePanel gamePanel, String nome) {
 		super(x, y, colisivel, gamePanel);
-		this.consumivel = colisivel;
+		this.consumivel = true;
 		this.nome = nome;
-		// TODO Auto-generated constructor stub
 	}
 
 	//Getters e Setters

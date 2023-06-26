@@ -14,17 +14,22 @@ public class Bau extends Entity{
 	//Construtor
 	public Bau(int x, int y, GamePanel gamePanel, boolean trancado, Item item) {
 		super(x, y, true, gamePanel);
-		this.trancado = trancado;
+		this.trancado = true;
 		this.item = item;
 	}
 	
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getBauimages().get(0);
+		
+		if(trancado == false) {
+			image = Arquivos.getBauimages().get(1);
+		}
+		
 		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 
 	//Getters e Setetrs
-	public boolean getTrancado() {
+	public boolean isTrancado() {
 		return trancado;
 	}
 

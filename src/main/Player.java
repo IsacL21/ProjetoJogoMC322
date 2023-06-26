@@ -3,6 +3,11 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+<<<<<<< HEAD:src/main/Player.java
+=======
+import java.io.IOException;
+import java.util.ArrayList;
+>>>>>>> 015ed5f712515c86374fd1123b688e30847bdcb9:ProjetoFInalMC322/src/main/Player.java
 
 import javax.swing.JOptionPane;
 
@@ -21,6 +26,12 @@ public class Player extends Personagem{
 	
 
 	private Inventario inventario;
+
+	
+	///////////////////Usado para testes para abrir, mas talvez vai ter que mudar quando tiver a colisao
+	private ArrayList<Bau> bausAlcance = new ArrayList<Bau>();
+	private Porta porta;
+
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
@@ -52,13 +63,19 @@ public class Player extends Personagem{
 			mostrarVida();
 		}
 		
+		if(keyInput.isCPressed()) {
+			usaPocao();
+		}
+		
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
 			
+			////////Tem que ter um if aqui pra ver se teve colisao e com qual objeto bau ele colidiu. Feito isso, chama esse metodo
+			abrirBau(bausAlcance.get(0));
 			
-			
-			
+			///A mesma coisa aqui
+			abrirPorta(porta);
 		}
 		
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
@@ -93,6 +110,23 @@ public class Player extends Personagem{
 		}
 		else andando = false;
 		contadorFrames = contadorFrames + 1 % 60; 
+	}
+	
+	BufferedImage[] getImagemBarraVida() {
+		BufferedImage[] listaCoracoes = new BufferedImage[3];
+		int vidaTemp = (int) getVida();
+		for (int i = 0; i < 3; i++) {
+			if (vidaTemp >= 2) {
+				vidaTemp -= 2;
+				listaCoracoes[i] = Arquivos.getPlayerBarraVida().get(0);
+			}
+			else if (vidaTemp == 1) {
+				vidaTemp--;
+				listaCoracoes[i] = Arquivos.getPlayerBarraVida().get(1);
+			}
+			else listaCoracoes[i] = Arquivos.getPlayerBarraVida().get(2);
+		}
+		return listaCoracoes;
 	}
 	
 	BufferedImage getImagemAtaque() {
@@ -148,6 +182,15 @@ public class Player extends Personagem{
 			image = getImagemAndar();
 		else image = getImagemParado();
 		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
+		
+		int alturaCoracao = 32;
+		int larguraCoracao = 32;
+		int xTemp = 0;
+		
+		for(BufferedImage i:getImagemBarraVida()) {
+			tela.drawImage(i, xTemp, 0, larguraCoracao, alturaCoracao, null);
+			xTemp += larguraCoracao;
+		}
 	}
 	
 	public void mostrarVida() {
@@ -157,34 +200,81 @@ public class Player extends Personagem{
 		
 	}
 	
+	public void usaPocao() {
+		
+		for(int i = 0; i<inventario.getListaItens().size(); i++) {
+			
+			if(inventario.getListaItens().get(i).getNome().equals("Pocao")) {
+
+				Pocao pocao = (Pocao)inventario.getListaItens().get(i);
+				setVida(getVida() + pocao.getVida());
+				inventario.getListaItens().remove(i);
+				break;
+			}
+		}
+	}
+	
+	public boolean procuraChave(){
+		
+		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
+			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void coletaItem(Item item) {
 		
-		
-		
-	}
-	
-	public void abrirBau() {
-		
-		
-		
+		inventario.addItem(item);
 		
 	}
 	
-	public void abrirPorta() {
+	public void abrirBau(Bau bau) {
 		
+		if(bau.isTrancado()) {
+			bau.setTrancado(false);
+			coletaItem(bau.getItem());
+			keyInput.resetaValores();
+			keyInput.SetisXPressed(false);
+			JOptionPane.showMessageDialog(null, "Voce coletou: "+bau.getItem().getNome(), "Coleta de item", JOptionPane.INFORMATION_MESSAGE); 
+		}
+	}
+	
+	public void abrirPorta(Porta portaTeste) {
 		
-		
+		if(portaTeste.isTrancado()) {
+			if(procuraChave()) {
+				keyInput.resetaValores();
+				portaTeste.setTrancado(false);
+		}}
 	}
 	
 	@Override
-	public void causarDano() {
+	public void causarDano(Personagem inimigo) {
 		// TODO Auto-generated method stub
+		
+		/////////////////////Vejam como vao calcular o que o player ir fazer nos mobs ja que ele tem espada e etc
+		int dano = 0;
+		inimigo.levarDano(dano);
 		
 	}
 
 	@Override
-	public void levarDano() {
+	public boolean levarDano(int danoRecebido) {
 		// TODO Auto-generated method stub
+		
+		////////////////////////A funcao levar dano retorna true quando o personagem morre
+		///////////////////////Usem isso para apagar o personagem da lista de personagens
+		
+		///////////////////////O player fecha o jogo ao morrer
+		setVida(getVida()-danoRecebido);
+		
+		if(getVida() <= 0) {
+			return true;
+		}
+		
+		return false;
 		
 	}
 
@@ -193,8 +283,8 @@ public class Player extends Personagem{
 		// TODO Auto-generated method stub
 		
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
-		
-		
+        System.exit(0); // Encerra o processo atual
+        
 	}
 
 }

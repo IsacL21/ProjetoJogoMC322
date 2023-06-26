@@ -54,15 +54,29 @@ public class Zumbi extends Inimigo{
 	}
 
 	@Override
-	public void causarDano() {
+	public void causarDano(Personagem player) {
 		// TODO Auto-generated method stub
+		
+		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
+		int dano = 0;
+		player.levarDano(dano);
 		
 	}
 
 	@Override
-	public void levarDano() {
+	public boolean levarDano(int danoRecebido) {
 		// TODO Auto-generated method stub
 		
+		////////////////////////A funcao levar dano retorna true quando o personagem morre
+		///////////////////////Usem isso para apagar o personagem da lista de personagens
+		
+		setVida(getVida()-danoRecebido);
+		
+		if(getVida() <= 0) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void draw(Graphics2D tela) {
@@ -117,6 +131,5 @@ public class Zumbi extends Inimigo{
 	@Override
 	public void morrer() {
 		// TODO Auto-generated method stub
-		
 	}
 }
