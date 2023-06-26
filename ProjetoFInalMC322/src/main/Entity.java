@@ -13,13 +13,13 @@ public abstract class Entity implements Desenhavel{
 	private GamePanel gamePanel;
 	
 	//Construtor
-	public Entity(int x, int y, boolean colisivel, Engine engine) {
+	public Entity(int x, int y, boolean colisivel, Engine engine, Rectangle hitBox) {
 		this.x = x;
 		this.y = y;
 		this.colisivel = colisivel;
 		this.engine = engine;
 		this.gamePanel = engine.getGamePanel();
-		hitBox = new Rectangle(x+8, y+16, 32, 32);
+		this.hitBox = hitBox;
 	}
 	
 	//Getters e Setters

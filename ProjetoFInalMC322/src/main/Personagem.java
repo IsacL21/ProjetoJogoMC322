@@ -12,15 +12,13 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	private int velocidade;
 	private boolean colidindo;
 	private String direcao = "down";
-	private Rectangle hitBox;
 	
 	//Construtor
-	public Personagem(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade) {
-		super(x, y, false, engine);
+	public Personagem(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade,Rectangle hitBox) {
+		super(x, y, false, engine, hitBox);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
-		this.hitBox = hitBox;
 	}
 
 	//Getters e Setters
@@ -88,10 +86,11 @@ public abstract class Personagem extends Entity implements Atualizavel{
         // int personagemRightX = personagem.getX() + 40;
         // int personagemTopY = personagem.getY() + 16;
         // int personagemBottomY = personagem.getY() + 48;
-		int personagemLeftX = personagem.getX();
-        int personagemRightX = personagem.getX();
-        int personagemTopY = personagem.getY();
-        int personagemBottomY = personagem.getY();
+		int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
+        int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;
+        int personagemTopY = personagem.getY() + personagem.getHitBox().y;
+        int personagemBottomY = personagem.getY() + personagem.getHitBox().y + personagem.getHitBox().height;
+
 
         int personagemLeftCol = personagemLeftX/Mapa.TAMANHO_BLOCO.getPosicao();
         int personagemRightCol = personagemRightX/Mapa.TAMANHO_BLOCO.getPosicao();
@@ -127,7 +126,7 @@ public abstract class Personagem extends Entity implements Atualizavel{
                 break;
         }
         if (getEngine().getMapBuilder().getBlocos()[tileNum1].isColidivel() || getEngine().getMapBuilder().getBlocos()[tileNum2].isColidivel()) {
-            return false;
+            return true;
         }
 		return false;
 	}

@@ -24,7 +24,7 @@ public class Player extends Personagem{
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
-		super(100, 100, engine, vida, invencivel, velocidade);
+		super(100, 100, engine, vida, invencivel, velocidade,new Rectangle(50, 86, 28, 25));
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
 	}
@@ -100,7 +100,6 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
-				updateHitBox();
 			}
 		}
 		else andando = false;

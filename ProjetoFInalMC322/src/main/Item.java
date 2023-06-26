@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import arquivos.Arquivos;
@@ -12,7 +13,7 @@ public abstract class Item extends Entity{
 	
 	//Construtor
 	public Item(int x, int y, Engine engine, boolean consumivel, String nome) {
-		super(x, y, true, engine);
+		super(x, y, true, engine,new Rectangle(0,0,0,0));
 		this.consumivel = consumivel;
 		this.nome = nome;
 	}
