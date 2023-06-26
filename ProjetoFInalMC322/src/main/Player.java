@@ -96,6 +96,23 @@ public class Player extends Personagem{
 		contadorFrames = contadorFrames + 1 % 60; 
 	}
 	
+	BufferedImage[] getImagemBarraVida() {
+		BufferedImage[] listaCoracoes = new BufferedImage[3];
+		int vidaTemp = (int) getVida();
+		for (int i = 0; i < 3; i++) {
+			if (vidaTemp >= 2) {
+				vidaTemp -= 2;
+				listaCoracoes[i] = Arquivos.getPlayerBarraVida().get(0);
+			}
+			else if (vidaTemp == 1) {
+				vidaTemp--;
+				listaCoracoes[i] = Arquivos.getPlayerBarraVida().get(1);
+			}
+			else listaCoracoes[i] = Arquivos.getPlayerBarraVida().get(2);
+		}
+		return listaCoracoes;
+	}
+	
 	BufferedImage getImagemAtaque() {
 		switch (getDirecao()) {
 		case "baixo":
@@ -149,6 +166,15 @@ public class Player extends Personagem{
 			image = getImagemAndar();
 		else image = getImagemParado();
 		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
+		
+		int alturaCoracao = 32;
+		int larguraCoracao = 32;
+		int xTemp = 0;
+		
+		for(BufferedImage i:getImagemBarraVida()) {
+			tela.drawImage(i, xTemp, 0, larguraCoracao, alturaCoracao, null);
+			xTemp += larguraCoracao;
+		}
 	}
 	
 	public void mostrarVida() {

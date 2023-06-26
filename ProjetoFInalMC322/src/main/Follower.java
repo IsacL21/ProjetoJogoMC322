@@ -8,7 +8,7 @@ import java.util.Random;
 public abstract class Follower extends Inimigo {
 	int followedX;
 	int followedY;
-	String direction = "Right";
+	String direction = "direita";
 	
 
 	//Construtor
@@ -39,12 +39,12 @@ public abstract class Follower extends Inimigo {
 	
 	public int followInY() {
 		if (followedY - this.getVelocidade() > this.getY()) {
-			direction = "down";
+			setDirecao("baixo");;
 			moveBaixo();
 			return 1;
 		}
 		else if ((followedY + this.getVelocidade() < this.getY())){
-			direction = "up";
+			setDirecao("cima");
 			moveCima();
 			return -1;
 		}

@@ -47,26 +47,28 @@ public class Morcego extends Follower{
 		
 		BufferedImage image = Arquivos.getMorcegoimages().get(0);
 		
+		System.out.print("drawing morcego");
+
 		switch (getDirecao()) {
-        case "up":
+		case "cima":
             if (spriteNum < 10) {
                 image = Arquivos.getMorcegoimages().get(3);
             }else if (spriteNum <=20)
             	image = Arquivos.getMorcegoimages().get(2);
             break;
-        case "down":
+        case "baixo":
             if (spriteNum < 10)
             	image = Arquivos.getMorcegoimages().get(1);
             else if (spriteNum <=20)
             	image = Arquivos.getMorcegoimages().get(0);
             break;
-        case "left":
+        case "esquerda":
             if (spriteNum < 10)
             	image = Arquivos.getMorcegoimages().get(7);
             else if (spriteNum <=20)
             	image = Arquivos.getMorcegoimages().get(6);
             break;
-        case "right":
+        case "direita":
             if (spriteNum < 10)
             	image = Arquivos.getMorcegoimages().get(4);
             else if (spriteNum <=20)
