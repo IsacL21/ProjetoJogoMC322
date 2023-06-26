@@ -75,7 +75,7 @@ public class Save {
 			 return mapa;
 		 }
 		 else {
-			 String caminho = "/res/save/" + nome;
+			 String caminho = "res/save/" + nome;
 			 
 			 try (BufferedReader reader = new BufferedReader(new FileReader(caminho))) {
 				 

@@ -3,11 +3,7 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-<<<<<<< HEAD:src/main/Player.java
-=======
-import java.io.IOException;
 import java.util.ArrayList;
->>>>>>> 015ed5f712515c86374fd1123b688e30847bdcb9:ProjetoFInalMC322/src/main/Player.java
 
 import javax.swing.JOptionPane;
 
