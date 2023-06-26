@@ -34,8 +34,6 @@ public class Engine implements Runnable{
 		listaInimigos = new ArrayList<Inimigo> ();
 		listaEntidades = new ArrayList<Entity> ();
 		
-		
-		
 		carregaMobs(mapa_atual);
 
 		colisaoChecker = new ColisaoChecker(this);
@@ -100,7 +98,7 @@ public class Engine implements Runnable{
 		}
 			player.setX(Arquivos.getInputEntidadesMapas().get(mapa_atual).getXBlocoInicialPlayer() * gamePanel.getTamanhoBloco());
 			player.setY(Arquivos.getInputEntidadesMapas().get(mapa_atual).getYBlocoInicialPlayer() * gamePanel.getTamanhoBloco());
-			
+
 	}
 	
 
@@ -144,9 +142,5 @@ public class Engine implements Runnable{
 				gamePanel.repaint();
 				framesDesenhados++;
 				delta--;
-			}
-		}
-		
-	}
-
+		}}}
 }

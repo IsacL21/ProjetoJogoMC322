@@ -8,7 +8,7 @@ import arquivos.Arquivos;
 public class Chave extends Item{
 
 	public Chave(int x, int y, GamePanel gamePanel) {
-		super(x, y, true, gamePanel, true, "Chave");
+		super(x, y, true, gamePanel, "Chave");
 	}
 
 	public void draw(Graphics2D tela) {

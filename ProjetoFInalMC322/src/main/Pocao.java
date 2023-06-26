@@ -10,7 +10,9 @@ public class Pocao extends Item{
 	private int vida = 1;
 	
 	public Pocao(int x, int y, GamePanel gamePanel) {
-		super(x, y, true, gamePanel, true, "pocao");
+		super(x, y, true, gamePanel, "pocao");
+		this.vida = 30;
+
 	}
 	
 	public void draw(Graphics2D tela) {

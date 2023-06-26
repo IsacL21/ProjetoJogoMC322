@@ -68,14 +68,28 @@ public abstract class Follower extends Inimigo {
 	}
 	
 	@Override
-	public void causarDano() {
+	public void causarDano(Personagem player) {
 		// TODO Auto-generated method stub
 		
+		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
+		int dano = 0;
+		player.levarDano(dano);
+
 	}
 
 	@Override
-	public void levarDano() {
-		// TODO Auto-generated method stub
+	public boolean levarDano(int danoRecebido) {
+		
+		////////////////////////A funcao levar dano retorna true quando o personagem morre
+		///////////////////////Usem isso para apagar o personagem da lista de personagens
+		
+		setVida(getVida()-danoRecebido);
+		
+		if(getVida() <= 0) {
+			return true;
+		}
+		
+		return false;
 		
 	}
 
