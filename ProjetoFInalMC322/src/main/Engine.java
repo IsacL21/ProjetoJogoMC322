@@ -3,6 +3,9 @@ package main;
 import java.util.ArrayList;
 
 import arquivos.Arquivos;
+import arquivos.InputEntidadesMapa.ArquivoBau;
+import arquivos.InputEntidadesMapa.ArquivoEntidade;
+import arquivos.InputEntidadesMapa.ArquivoMorcego;
 
 public class Engine implements Runnable{
 
@@ -75,33 +78,31 @@ public class Engine implements Runnable{
 	}
 
 	public void carregaMobs(int mapa_atual) {
-		for (ArrayList<Integer> entidade : Arquivos.getVetorEntidades(mapa_atual)) {
-			if (entidade.get(0) == 1) 
-				listaInimigos.add(new Zumbi(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
-			if (entidade.get(0) == 2)
-				listaInimigos.add(new Slime(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), player));
-			if (entidade.get(0) == 3)
-				listaInimigos.add(new Morcego(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), entidade.get(3) * gamePanel.getTamanhoBloco(), entidade.get(4) * gamePanel.getTamanhoBloco(), player));
-			if(entidade.get(0) == 4)
-				listaEntidades.add(new Porta(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), true, gamePanel, true));
-			if(entidade.get(0) == 5)
-				listaEntidades.add(new Pocao(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel));
-			if(entidade.get(0) == 6)
-				listaEntidades.add(new Chave(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), gamePanel));
-			if(entidade.get(0) == 7) {
-					Item tempItem = null;
-					if (entidade.get(3) == 5)
-						tempItem = new Chave(-100, -100, gamePanel);
-					if (entidade.get(3) == 6)
-						tempItem = new Chave(-100, -100, gamePanel);
-					listaEntidades.add(new Bau(entidade.get(1) * gamePanel.getTamanhoBloco(),entidade.get(2) * gamePanel.getTamanhoBloco(),gamePanel, false, tempItem));
-			}
-			if (entidade.get(0) == 0) {
-				player.setX(entidade.get(1)* gamePanel.getTamanhoBloco());
-				player.setY(entidade.get(2)* gamePanel.getTamanhoBloco());
-			}
+		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaZumbis())
+				listaInimigos.add(new Zumbi(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), 100, false, 3, gamePanel, new ArrayList<Item>()));
+		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaSlimes())
+			listaInimigos.add(new Slime(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), player));
+		for(ArquivoMorcego i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaMorcegos())
+			listaInimigos.add(new Morcego(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), gamePanel, 100, false, 2, new ArrayList<Item>(), i.getPosicaoXFinalBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYFinalBloco() * gamePanel.getTamanhoBloco(), player));
+		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaPortas())
+			listaEntidades.add(new Porta(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), true, gamePanel, true));
+		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaPocoes())
+			listaEntidades.add(new Pocao(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), gamePanel));
+		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaChaves())
+			listaEntidades.add(new Chave(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), gamePanel));
+		for(ArquivoBau i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaBaus()){
+				Item tempItem = null;
+				if (i.getTipoItem().equals("chave"))
+					tempItem = new Chave(-100, -100, gamePanel);
+				if (i.getTipoItem().equals("pocao"))
+					tempItem = new Chave(-100, -100, gamePanel);
+				listaEntidades.add(new Bau(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(),gamePanel, false, tempItem));
 		}
+			player.setX(Arquivos.getInputEntidadesMapas().get(mapa_atual).getXBlocoInicialPlayer() * gamePanel.getTamanhoBloco());
+			player.setY(Arquivos.getInputEntidadesMapas().get(mapa_atual).getYBlocoInicialPlayer() * gamePanel.getTamanhoBloco());
+			
 	}
+	
 
 	public void startGameThread() {  
 		gameThread = new Thread(this);
