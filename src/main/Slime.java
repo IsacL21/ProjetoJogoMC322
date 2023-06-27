@@ -14,8 +14,8 @@ public class Slime extends Follower {
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public Slime (int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, new Rectangle(0,0,gamePanel.getTamanhoBloco(),gamePanel.getTamanhoBloco()), listaDrops, x, y);
+	public Slime (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, x, y);
 		this.followed = followed;
 	}
 	
@@ -62,21 +62,6 @@ public class Slime extends Follower {
 
 	}
 
-	@Override
-	public boolean levarDano(int danoRecebido) {
-		
-		////////////////////////A funcao levar dano retorna true quando o personagem morre
-		///////////////////////Usem isso para apagar o personagem da lista de personagens
-		
-		setVida(getVida()-danoRecebido);
-		
-		if(getVida() <= 0) {
-			return true;
-		}
-		
-		return false;
-		
-	}
 
 	@Override
 	public void morrer() {

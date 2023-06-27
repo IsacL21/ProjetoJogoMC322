@@ -18,9 +18,7 @@ public class Player extends Personagem{
 	private int framesAnimacaoAtaque = 30; 
 	private boolean atacando = false;
 	private boolean andando = false;
-	private Engine engine;
 	
-
 	private Inventario inventario;
 
 	
@@ -30,12 +28,10 @@ public class Player extends Personagem{
 
 	
 	//Construtor
-	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
-			KeyboardInput keyInput, Engine engine) {
-		super(0, 0, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
+	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
+		super(100, 100, engine, vida, invencivel, velocidade);
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
-		this.engine = engine;
 	}
 
 	//Getters e Setters
@@ -55,23 +51,44 @@ public class Player extends Personagem{
 				contadorFrames = 0;
 		}
 		
-		if(keyInput.isVPressed()) {
-			mostrarVida();
+		if(keyInput.isCPressed()) {
+			keyInput.resetaValores();
+			
+			for(int i = 0; i < inventario.getListaItens().size(); i++) {
+				
+				if(inventario.getListaItens().get(i).getNome().equals("pocao")) {
+					Pocao pocao = (Pocao)inventario.getListaItens().get(i);
+					setVida(getVida() + pocao.getVida());
+					inventario.removeItem(i);
+					break;
+				}
+			}
 		}
 		
-		if(keyInput.isCPressed()) {
-			usaPocao();
-		}
 		
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
+				
+			keyInput.resetaValores();
 			
-			////////Tem que ter um if aqui pra ver se teve colisao e com qual objeto bau ele colidiu. Feito isso, chama esse metodo
-			abrirBau(bausAlcance.get(0));
+
+			if(getObjetoColidido() != null) {
+				if(getObjetoColidido().getClass().getName().equals("main.Bau")) {
+						
+					abrirBau((Bau)getObjetoColidido());
+					
+				}
+			}
 			
-			///A mesma coisa aqui
-			abrirPorta(porta);
+			if(getObjetoColidido() != null) {
+				if(getObjetoColidido().getClass().getName().equals("main.Porta")) {
+						
+					abrirPorta((Porta)getObjetoColidido());
+					
+				}
+			}
+			
 		}
 		
 		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
@@ -92,9 +109,44 @@ public class Player extends Personagem{
 			else if(keyInput.isRightPressed()) {
 				setDirecao("direita");
 			}
+			// setColidindo(engine.getColisaoChecker().checkColisaoInimigos(this, engine.getListaInimigos()));
+			// boolean colisao = checarColisaoMapa(this);
+			// boolean colisaoObjeto = checarColisaoEntidades(this, ;
+			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos()); //&& colisaoObjeto;
 
-			setColidindo(false);
-			engine.getColisaoChecker().checkColisao(this);
+			// if (colisaoPersonagem) {
+			// 	levarDano();
+			// }
+			// setColidindo(false);
+
+			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos());
+			
+			Personagem colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
+			boolean colisaoMapa = checarColisaoMapa(this);
+			Entity colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
+
+			if(colisaoPersonagem == null && colisaoEntidade == null && colisaoMapa == false) {
+				setColidindo(false);
+				setObjetoColidido(null);
+			}else {
+				setObjetoColidido(colisaoEntidade);
+				if(colisaoEntidade != null) {
+					if(colisaoEntidade.getClass().getName().equals("main.Chave") ||
+							colisaoEntidade.getClass().getName().equals("main.Pocao")) {
+							
+						coletaItem((Item)colisaoEntidade);
+					}else if(colisaoEntidade.getClass().getName().equals("main.Porta")) {
+						Porta porta = (Porta)colisaoEntidade;
+						
+						if(!porta.isTrancado()) {
+							System.out.println("Passou de fase");
+						}
+					}
+				}
+				
+				setColidindo(true);
+			}
+			
 			if (getColidindo() == false) {
 				switch(getDirecao()) {
 					case "cima": moveCima(); break;
@@ -102,6 +154,7 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
+				// updateHitBox();
 			}
 		}
 		else andando = false;
@@ -189,14 +242,19 @@ public class Player extends Personagem{
 		}
 	}
 	
-	public void mostrarVida() {
+
+	public void coletaItem(Item item) {
 		
-		keyInput.resetaValores();
-		JOptionPane.showMessageDialog(null, "Vida do personagem: "+getVida(), "Vida", JOptionPane.INFORMATION_MESSAGE); 		
+		inventario.addItem(item);
 		
-	}
-	
-	public void usaPocao() {
+		for(int i = 0; i < getEngine().getListaEntidades().size(); i++) {
+			
+			if(getEngine().getListaEntidades().get(i) == item) {
+				getEngine().getListaEntidades().remove(i);
+				
+			}
+			
+		}
 		
 		for(int i = 0; i<inventario.getListaItens().size(); i++) {
 			
@@ -210,22 +268,7 @@ public class Player extends Personagem{
 		}
 	}
 	
-	public boolean procuraChave(){
-		
-		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
-			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void coletaItem(Item item) {
-		
-		inventario.addItem(item);
-		
-	}
-	
+
 	public void abrirBau(Bau bau) {
 		
 		if(bau.isTrancado()) {
@@ -235,6 +278,7 @@ public class Player extends Personagem{
 			keyInput.SetisXPressed(false);
 			JOptionPane.showMessageDialog(null, "Voce coletou: "+bau.getItem().getNome(), "Coleta de item", JOptionPane.INFORMATION_MESSAGE); 
 		}
+		
 	}
 	
 	public void abrirPorta(Porta portaTeste) {
@@ -246,41 +290,33 @@ public class Player extends Personagem{
 		}}
 	}
 	
+	public boolean procuraChave(){
+		
+		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
+			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
-	public void causarDano(Personagem inimigo) {
-		// TODO Auto-generated method stub
+	public void causarDano(Personagem personagem) {
 		
 		/////////////////////Vejam como vao calcular o que o player ir fazer nos mobs ja que ele tem espada e etc
 		int dano = 0;
-		inimigo.levarDano(dano);
+		personagem.levarDano(dano);
 		
 	}
 
-	@Override
-	public boolean levarDano(int danoRecebido) {
-		// TODO Auto-generated method stub
-		
-		////////////////////////A funcao levar dano retorna true quando o personagem morre
-		///////////////////////Usem isso para apagar o personagem da lista de personagens
-		
-		///////////////////////O player fecha o jogo ao morrer
-		setVida(getVida()-danoRecebido);
-		
-		if(getVida() <= 0) {
-			return true;
-		}
-		
-		return false;
-		
-	}
+	
 
 	@Override
 	public void morrer() {
-		// TODO Auto-generated method stub
 		
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
-        System.exit(0); // Encerra o processo atual
-        
+		getEngine().retornaFase();
+		
 	}
 
 }

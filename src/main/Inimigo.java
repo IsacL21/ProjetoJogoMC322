@@ -9,8 +9,8 @@ public abstract class Inimigo extends Personagem{
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();
 	
 	//Construtor
-	public Inimigo(int x, int y, GamePanel gamePanel, double vida, boolean invencivel, int velocidade, Rectangle hitBox , ArrayList<Item> listaDrops) {
-		super(x, y, gamePanel, vida, invencivel, velocidade, hitBox);
+	public Inimigo(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops) {
+		super(x, y, engine, vida, invencivel, velocidade);
 		this.listaDrops = listaDrops;
 	}
 	
@@ -30,9 +30,9 @@ public abstract class Inimigo extends Personagem{
 	}
 
 	@Override
-	public boolean levarDano(int danoRecebido) {
+	public void levarDano(int danoRecebido) {
 		// TODO Auto-generated method stub
-		return true;
+		setVida(getVida()-danoRecebido);
 
 	}
 

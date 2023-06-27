@@ -10,10 +10,10 @@ public class Porta extends Entity{
 
 	private boolean trancado;
 
-	public Porta(int x, int y, boolean colisivel, GamePanel gamePanel, boolean trancado) {
-		super(x, y, colisivel, gamePanel);
-		this.trancado = true;
-
+	
+	public Porta(int x, int y, boolean colisivel, Engine engine, boolean trancado) {
+		super(x, y, colisivel, engine);
+		this.trancado = trancado;
 	}
 	
 	public void draw(Graphics2D tela) {
@@ -22,7 +22,6 @@ public class Porta extends Entity{
 		if(trancado == false) {
 			image = Arquivos.getPortaimages().get(1);
 		}
-		
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
 

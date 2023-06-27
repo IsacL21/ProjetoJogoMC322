@@ -7,8 +7,8 @@ public abstract class Item extends Entity{
 	private String nome;
 	
 	//Construtor
-	public Item(int x, int y, boolean colisivel, GamePanel gamePanel, String nome) {
-		super(x, y, colisivel, gamePanel);
+	public Item(int x, int y, boolean colisivel, Engine engine, String nome) {
+		super(x, y, colisivel, engine);
 		this.consumivel = true;
 		this.nome = nome;
 	}
