@@ -18,7 +18,6 @@ public class Engine implements Runnable{
 	private Thread gameThread;
 	private Player player;
 	private MapBuilder mapBuilder;
-	private ColisaoChecker colisaoChecker;
 	private int estadoJogo = 0; //utilizado para congelar jogo em menus, estado normal = 0
 	private int mapa_atual;
 
@@ -33,7 +32,7 @@ public class Engine implements Runnable{
 	public Engine(int mapa_atual) {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
-		player = new Player(1, false, 3, 5, this, keyInput);		
+		player = new Player(6, false, 3, 5, this, keyInput);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 		this.mapa_atual = mapa_atual;
 		
@@ -62,10 +61,6 @@ public class Engine implements Runnable{
 		return gamePanel;
 	}
 
-	public ColisaoChecker getColisaoChecker() {
-		return colisaoChecker;
-	}
-	
 	public ArrayList<Inimigo> getListaInimigos() {
 		return listaInimigos;
 	}
@@ -82,6 +77,8 @@ public class Engine implements Runnable{
 
 	//Métodos
 	public void carregaMobs(int mapa_atual) {
+		listaEntidades.clear();
+		listaInimigos.clear();
 		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaZumbis())
 				listaInimigos.add(new Zumbi(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), 100, false, 3, this, new ArrayList<Item>()));
 		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaSlimes())

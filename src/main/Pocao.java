@@ -11,7 +11,7 @@ public class Pocao extends Item{
 
 	public Pocao(int x, int y, Engine engine) {
 		super(x, y, true, engine, "pocao");
-		this.vida = 30;
+		this.vida = 2;
 
 	}
 	

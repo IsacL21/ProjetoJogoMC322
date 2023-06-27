@@ -13,13 +13,13 @@ public class Player extends Personagem{
 
 	//Propriedades
 	private KeyboardInput keyInput;
-	private int contadorFrames = 0;
 	private int framesAnimacaoAndar = 30; 
 	private int framesAnimacaoAtaque = 30; 
 	private boolean atacando = false;
 	private boolean andando = false;
 	private Inventario inventario;
-
+	BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
+	private Entity objetoColidido = null;
 	
 	///////////////////Usado para testes para abrir, mas talvez vai ter que mudar quando tiver a colisao
 	private ArrayList<Bau> bausAlcance = new ArrayList<Bau>();
@@ -27,7 +27,7 @@ public class Player extends Personagem{
 
 	
 	//Construtor
-	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
+	public Player(int vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
 		super(100, 100, engine, vida, invencivel, velocidade,new Rectangle(50, 86, 28, 25));
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
@@ -44,120 +44,81 @@ public class Player extends Personagem{
 
 	//Métodos
 	public void update() {
-		if (keyInput.isZPressed() && !atacando) {
-				atacando = true;
-				andando = false;
-				contadorFrames = 0;
-		}
-		
-		if(keyInput.isCPressed()) {
-			keyInput.resetaValores();
+		super.update();
+		if (!isSofrendoKnockback()) {
+			if (keyInput.isZPressed() && !atacando) {
+					atacando = true;
+					andando = false;
+					setContadorFrames(0);
+			}
 			
-			for(int i = 0; i < inventario.getListaItens().size(); i++) {
+			else if(keyInput.isCPressed()) {
+				keyInput.resetaValores();
 				
-				if(inventario.getListaItens().get(i).getNome().equals("pocao")) {
-					Pocao pocao = (Pocao)inventario.getListaItens().get(i);
-					setVida(getVida() + pocao.getVida());
-					inventario.removeItem(i);
-					break;
-				}
-			}
-		}
-		
-		if(keyInput.isXPressed()) {
-			/*Informacoes para quando tiver a colisao
-			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
-			
-			getEngine().passaFase();
-			
-			keyInput.resetaValores();
-			
-
-			if(getObjetoColidido() != null) {
-				if(getObjetoColidido().getClass().getName().equals("main.Bau")) {
-						
-					abrirBau((Bau)getObjetoColidido());
+				for(int i = 0; i < inventario.getListaItens().size(); i++) {
 					
+					if(inventario.getListaItens().get(i).getNome().equals("pocao")) {
+						Pocao pocao = (Pocao)inventario.getListaItens().get(i);
+						setVida(getVida() + pocao.getVida());
+						inventario.removeItem(i);
+						break;
+					}
 				}
 			}
 			
-			if(getObjetoColidido() != null) {
-				if(getObjetoColidido().getClass().getName().equals("main.Porta")) {
-						
-					abrirPorta((Porta)getObjetoColidido());
-					
-				}
-			}
-			
-		}
-		
-		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
-			atacando = false;
-		}
-		
-		else if (!atacando && (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed())) {
-			andando = true;
-			if(keyInput.isUpPressed()) {
-				setDirecao("cima");
-			}
-			else if(keyInput.isDownPressed()) {
-				setDirecao("baixo");
-			}
-			else if(keyInput.isLeftPressed()) {
-				setDirecao("esquerda");
-			}
-			else if(keyInput.isRightPressed()) {
-				setDirecao("direita");
-			}
-			// setColidindo(engine.getColisaoChecker().checkColisaoInimigos(this, engine.getListaInimigos()));
-			// boolean colisao = checarColisaoMapa(this);
-			// boolean colisaoObjeto = checarColisaoEntidades(this, ;
-			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos()); //&& colisaoObjeto;
-
-			// if (colisaoPersonagem) {
-			// 	levarDano();
-			// }
-			// setColidindo(false);
-
-			// boolean colisao = getEngine().getColisaoChecker().checkColisao(this, getEngine().getListaInimigos());
-			
-			Personagem colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
-			boolean colisaoMapa = checarColisaoMapa(this);
-			Entity colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
-
-			if(colisaoPersonagem == null && colisaoEntidade == null && colisaoMapa == false) {
-				setColidindo(false);
-				setObjetoColidido(null);
-			}else {
-				setObjetoColidido(colisaoEntidade);
-				if(colisaoEntidade != null) {
-					if(colisaoEntidade.getClass().getName().equals("main.Chave") ||
-							colisaoEntidade.getClass().getName().equals("main.Pocao")) {
+			else if(keyInput.isXPressed()) {
+				/*Informacoes para quando tiver a colisao
+				 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
+				
+				getEngine().passaFase();
+				
+				keyInput.resetaValores();
+				
+	
+				if(objetoColidido != null) {
+					if(objetoColidido.getClass().getName().equals("main.Bau")) {
 							
-						coletaItem((Item)colisaoEntidade);
-					}else if(colisaoEntidade.getClass().getName().equals("main.Porta")) {
-						Porta porta = (Porta)colisaoEntidade;
+						abrirBau((Bau) objetoColidido);
 						
-
-						if(!porta.isTrancado()) {
-							getEngine().passaFase();
-						}
 					}
 				}
 				
-				setColidindo(true);
-			}
-			if (getColidindo() == false) {
-				switch(getDirecao()) {
-					case "cima": moveCima(); break;
-					case "baixo": moveBaixo(); break;
-					case "esquerda": moveEsquerda(); break;
-					case "direita": moveDireita(); break;
+				if(objetoColidido != null) {
+					if(objetoColidido.getClass().getName().equals("main.Porta")) {
+							
+						abrirPorta((Porta) objetoColidido);
+						
+					}
 				}
+				
 			}
-		}
+			
+			else if (atacando && (getContadorFrames() % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
+				atacando = false;
+			}
+			
+			else if (!atacando && (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed())) {
+				andando = true;
+				if(keyInput.isUpPressed()) {
+					setDirecao("cima");
+					moveCima();
+				}
+				else if(keyInput.isDownPressed()) {
+					setDirecao("baixo");
+					moveBaixo();
+				}
+				else if(keyInput.isLeftPressed()) {
+					setDirecao("esquerda");
+					moveEsquerda();
+				}
+				else if(keyInput.isRightPressed()) {
+					setDirecao("direita");
+					moveDireita();
+				}
+				
+			}
 		else andando = false;
-		contadorFrames = contadorFrames + 1 % 60; 
+		}
 	}
 	
 	BufferedImage[] getImagemBarraVida() {
@@ -180,29 +141,29 @@ public class Player extends Personagem{
 	BufferedImage getImagemAtaque() {
 		switch (getDirecao()) {
 		case "baixo":
-			return Arquivos.getPlayerDownattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+			return Arquivos.getPlayerDownattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
 		case "cima":
-			return Arquivos.getPlayerUpattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerUpattack().size()-1)));
+			return Arquivos.getPlayerUpattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerUpattack().size()-1)));
 		case "direita":
-			return Arquivos.getPlayerRightattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerRightattack().size()-1)));
+			return Arquivos.getPlayerRightattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerRightattack().size()-1)));
 		case "esquerda":
-			return Arquivos.getPlayerLeftattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerLeftattack().size()-1)));
+			return Arquivos.getPlayerLeftattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerLeftattack().size()-1)));
 		}
-		return Arquivos.getPlayerDownattack().get((contadorFrames % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+		return Arquivos.getPlayerDownattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
 	}
 	
 	BufferedImage getImagemAndar() {
 		switch (getDirecao()) {
 		case "baixo":
-			return Arquivos.getPlayerDownwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+			return Arquivos.getPlayerDownwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
 		case "cima":
-			return Arquivos.getPlayerUpwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerUpwalk().size()-1)));
+			return Arquivos.getPlayerUpwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerUpwalk().size()-1)));
 		case "direita":
-			return Arquivos.getPlayerRightwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerRightwalk().size()-1)));
+			return Arquivos.getPlayerRightwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerRightwalk().size()-1)));
 		case "esquerda":
-			return Arquivos.getPlayerLeftwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerLeftwalk().size()-1)));
+			return Arquivos.getPlayerLeftwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerLeftwalk().size()-1)));
 		}
-		return Arquivos.getPlayerDownwalk().get((contadorFrames % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+		return Arquivos.getPlayerDownwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
 	}
 	
 	BufferedImage getImagemParado() {
@@ -220,15 +181,18 @@ public class Player extends Personagem{
 	}
 	
 	public void draw(Graphics2D tela) {
-		BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
+		
 		int alturaImagem= 43*3;
 		int larguraImagem = 43*3;
 		
-		if (atacando)
-			image = getImagemAtaque();
-		else if (andando)
-			image = getImagemAndar();
-		else image = getImagemParado();
+		if (!isSofrendoKnockback()) {
+			if (atacando)
+				image = getImagemAtaque();
+			else if (andando)
+				image = getImagemAndar();
+			else image = getImagemParado();
+		}
+		
 		tela.drawImage(image, getX(), getY(), larguraImagem, alturaImagem, null);
 		
 		int alturaCoracao = 32;
@@ -263,7 +227,7 @@ public class Player extends Personagem{
 			if(inventario.getListaItens().get(i).getNome().equals("Pocao")) {
 
 				Pocao pocao = (Pocao)inventario.getListaItens().get(i);
-				setVida(getVida() + pocao.getVida());
+				setVida(Math.min(getVida() + pocao.getVida(), 6));
 				inventario.getListaItens().remove(i);
 				break;
 			}
@@ -306,16 +270,121 @@ public class Player extends Personagem{
 
 	@Override
 	public void morrer() {
-		
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
 		getEngine().retornaFase();
-		
-
+		setVida(6);
 	}
 
 	@Override
 	public void causarDano(Personagem personagem) {
 		personagem.levarDano(1);		
+	}
+	
+	public Entity checarColisaoEntidadesNeutras(ArrayList<Entity> listaEntidades) {
+		int personagemLeftX = this.getX() + this.getHitBox().x;
+        int personagemRightX = this.getX() + this.getHitBox().x + this.getHitBox().width;
+        int personagemTopY = this.getY() + this.getHitBox().y;
+        int personagemBottomY = this.getY() + this.getHitBox().y + this.getHitBox().height;
+
+		switch(this.getDirecao()) {
+            case "cima":
+                personagemTopY -= this.getVelocidade();
+                break;
+            case "baixo":
+                personagemBottomY += this.getVelocidade();
+                break;
+            case "esquerda":
+                personagemLeftX -= this.getVelocidade();
+                break;
+            case "direita":
+                personagemRightX += this.getVelocidade();
+                break;
+		}
+		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
+		for (Entity entidade : listaEntidades) {
+			Rectangle hitBoxEntidade = new Rectangle(entidade.getX() + entidade.getHitBox().x, entidade.getY() + entidade.getHitBox().y,
+					entidade.getHitBox().width, entidade.getHitBox().height);
+			if (hitBoxFutura.intersects(hitBoxEntidade)) {
+				
+				return entidade;
+			}
+		}
+		return null;
+	}
+	
+	public Inimigo checarColisaoInimigos(ArrayList<Inimigo> listaInimigos) {
+		int personagemLeftX = this.getX() + this.getHitBox().x;
+        int personagemRightX = this.getX() + this.getHitBox().x + this.getHitBox().width;
+        int personagemTopY = this.getY() + this.getHitBox().y;
+        int personagemBottomY = this.getY() + this.getHitBox().y + this.getHitBox().height;
+
+		switch(this.getDirecao()) {
+            case "cima":
+                personagemTopY -= this.getVelocidade();
+                break;
+            case "baixo":
+                personagemBottomY += this.getVelocidade();
+                break;
+            case "esquerda":
+                personagemLeftX -= this.getVelocidade();
+                break;
+            case "direita":
+                personagemRightX += this.getVelocidade();
+                break;
+		}
+		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY,
+				personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
+		for (Inimigo inimigo : listaInimigos) {
+			Rectangle hitBoxInimigo = new Rectangle(inimigo.getX() + inimigo.getHitBox().x, inimigo.getY() + inimigo.getHitBox().y,
+					inimigo.getHitBox().width, inimigo.getHitBox().height);
+			if (hitBoxFutura.intersects(hitBoxInimigo)) {
+				return inimigo;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean checaColisoes() {
+		//checa colisao com blocos
+		boolean naoPodeAndar;
+		naoPodeAndar = checarColisaoMapa();
+		
+		//checa colisao com objetos
+		Entity entidadeColisao = checarColisaoEntidadesNeutras(getEngine().getListaEntidades());
+		if(entidadeColisao == null) {
+			objetoColidido = null;
+		}else {
+			naoPodeAndar = true;
+			objetoColidido = entidadeColisao;
+			if(entidadeColisao.getClass().getName().equals("main.Chave") ||
+					entidadeColisao.getClass().getName().equals("main.Pocao")) {	
+				coletaItem((Item )entidadeColisao);
+			}
+			else if(entidadeColisao.getClass().getName().equals("main.Porta")) {
+				Porta porta = (Porta) entidadeColisao;
+				if(!porta.isTrancado()) {
+					getEngine().passaFase();
+				}
+			}
+		}
+		
+		//checa colisao com inimigos
+		Inimigo inimigo = checarColisaoInimigos(getEngine().getListaInimigos());
+		if (inimigo != null && !getInvencivel()) {
+			String direcaoKnockbackAux = null;
+			switch(getDirecao()) {
+			case "cima": direcaoKnockbackAux = "baixo"; break;
+			case "baixo": direcaoKnockbackAux = "cima"; break;
+			case "esquerda": direcaoKnockbackAux = "direita"; break;
+			case "direita": direcaoKnockbackAux = "esquerda"; break;
+			}
+			setDirecaoKnockback(direcaoKnockbackAux);
+			inimigo.causarDano(this);
+			naoPodeAndar = true;
+		}
+
+		return naoPodeAndar;
 	}
 
 }

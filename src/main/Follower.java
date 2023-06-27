@@ -12,8 +12,8 @@ public abstract class Follower extends Inimigo {
 	
 
 	//Construtor
-	public Follower (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, Rectangle hitBox, ArrayList<Item> listaDrops, int followedX, int followedY) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
+	public Follower (int x, int y, Engine engine, int vida, boolean invencivel, int velocidade, Rectangle hitBox, ArrayList<Item> listaDrops, int followedX, int followedY) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, hitBox);
 		this.followedX = followedX;
 		this.followedY = followedY;
 	}

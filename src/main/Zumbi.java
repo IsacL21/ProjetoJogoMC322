@@ -19,8 +19,8 @@ public class Zumbi extends Inimigo{
 	private static int counter = 0;
 	
 
-	public Zumbi(int x, int y, double vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
+	public Zumbi(int x, int y, int vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, new Rectangle(20, 20, 5, 5));
 		this.xInicial = x;
 		this.yInicial = y;
 	}

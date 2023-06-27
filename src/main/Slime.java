@@ -14,8 +14,8 @@ public class Slime extends Follower {
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public Slime (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
-		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()), listaDrops, x, y);
+	public Slime (int x, int y, Engine engine, int vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
+		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(20, 20, 5, 5), listaDrops, x, y);
 		this.followed = followed;
 	}
 	
@@ -69,4 +69,6 @@ public class Slime extends Follower {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

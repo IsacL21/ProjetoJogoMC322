@@ -16,8 +16,8 @@ public class Morcego extends Follower{
 	private String followedPoint;
 	
 
-	public Morcego(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()), listaDrops, x, y);
+	public Morcego(int x, int y, Engine engine, int vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(20, 20, 5, 5), listaDrops, x, y);
 		this.xInicial = x;
 		this.xFinal = followedX;
 		this.yInicial = y;
@@ -75,7 +75,7 @@ public class Morcego extends Follower{
         }
         spriteNum = (spriteNum + 1) % 20; 
 		
-		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
+		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 		
 	}
 
