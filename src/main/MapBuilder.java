@@ -5,11 +5,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import arquivos.Arquivos;
 
 public class MapBuilder implements Desenhavel{
-
 	
 	//Propriedades
 	private Bloco[] blocos;
@@ -22,7 +20,6 @@ public class MapBuilder implements Desenhavel{
 		this.mapa = mapa;
 		this.gamePanel = gamePanel;
 		carregaImagemBlocos();
-		
 	}
 
 	//Getters e Setters
@@ -41,19 +38,24 @@ public class MapBuilder implements Desenhavel{
 	public void setMapa(int[][] mapa) {
 		this.mapa = mapa;
 	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public void setGamePanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
+	}
 	
 	//Métodos
 	public void carregaImagemBlocos() {
-		
 		blocos[0] = new Bloco(Arquivos.getTextureimages().get(0),true);
 		blocos[1] = new Bloco(Arquivos.getTextureimages().get(1),false);
 		blocos[2] = new Bloco(Arquivos.getTextureimages().get(2),true);
 		blocos[3] = new Bloco(Arquivos.getTextureimages().get(1),true);
-		
 	}
 	
 	public void carregaBlocosMapa() {
-		
 		InputStream file = getClass().getResourceAsStream("/rooms/room1");
 		BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
 		try {

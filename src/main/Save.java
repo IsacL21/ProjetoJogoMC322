@@ -13,14 +13,10 @@ import java.io.FileReader;
 
 public class Save {
 	
-	
 	 public static void salvar(int numero, String nomeArquivo) {
-		 
 		 String caminho = "res/save/";
 		 String adress = caminho + nomeArquivo;
-		 
 	        try {
-	        	
 	        	 FileWriter fileWriter = new FileWriter(adress);
 
 	             // Cria um BufferedWriter a partir do FileWriter
@@ -34,60 +30,55 @@ public class Save {
 
 	             System.out.println("Arquivo gerado com sucesso.");
 	             
-	        } catch (IOException e) {
+	        }
+			catch (IOException e) {
 	            System.out.println("Erro ao escrever o inteiro no arquivo: " + e.getMessage());
 	        }
 	    }
 	 
-	 public static ArrayList<String> listar_saves() {
-		 ArrayList<String> lista_saves = new ArrayList<String>(); 
-		 Path diretorio = Paths.get("res/save");
+	public static ArrayList<String> listar_saves() {
+		ArrayList<String> lista_saves = new ArrayList<String>(); 
+		Path diretorio = Paths.get("res/save");
 
-	        // Verifica se é um diretório válido
-	        if (Files.isDirectory(diretorio)) {
-	        	
-	            // Obtém o diretório e cria um fluxo para iterar sobre os arquivos
-	            try (DirectoryStream<Path> stream = Files.newDirectoryStream(diretorio)) {
+	    // Verifica se é um diretório válido
+	    if (Files.isDirectory(diretorio)) {
+	        // Obtém o diretório e cria um fluxo para iterar sobre os arquivos
+	        try (DirectoryStream<Path> stream = Files.newDirectoryStream(diretorio)) {
 	            	
 	                // Itera sobre os arquivos no diretório
-	            	
-	                for (Path arquivo : stream) {
+	            for (Path arquivo : stream) {
 	                	
-	                    if (Files.isRegularFile(arquivo)) {
+	                if (Files.isRegularFile(arquivo)) {
 	                    	
-	                        // Obtém o nome do arquivo
-	                        String nomeArquivo = arquivo.getFileName().toString();
-	                        lista_saves.add(nomeArquivo);
-	                    }
+	                    // Obtém o nome do arquivo
+	                    String nomeArquivo = arquivo.getFileName().toString();
+	                    lista_saves.add(nomeArquivo);
 	                }
-	            } catch (IOException e) {
-	                e.printStackTrace();
 	            }
 	        }
-	        return lista_saves;
+			catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return lista_saves;
 	 }
 	 
 	 public static int define_mapa(boolean new_game, String nome) {
 		 // Seleciona o mapa a ser renderizado, com base no fato de ser um novo jogo ou não ou no save dado como parâmetro
-		 
 		 int mapa = 0;
 		 if (new_game == true) {
 			 return mapa;
 		 }
 		 else {
-			 String caminho = "res/save/" + nome;
-			 
-			 try (BufferedReader reader = new BufferedReader(new FileReader(caminho))) {
-				 
-		            String linha = reader.readLine();
-		            
-		            mapa = Integer.parseInt(linha);
-		            
-		           
-		        } catch (IOException e) {
+			String caminho = "res/save/" + nome;
+			try (BufferedReader reader = new BufferedReader(new FileReader(caminho))) {
+		        String linha = reader.readLine();		            
+		        mapa = Integer.parseInt(linha);	             
+		        }
+				catch (IOException e) {
 		            e.printStackTrace();
 		        }
-			 return mapa;
+			return mapa;
 		 }
 	 }
 }

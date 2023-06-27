@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Inimigo extends Personagem{
 
-	//Propriedades
+	//Propriedade
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();
 	
 	//Construtor
@@ -24,7 +24,6 @@ public abstract class Inimigo extends Personagem{
 	}
 
 	//Métodos
-	
 	@Override
 	public void causarDano(Personagem personagem) {
 		personagem.levarDano(1);
@@ -36,14 +35,11 @@ public abstract class Inimigo extends Personagem{
 		
 	}
 	
-	
-	
 	public boolean checarColisaoPlayer(Player player) {
 		int personagemLeftX = this.getX() + this.getHitBox().x;
         int personagemRightX = this.getX() + this.getHitBox().x + this.getHitBox().width;
         int personagemTopY = this.getY() + this.getHitBox().y;
         int personagemBottomY = this.getY() + this.getHitBox().y + this.getHitBox().height;
-
 		switch(this.getDirecao()) {
             case "cima":
                 personagemTopY -= this.getVelocidade();
@@ -60,10 +56,10 @@ public abstract class Inimigo extends Personagem{
 		}
 		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
 		Rectangle hitBoxPlayer = new Rectangle(player.getX() + player.getHitBox().x, player.getY() + player.getHitBox().y,
-				player.getHitBox().width, player.getHitBox().height);
-			if (hitBoxFutura.intersects(hitBoxPlayer)) {
-				return true;
-			}
+		player.getHitBox().width, player.getHitBox().height);
+		if (hitBoxFutura.intersects(hitBoxPlayer)) {
+			return true;
+		}
 		return false;
 	}
 
@@ -79,7 +75,6 @@ public abstract class Inimigo extends Personagem{
 			player.setDirecaoKnockback(getDirecao());
 			naoPodeAndar = true;
 		}
-		
 		return naoPodeAndar;
 	}
 }

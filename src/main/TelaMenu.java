@@ -13,10 +13,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
-
 import arquivos.Arquivos;
 import arquivos.ExcecaoMapaInvalido;
-
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -221,9 +219,6 @@ public class TelaMenu extends JFrame
         			.addComponent(painelBotoesSaves, GroupLayout.PREFERRED_SIZE, 431, GroupLayout.PREFERRED_SIZE)
         			.addContainerGap(53, Short.MAX_VALUE))
         );
-        
-
-
         
         //Lista de saves
         JPanel painelSaves = new JPanel();
