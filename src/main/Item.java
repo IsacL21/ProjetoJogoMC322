@@ -14,7 +14,6 @@ public abstract class Item extends Entity{
 
 		this.consumivel = true;
 		this.nome = nome;
-		// TODO Auto-generated constructor stub
 	}
 
 	//Getters e Setters

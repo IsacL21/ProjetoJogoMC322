@@ -16,7 +16,6 @@ public class Zumbi extends Inimigo{
 	private int xInicial;
 	private int yInicial;
 	private int contMov1 = 0;
-	private static int counter = 0;
 	
 
 	public Zumbi(int x, int y, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
@@ -112,6 +111,5 @@ public class Zumbi extends Inimigo{
 
 	@Override
 	public void morrer() {
-		// TODO Auto-generated method stub
 	}
 }

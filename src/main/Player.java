@@ -22,12 +22,8 @@ public class Player extends Personagem{
 	private int framesAnimacaoAtaque = 16; 
 	private boolean atacando = false;
 	private boolean andando = false;
-<<<<<<< HEAD
-	private Engine engine;
-	
 
-=======
->>>>>>> 1385df2d1c80458c5093b803b689db30ffc925d0
+
 	private Inventario inventario;
 	BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
 	private Entity objetoColidido = null;
@@ -38,17 +34,10 @@ public class Player extends Personagem{
 
 	
 	//Construtor
-<<<<<<< HEAD
-	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, GamePanel gamePanel,
-			KeyboardInput keyInput, Engine engine) {
-		super(0, 0, gamePanel, vida, invencivel, velocidade, new Rectangle(50, 86, 28, 25));
-=======
 	public Player(int vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
 		super(100, 100, engine, vida, invencivel, velocidade,new Rectangle(50, 86, 28, 25));
->>>>>>> 1385df2d1c80458c5093b803b689db30ffc925d0
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
-		this.engine = engine;
 	}
 
 	//Getters e Setters
@@ -71,42 +60,6 @@ public class Player extends Personagem{
 					setContadorFrames(0);
 			}
 			
-<<<<<<< HEAD
-			////////Tem que ter um if aqui pra ver se teve colisao e com qual objeto bau ele colidiu. Feito isso, chama esse metodo
-			abrirBau(bausAlcance.get(0));
-			
-			///A mesma coisa aqui
-			abrirPorta(porta);
-		}
-		
-		else if (atacando && (contadorFrames % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
-			atacando = false;
-		}
-		
-		else if (!atacando && (keyInput.isUpPressed() || keyInput.isDownPressed() || keyInput.isLeftPressed() || keyInput.isRightPressed())) {
-			andando = true;
-			if(keyInput.isUpPressed()) {
-				setDirecao("cima");
-			}
-			else if(keyInput.isDownPressed()) {
-				setDirecao("baixo");
-			}
-			else if(keyInput.isLeftPressed()) {
-				setDirecao("esquerda");
-			}
-			else if(keyInput.isRightPressed()) {
-				setDirecao("direita");
-			}
-
-			setColidindo(false);
-			engine.getColisaoChecker().checkColisao(this);
-			if (getColidindo() == false) {
-				switch(getDirecao()) {
-					case "cima": moveCima(); break;
-					case "baixo": moveBaixo(); break;
-					case "esquerda": moveEsquerda(); break;
-					case "direita": moveDireita(); break;
-=======
 			else if(keyInput.isCPressed()) {
 				keyInput.resetaValores();
 				
@@ -118,7 +71,6 @@ public class Player extends Personagem{
 						inventario.removeItem(i);
 						break;
 					}
->>>>>>> 1385df2d1c80458c5093b803b689db30ffc925d0
 				}
 			}
 			
@@ -317,17 +269,7 @@ public class Player extends Personagem{
 		}}
 	}
 	
-<<<<<<< HEAD
-	@Override
-	public void causarDano(Personagem inimigo) {
-		// TODO Auto-generated method stub
-		
-		/////////////////////Vejam como vao calcular o que o player ir fazer nos mobs ja que ele tem espada e etc
-		int dano = 0;
-		inimigo.levarDano(dano);
-=======
 	public boolean procuraChave(){
->>>>>>> 1385df2d1c80458c5093b803b689db30ffc925d0
 		
 		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
 			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
@@ -337,35 +279,10 @@ public class Player extends Personagem{
 		return false;
 	}
 
-<<<<<<< HEAD
-	@Override
-	public boolean levarDano(int danoRecebido) {
-		// TODO Auto-generated method stub
-		
-		////////////////////////A funcao levar dano retorna true quando o personagem morre
-		///////////////////////Usem isso para apagar o personagem da lista de personagens
-		
-		///////////////////////O player fecha o jogo ao morrer
-		setVida(getVida()-danoRecebido);
-		
-		if(getVida() <= 0) {
-			return true;
-		}
-		
-		return false;
-		
-	}
-
-	@Override
-	public void morrer() {
-		// TODO Auto-generated method stub
-		
-=======
 	
 
 	@Override
 	public void morrer() {
->>>>>>> 1385df2d1c80458c5093b803b689db30ffc925d0
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
 		getEngine().retornaFase();
 	}

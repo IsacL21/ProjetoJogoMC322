@@ -84,7 +84,6 @@ public class Morcego extends Follower{
 
 	@Override
 	public void morrer() {
-		// TODO Auto-generated method stub
 		
 	}
 	

@@ -2,12 +2,8 @@ package main;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-
 import javax.swing.JFrame;
-
 import arquivos.Arquivos;
-import arquivos.ExcecaoMapaInvalido;
 
 public class Main {
 

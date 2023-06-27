@@ -1,9 +1,6 @@
 package main;
 
 import java.awt.Graphics2D;
-
-import java.util.ArrayList;
-
 import java.awt.Rectangle;
 
 public abstract class Personagem extends Entity implements Atualizavel{
