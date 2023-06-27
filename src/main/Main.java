@@ -7,15 +7,13 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import arquivos.Arquivos;
+import arquivos.ExcecaoMapaInvalido;
 
 public class Main {
 
-	public static void main(boolean b, String nome) {
+	public static void main(boolean b, String nome, Arquivos arquivosResource) {
 		
-		//inicia e tenta carregar arquivos
-		Arquivos arquivosObjeto = new Arquivos();
-		try {
-			arquivosObjeto.loadFiles();
+		
 		
 		//inicia a janela
 		JFrame window = new JFrame();
@@ -52,9 +50,7 @@ public class Main {
             }
         });
 		
-		}catch (IOException e) {
-			System.out.println("Erro ao carregar as imagens!");
-		}
+		
 	
 	}
 

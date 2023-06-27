@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 import arquivos.Arquivos;
 
-public class MapBuilder {
+public class MapBuilder implements Desenhavel{
 	
 	//Propriedades
 	private Bloco[] blocos;
