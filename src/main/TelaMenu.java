@@ -37,6 +37,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
+
+import arquivos.Arquivos;
+import arquivos.ExcecaoMapaInvalido;
+
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,15 +60,27 @@ import javax.swing.BoxLayout;
 public class TelaMenu extends JFrame
 {
     private static final long serialVersionUID = 1L;
+    private static final Arquivos arquivosResource = new Arquivos();
     private JPanel contentPane;
     private int windowWidthSize = 768;
     private int windowHeightSize = 576;
     private JTextField SaveName;
     
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
+    	//tenta carregar arquivos
+		try {
+			arquivosResource.loadFiles();
+		}catch (IOException e) {
+			e.printStackTrace();
+			System.exit(EXIT_ON_CLOSE);
+		}catch (ExcecaoMapaInvalido e) {
+			e.printStackTrace();
+			System.exit(EXIT_ON_CLOSE);
+		}
+    	
+		EventQueue.invokeLater(new Runnable() {
+        	public void run() { 
+        		try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 }
                 catch (ClassNotFoundException e) {
@@ -255,7 +271,7 @@ public class TelaMenu extends JFrame
                     frame.dispose();
                     
                     // Iniciar o jogo
-                    Main.main(false, nome);
+                    Main.main(false, nome, arquivosResource);
                     
                 }
             });
@@ -328,7 +344,7 @@ public class TelaMenu extends JFrame
                     frame.dispose();
                     
                     // Iniciar o jogo
-                    Main.main(true, SaveName.getText());
+                    Main.main(true, SaveName.getText(), arquivosResource);
                 	
                 }
             }

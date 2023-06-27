@@ -15,14 +15,13 @@ public class Morcego extends Follower{
 	private int spriteNum;
 	private String followedPoint;
 	
-	public Morcego(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, followedX, followedY);
-		
+
+	public Morcego(int x, int y, Engine engine, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, engine, 3, invencivel, velocidade, new Rectangle(8, 8, 32, 32), listaDrops, x, y);
 		this.xInicial = x;
 		this.xFinal = followedX;
 		this.yInicial = y;
 		this.yFinal = followedY;
-		
 		followedPoint = "inicial";
 	}
 
@@ -38,16 +37,18 @@ public class Morcego extends Follower{
 	}
 	
 	public void update() {
-		if (this.followInX() == 0)
-			if (this.followInY() == 0)
-				switchFollowedPoint();
+		super.update();
+		if (!isSofrendoKnockback()) {
+			if (this.followInX() == 0)
+				if (this.followInY() == 0)
+					switchFollowedPoint();
+		}
 	}
 	
 	public void draw(Graphics2D tela) {
 		
 		BufferedImage image = Arquivos.getMorcegoimages().get(0);
 		
-		// System.out.print("drawing morcego");
 
 		switch (getDirecao()) {
 		case "cima":
@@ -77,7 +78,7 @@ public class Morcego extends Follower{
         }
         spriteNum = (spriteNum + 1) % 20; 
 		
-		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
+		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 		
 	}
 

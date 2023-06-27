@@ -14,8 +14,8 @@ public class Slime extends Follower {
 	private BufferedImage image = Arquivos.getSlimeimages().get(0);
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
-	public Slime (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, x, y);
+	public Slime (int x, int y, Engine engine, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
+		super(x, y, engine, 3, invencivel, velocidade, new Rectangle(8, 8, 32, 32), listaDrops, x, y);
 		this.followed = followed;
 	}
 	
@@ -24,12 +24,14 @@ public class Slime extends Follower {
 	}
 	
 	public void update() {
-		if (getDirecao() == "direita" || getDirecao() == "esquerda")
-			direcaoOlhar = getDirecao();
-		
-		updateFollowedPosition();
-		this.longestFollow();
-		
+		super.update();
+		if (!isSofrendoKnockback()) {
+			if (getDirecao() == "direita" || getDirecao() == "esquerda")
+				direcaoOlhar = getDirecao();
+			
+			updateFollowedPosition();
+			this.longestFollow();
+		}
 	}
 	
 	public void draw(Graphics2D tela) {	
@@ -62,25 +64,13 @@ public class Slime extends Follower {
 
 	}
 
-	@Override
-	public boolean levarDano(int danoRecebido) {
-		
-		////////////////////////A funcao levar dano retorna true quando o personagem morre
-		///////////////////////Usem isso para apagar o personagem da lista de personagens
-		
-		setVida(getVida()-danoRecebido);
-		
-		if(getVida() <= 0) {
-			return true;
-		}
-		
-		return false;
-		
-	}
+
 
 	@Override
 	public void morrer() {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

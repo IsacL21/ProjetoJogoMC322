@@ -1,9 +1,7 @@
 package main;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
-import arquivos.Arquivos;
 public abstract class Item extends Entity{
 
 	//Propriedades
@@ -11,9 +9,10 @@ public abstract class Item extends Entity{
 	private String nome;
 	
 	//Construtor
-	public Item(int x, int y, boolean colisivel, GamePanel gamePanel, boolean consumivel, String nome) {
-		super(x, y, colisivel, gamePanel);
-		this.consumivel = colisivel;
+	public Item(int x, int y, boolean colisivel, Engine engine, String nome) {
+		super(x, y, colisivel, engine, new Rectangle(0, 0, engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
+
+		this.consumivel = true;
 		this.nome = nome;
 		// TODO Auto-generated constructor stub
 	}

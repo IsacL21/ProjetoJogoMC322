@@ -18,65 +18,47 @@ public class Zumbi extends Inimigo{
 	private int contMov1 = 0;
 	private static int counter = 0;
 	
-	public Zumbi(int x, int y, double vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops);
+
+	public Zumbi(int x, int y, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
+		super(x, y, engine, 3, invencivel, velocidade, listaDrops, new Rectangle(8, 8, 32, 32));
 		this.xInicial = x;
 		this.yInicial = y;
 	}
 	
 	public void update() {
-		
-		if(contMov1 == 59) {
-			numero = 0;
-			
-		}else if(contMov1 >= 20) {
-			
-			if(numero == 0) {
-				Random aleatorio = new Random();
-				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
+		super.update();
+		if (!isSofrendoKnockback()) {
+			if(contMov1 == 59) {
+				numero = 0;
 				
-			}else if(numero == 1 && (getY()-yInicial)<120) {
-				moveBaixo();
-				setDirecao("baixo");
-
-			}else if(numero == 2 && (getY()-yInicial)>-120) {
-				moveCima();
-				setDirecao("cima");
-			}else if(numero == 3 && (getX()-xInicial)>-120) {
-				moveEsquerda();
-				setDirecao ("esquerda");
-			}else if((getX()-xInicial)<120){
-				moveDireita();
-				setDirecao("direita");
+			}else if(contMov1 >= 20) {
+				
+				if(numero == 0) {
+					Random aleatorio = new Random();
+					numero = 1 + aleatorio.nextInt((4 - 1) + 1);
+				}else {
+					
+					if(numero == 1 && (getY()-yInicial)<120) {
+							moveBaixo();
+							setDirecao("baixo");
+					
+					}else if(numero == 2 && (getY()-yInicial)>-120) {
+						moveCima();
+						setDirecao("cima");
+					
+					}else if(numero == 3 && (getX()-xInicial)>-120) {
+						moveEsquerda();
+						setDirecao("esquerda");
+					
+					}else if((getX()-xInicial)<120){
+						moveDireita();
+						setDirecao("direita");
+					}
+				}
 			}
+			
+			contMov1 = (contMov1 + 1) % 60; 
 		}
-		contMov1 = (contMov1 + 1) % 60; 
-	}
-
-	@Override
-	public void causarDano(Personagem player) {
-		// TODO Auto-generated method stub
-		
-		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
-		int dano = 0;
-		player.levarDano(dano);
-		
-	}
-
-	@Override
-	public boolean levarDano(int danoRecebido) {
-		// TODO Auto-generated method stub
-		
-		////////////////////////A funcao levar dano retorna true quando o personagem morre
-		///////////////////////Usem isso para apagar o personagem da lista de personagens
-		
-		setVida(getVida()-danoRecebido);
-		
-		if(getVida() <= 0) {
-			return true;
-		}
-		
-		return false;
 	}
 	
 	public void draw(Graphics2D tela) {

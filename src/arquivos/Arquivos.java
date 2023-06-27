@@ -11,7 +11,8 @@ import main.Mapa;
 import main.Mapas;
 
 public class Arquivos {
-
+	private final static int maiorIndiceTile = 3;
+	
 	private final static ArrayList<BufferedImage> slimeImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> morcegoImages = new ArrayList<BufferedImage>();
 	private final static ArrayList<BufferedImage> zumbiImages = new ArrayList<BufferedImage>();
@@ -36,7 +37,8 @@ public class Arquivos {
 	
 	
 	
-	public void loadFiles() throws IOException{
+	public void loadFiles() throws IOException, ExcecaoMapaInvalido{
+
 			
 			PlayerImages.upWalk.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/Up1.png")));
 			PlayerImages.upWalk.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/Up2.png")));
@@ -191,19 +193,22 @@ public class Arquivos {
 		return inputEntidadesMapas;
 	}
 
-	public void carregaBlocosMapa() {
+
+	public void carregaBlocosMapa() throws ExcecaoMapaInvalido, IOException {
 		
 		for (int k = 0; k < Mapas.values().length; k++) {
-			System.out.println("Here");
-			System.out.println(Mapas.values()[k].getAdress());
 			InputStream file = getClass().getResourceAsStream(Mapas.values()[k].getAdress());
 			BufferedReader entrada = new BufferedReader(new InputStreamReader(file));
 			String[] linhaAux;
-			try {
+
 				for (int i=0; i < Mapa.QTDE_BLOCOS_VERTICAL.getPosicao(); i++) {
 					 linhaAux = entrada.readLine().split(" ");
 					for (int j=0; j < Mapa.QTDE_BLOCOS_HORIZONTAL.getPosicao(); j++) {
-						vetorMapa[k][i][j] = Integer.parseInt(linhaAux[j]);
+						if ((vetorMapa[k][i][j] = Integer.parseInt(linhaAux[j])) > maiorIndiceTile) {
+							entrada.close();
+							throw new ExcecaoMapaInvalido();
+						}
+
 					}
 				}
 				
@@ -215,7 +220,7 @@ public class Arquivos {
 				int qtdMobs = Integer.parseInt(entrada.readLine());
 				
 					for (int i = 0; i < qtdMobs; i++) {
-						System.out.println(i);
+
 						linhaAux = entrada.readLine().split(" ");
 						if (Integer.parseInt(linhaAux[0]) == 1) 
 							inputEntidadesMapas.get(k).addZumbi(Integer.parseInt(linhaAux[1]), Integer.parseInt(linhaAux[2]));
@@ -237,11 +242,7 @@ public class Arquivos {
 						}
 						
 					}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-	
-			}
+
 				
 		}
 

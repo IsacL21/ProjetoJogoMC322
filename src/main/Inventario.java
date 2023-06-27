@@ -21,9 +21,10 @@ public class Inventario {
 		listaItens.add(item);
 		return true;
 	}
-	
-	public boolean removeItem() {
+
+	public boolean removeItem(int indice) {
 		
+		listaItens.remove(indice);
 		return true;
 	}
 	
