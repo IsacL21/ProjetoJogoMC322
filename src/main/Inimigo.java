@@ -30,6 +30,12 @@ public abstract class Inimigo extends Personagem{
 		personagem.levarDano(1);
 	}
 	
+	@Override
+	public void morrer() {
+		getEngine().getListaInimigos().remove(this);
+		
+	}
+	
 	
 	
 	public boolean checarColisaoPlayer(Player player) {

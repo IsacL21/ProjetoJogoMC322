@@ -53,19 +53,4 @@ public class Slime extends Follower {
 		 spriteNum = (spriteNum + 1) % 20;
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
-
-	@Override
-	public void causarDano(Personagem player) {
-		int dano = 0;
-		player.levarDano(dano);
-
-	}
-
-
-
-	@Override
-	public void morrer() {		
-	}
-
-	
 }

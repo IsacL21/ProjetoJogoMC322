@@ -5,7 +5,19 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import arquivos.Arquivos;
 
+
+
 public class Main {
+	
+	private static int mapa_atual = 0;
+
+	public static int getMapa_atual() {
+		return mapa_atual;
+	}
+
+	public static void setMapa_atual(int mapa_atual) {
+		Main.mapa_atual = mapa_atual;
+	}
 
 	public static void main(boolean b, String nome, Arquivos arquivosResource) {
 		
@@ -17,9 +29,9 @@ public class Main {
 		window.setTitle("Jogo 2D");
 		window.setLocationRelativeTo(null);
 		
-		int mapa_atual = Save.define_mapa(b, nome);
+		mapa_atual = Save.define_mapa(b, nome);
 		//cria engine
-		Engine engine = new Engine(mapa_atual);
+		Engine engine = new Engine();
 		
 		//adiciona e ajusta a janela ao gamepanel
 		

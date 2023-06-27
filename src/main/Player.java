@@ -244,8 +244,10 @@ public class Player extends Personagem{
 		
 		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
 			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
+				inventario.getListaItens().remove(i);
 				return true;
 			}
+			
 		}
 		return false;
 	}

@@ -19,7 +19,6 @@ public class Engine implements Runnable{
 	private Player player;
 	private MapBuilder mapBuilder;
 	private int estadoJogo = 0; //utilizado para congelar jogo em menus, estado normal = 0
-	private int mapa_atual;
 
 	
 	private ArrayList<Inimigo> listaInimigos;
@@ -29,18 +28,17 @@ public class Engine implements Runnable{
 	private final static double updateInterval = 1000/fps;
 	
 	//Construtor
-	public Engine(int mapa_atual) {
+	public Engine() {
 		keyInput = new KeyboardInput();
 		gamePanel = new GamePanel(this);
 		player = new Player(6, false, 3, 5, this, keyInput);		
-		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
-		this.mapa_atual = mapa_atual;
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(Main.getMapa_atual()), gamePanel);
 		
 
 		listaInimigos = new ArrayList<Inimigo> ();
 		listaEntidades = new ArrayList<Entity> ();
 		
-		carregaMobs(mapa_atual);
+		carregaMobs(Main.getMapa_atual());
 
 	}
 	
@@ -96,7 +94,7 @@ public class Engine implements Runnable{
 				if (i.getTipoItem().equals("chave"))
 					tempItem = new Chave(-100, -100, this);
 				if (i.getTipoItem().equals("pocao"))
-					tempItem = new Chave(-100, -100, this);
+					tempItem = new Pocao(-100, -100, this);
 				listaEntidades.add(new Bau(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(),this, true, tempItem));
 		}
 			player.setX(Arquivos.getInputEntidadesMapas().get(mapa_atual).getXBlocoInicialPlayer() * gamePanel.getTamanhoBloco());
@@ -123,10 +121,10 @@ public class Engine implements Runnable{
 	
 	public void passaFase() {
 		
-		mapa_atual++;
-		if(mapa_atual <= 2) {
-			mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
-			carregaMobs(mapa_atual);
+		Main.setMapa_atual(Main.getMapa_atual()+1);;
+		if(Main.getMapa_atual() <= 2) {
+			mapBuilder = new MapBuilder(Arquivos.getVetorMapa(Main.getMapa_atual()), gamePanel);
+			carregaMobs(Main.getMapa_atual());
 		}else {
 			JOptionPane.showMessageDialog(null, "Voce chegou na ultima fase!", "Zerou", JOptionPane.INFORMATION_MESSAGE); 
 		}
@@ -135,8 +133,8 @@ public class Engine implements Runnable{
 	
 	public void retornaFase() {
 		
-		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
-		carregaMobs(mapa_atual);
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(Main.getMapa_atual()), gamePanel);
+		carregaMobs(Main.getMapa_atual());
 		player.setVida(6);
 		keyInput.resetaValores();
 

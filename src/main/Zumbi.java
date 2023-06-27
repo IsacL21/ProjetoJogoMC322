@@ -108,8 +108,4 @@ public class Zumbi extends Inimigo{
 	public void setPosicaoY(int yInicial) {
 		this.yInicial = yInicial;
 	}
-
-	@Override
-	public void morrer() {
-	}
 }
