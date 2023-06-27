@@ -30,6 +30,8 @@ public abstract class Inimigo extends Personagem{
 		personagem.levarDano(1);
 	}
 	
+	
+	
 	public boolean checarColisaoPlayer(Player player) {
 		int personagemLeftX = this.getX() + this.getHitBox().x;
         int personagemRightX = this.getX() + this.getHitBox().x + this.getHitBox().width;

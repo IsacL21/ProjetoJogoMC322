@@ -16,8 +16,8 @@ public class Morcego extends Follower{
 	private String followedPoint;
 	
 
-	public Morcego(int x, int y, Engine engine, int vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
-		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(20, 20, 5, 5), listaDrops, x, y);
+	public Morcego(int x, int y, Engine engine, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY, Entity followed) {
+		super(x, y, engine, 3, invencivel, velocidade, new Rectangle(8, 8, 32, 32), listaDrops, x, y);
 		this.xInicial = x;
 		this.xFinal = followedX;
 		this.yInicial = y;
@@ -37,9 +37,12 @@ public class Morcego extends Follower{
 	}
 	
 	public void update() {
-		if (this.followInX() == 0)
-			if (this.followInY() == 0)
-				switchFollowedPoint();
+		super.update();
+		if (!isSofrendoKnockback()) {
+			if (this.followInX() == 0)
+				if (this.followInY() == 0)
+					switchFollowedPoint();
+		}
 	}
 	
 	public void draw(Graphics2D tela) {

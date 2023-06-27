@@ -10,11 +10,16 @@ import javax.swing.JOptionPane;
 import arquivos.Arquivos;
 
 public class Player extends Personagem{
-
 	//Propriedades
+	private final Rectangle hitBoxAtaqueCima = new Rectangle(30,54,60,30);
+	private final Rectangle hitBoxAtaqueBaixo = new Rectangle(42,96,60,30);
+	private final Rectangle hitBoxAtaqueEsquerda = new Rectangle(12,84,51,36);
+	private final Rectangle hitBoxAtaqueDireita = new Rectangle(63,84,51,36);
+	
+	
 	private KeyboardInput keyInput;
 	private int framesAnimacaoAndar = 30; 
-	private int framesAnimacaoAtaque = 30; 
+	private int framesAnimacaoAtaque = 16; 
 	private boolean atacando = false;
 	private boolean andando = false;
 	private Inventario inventario;
@@ -48,6 +53,7 @@ public class Player extends Personagem{
 		if (!isSofrendoKnockback()) {
 			if (keyInput.isZPressed() && !atacando) {
 					atacando = true;
+					aplicaAtaque(getEngine().getListaInimigos());
 					andando = false;
 					setContadorFrames(0);
 			}
@@ -70,7 +76,12 @@ public class Player extends Personagem{
 				/*Informacoes para quando tiver a colisao
 				 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
 				
-				getEngine().passaFase();
+				
+				////////Tem que ter um if aqui pra ver se teve colisao e com qual objeto bau ele colidiu. Feito isso, chama esse metodo
+				abrirBau(bausAlcance.get(0));
+				
+				///A mesma coisa aqui
+				abrirPorta(porta);
 				
 				keyInput.resetaValores();
 				
@@ -141,29 +152,29 @@ public class Player extends Personagem{
 	BufferedImage getImagemAtaque() {
 		switch (getDirecao()) {
 		case "baixo":
-			return Arquivos.getPlayerDownattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+			return Arquivos.getPlayerDownattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size())));
 		case "cima":
-			return Arquivos.getPlayerUpattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerUpattack().size()-1)));
+			return Arquivos.getPlayerUpattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerUpattack().size())));
 		case "direita":
-			return Arquivos.getPlayerRightattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerRightattack().size()-1)));
+			return Arquivos.getPlayerRightattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerRightattack().size())));
 		case "esquerda":
-			return Arquivos.getPlayerLeftattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerLeftattack().size()-1)));
+			return Arquivos.getPlayerLeftattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerLeftattack().size())));
 		}
-		return Arquivos.getPlayerDownattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size()-1)));
+		return Arquivos.getPlayerDownattack().get((getContadorFrames() % framesAnimacaoAtaque)/(framesAnimacaoAtaque/(Arquivos.getPlayerDownattack().size())));
 	}
 	
 	BufferedImage getImagemAndar() {
 		switch (getDirecao()) {
 		case "baixo":
-			return Arquivos.getPlayerDownwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+			return Arquivos.getPlayerDownwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size())));
 		case "cima":
-			return Arquivos.getPlayerUpwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerUpwalk().size()-1)));
+			return Arquivos.getPlayerUpwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerUpwalk().size())));
 		case "direita":
-			return Arquivos.getPlayerRightwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerRightwalk().size()-1)));
+			return Arquivos.getPlayerRightwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerRightwalk().size())));
 		case "esquerda":
-			return Arquivos.getPlayerLeftwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerLeftwalk().size()-1)));
+			return Arquivos.getPlayerLeftwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerLeftwalk().size())));
 		}
-		return Arquivos.getPlayerDownwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size()-1)));
+		return Arquivos.getPlayerDownwalk().get((getContadorFrames() % framesAnimacaoAndar)/(framesAnimacaoAndar/(Arquivos.getPlayerDownwalk().size())));
 	}
 	
 	BufferedImage getImagemParado() {
@@ -272,7 +283,6 @@ public class Player extends Personagem{
 	public void morrer() {
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
 		getEngine().retornaFase();
-		setVida(6);
 	}
 
 	@Override
@@ -387,4 +397,34 @@ public class Player extends Personagem{
 		return naoPodeAndar;
 	}
 
+	public ArrayList<Inimigo> getInimigosInAttackRange(Rectangle hitBoxAtaque, ArrayList<Inimigo> listaInimigos){
+		ArrayList<Inimigo> returnList = new ArrayList<Inimigo>();
+		Rectangle hitBoxAtaqueReal = new Rectangle(getX() + hitBoxAtaque.x, getY() + hitBoxAtaque.y,hitBoxAtaque.width, hitBoxAtaque.height);
+		for (Inimigo inimigo : listaInimigos) {
+			Rectangle hitBoxInimigo = new Rectangle(inimigo.getX() + inimigo.getHitBox().x, inimigo.getY() + inimigo.getHitBox().y,
+					inimigo.getHitBox().width, inimigo.getHitBox().height);
+			if (hitBoxAtaqueReal.intersects(hitBoxInimigo)) {
+				returnList.add(inimigo);
+			}
+		}
+		return returnList;
+	}
+	
+	public void aplicaAtaque(ArrayList<Inimigo> listaInimigos) {
+		Rectangle hitBoxAtaque = hitBoxAtaqueBaixo; // so pra iniciar
+		switch(getDirecao()) {
+		case "cima": hitBoxAtaque = hitBoxAtaqueCima; break;
+		case "baixo": hitBoxAtaque = hitBoxAtaqueBaixo; break;
+		case "esquerda": hitBoxAtaque = hitBoxAtaqueEsquerda; break;
+		case "direita": hitBoxAtaque = hitBoxAtaqueDireita; break;
+		}
+		for(Inimigo i : getInimigosInAttackRange(hitBoxAtaque, getEngine().getListaInimigos())) {
+			//if(!i.getInvencivel()) {
+				causarDano(i);
+				i.setDirecaoKnockback(getDirecao());
+			//}
+
+				
+		}
+	}
 }

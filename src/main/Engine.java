@@ -80,11 +80,11 @@ public class Engine implements Runnable{
 		listaEntidades.clear();
 		listaInimigos.clear();
 		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaZumbis())
-				listaInimigos.add(new Zumbi(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), 100, false, 3, this, new ArrayList<Item>()));
+				listaInimigos.add(new Zumbi(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), false, 3, this, new ArrayList<Item>()));
 		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaSlimes())
-			listaInimigos.add(new Slime(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), player));
+			listaInimigos.add(new Slime(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), this, false, 2, new ArrayList<Item>(), player));
 		for(ArquivoMorcego i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaMorcegos())
-			listaInimigos.add(new Morcego(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), this, 100, false, 2, new ArrayList<Item>(), i.getPosicaoXFinalBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYFinalBloco() * gamePanel.getTamanhoBloco(), player));
+			listaInimigos.add(new Morcego(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), this, false, 2, new ArrayList<Item>(), i.getPosicaoXFinalBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYFinalBloco() * gamePanel.getTamanhoBloco(), player));
 		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaPortas())
 			listaEntidades.add(new Porta(i.getPosicaoXBloco() * gamePanel.getTamanhoBloco(), i.getPosicaoYBloco() * gamePanel.getTamanhoBloco(), true, this, true));
 		for(ArquivoEntidade i: Arquivos.getInputEntidadesMapas().get(mapa_atual).getListaPocoes())
@@ -111,15 +111,15 @@ public class Engine implements Runnable{
 	}
 	
 	public void atualizaJogo() {
-		if (estadoJogo == 0) { //updates do modo normal
-		for (Personagem i : listaInimigos)
-			i.update();
-		player.update();
-		}
-		else if (estadoJogo == 1) { //modo de menu
-			
-			}
-	}
+        if (estadoJogo == 0) { //updates do modo normal
+        for(int i = 0; i<listaInimigos.size(); i++) {
+            listaInimigos.get(i).update();
+        }
+        player.update();
+        }else if (estadoJogo == 1) { //modo de menu
+
+        }
+    }
 	
 	public void passaFase() {
 		
@@ -137,6 +137,8 @@ public class Engine implements Runnable{
 		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 		carregaMobs(mapa_atual);
+		player.setVida(6);
+		keyInput.resetaValores();
 
 	}
 	@Override

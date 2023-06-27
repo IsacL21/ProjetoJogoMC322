@@ -72,8 +72,4 @@ public abstract class Follower extends Inimigo {
 
 	}
 
-	@Override
-	public void update() {
-
-	}
 }

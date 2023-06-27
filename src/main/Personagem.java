@@ -15,6 +15,7 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	private boolean sofrendoKnockback = false;
 	private String direcao = "baixo";
 	private String direcaoKnockback = null;
+	private String direcaoAntesKnockback;
 	private int contadorFrames = 0;
 
 	
@@ -181,23 +182,28 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	public abstract boolean checaColisoes();
 	
 	public void update() {
-		contadorFrames = contadorFrames + 1 % 60; 
+		contadorFrames = (contadorFrames + 1) % 60; 
 		if (direcaoKnockback != null) {
-			direcao = direcaoKnockback;
 			if (!sofrendoKnockback) {
+				direcaoAntesKnockback = direcao;
+				direcao = direcaoKnockback;
 				contadorFrames = 0;
 				sofrendoKnockback = true;
+				velocidade *= 2;
 			}
 			switch(direcao) {
-			case "cima": moveCima(); break;
-			case "baixo": moveBaixo(); break;
-			case "esquerda": moveEsquerda(); break;
-			case "direita": moveDireita(); break;
+			case "cima": moveCima();System.out.println("Tentando mover"); break;
+			case "baixo": moveBaixo();System.out.println("Tentando mover"); break;
+			case "esquerda": moveEsquerda();System.out.println("Tentando mover"); break;
+			case "direita": moveDireita();System.out.println("Tentando mover"); break;
 			}
-			if (contadorFrames == 20) {
+			
+			if (contadorFrames == 10) {
+				velocidade /= 2;
 				sofrendoKnockback = false;
 				invencivel = false;
 				direcaoKnockback = null;
+				direcao = direcaoAntesKnockback;
 			}
 				
 		}

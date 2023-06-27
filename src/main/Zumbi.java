@@ -19,44 +19,46 @@ public class Zumbi extends Inimigo{
 	private static int counter = 0;
 	
 
-	public Zumbi(int x, int y, int vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, new Rectangle(20, 20, 5, 5));
+	public Zumbi(int x, int y, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
+		super(x, y, engine, 3, invencivel, velocidade, listaDrops, new Rectangle(8, 8, 32, 32));
 		this.xInicial = x;
 		this.yInicial = y;
 	}
 	
 	public void update() {
-		
-		if(contMov1 == 59) {
-			numero = 0;
-			
-		}else if(contMov1 >= 20) {
-			
-			if(numero == 0) {
-				Random aleatorio = new Random();
-				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
-			}else {
+		super.update();
+		if (!isSofrendoKnockback()) {
+			if(contMov1 == 59) {
+				numero = 0;
 				
-				if(numero == 1 && (getY()-yInicial)<120) {
-						moveBaixo();
-						setDirecao("baixo");
+			}else if(contMov1 >= 20) {
 				
-				}else if(numero == 2 && (getY()-yInicial)>-120) {
-					moveCima();
-					setDirecao("cima");
-				
-				}else if(numero == 3 && (getX()-xInicial)>-120) {
-					moveEsquerda();
-					setDirecao("esquerda");
-				
-				}else if((getX()-xInicial)<120){
-					moveDireita();
-					setDirecao("direita");
+				if(numero == 0) {
+					Random aleatorio = new Random();
+					numero = 1 + aleatorio.nextInt((4 - 1) + 1);
+				}else {
+					
+					if(numero == 1 && (getY()-yInicial)<120) {
+							moveBaixo();
+							setDirecao("baixo");
+					
+					}else if(numero == 2 && (getY()-yInicial)>-120) {
+						moveCima();
+						setDirecao("cima");
+					
+					}else if(numero == 3 && (getX()-xInicial)>-120) {
+						moveEsquerda();
+						setDirecao("esquerda");
+					
+					}else if((getX()-xInicial)<120){
+						moveDireita();
+						setDirecao("direita");
+					}
 				}
 			}
+			
+			contMov1 = (contMov1 + 1) % 60; 
 		}
-		
-		contMov1 = (contMov1 + 1) % 60; 
 	}
 	
 	public void draw(Graphics2D tela) {
