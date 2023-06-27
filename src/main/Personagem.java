@@ -80,11 +80,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	public abstract void causarDano(Personagem personagem);
 
 	public void levarDano(int danoRecebido) {
-		
-		////////////////////////A funcao levar dano retorna true quando o personagem morre
-		///////////////////////Usem isso para apagar o personagem da lista de personagens
-		
-		///////////////////////O player fecha o jogo ao morrer
 		if(!invencivel) {
 			setVida(getVida()-danoRecebido);
 			invencivel = true;
@@ -189,10 +184,10 @@ public abstract class Personagem extends Entity implements Atualizavel{
 				velocidade *= 2;
 			}
 			switch(direcao) {
-			case "cima": moveCima();System.out.println("Tentando mover"); break;
-			case "baixo": moveBaixo();System.out.println("Tentando mover"); break;
-			case "esquerda": moveEsquerda();System.out.println("Tentando mover"); break;
-			case "direita": moveDireita();System.out.println("Tentando mover"); break;
+			case "cima": moveCima(); break;
+			case "baixo": moveBaixo(); break;
+			case "esquerda": moveEsquerda(); break;
+			case "direita": moveDireita(); break;
 			}
 			
 			if (contadorFrames == 10) {
