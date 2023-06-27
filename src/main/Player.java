@@ -73,32 +73,21 @@ public class Player extends Personagem{
 			}
 			
 			else if(keyInput.isXPressed()) {
-				/*Informacoes para quando tiver a colisao
-				 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
-				
-				
-				////////Tem que ter um if aqui pra ver se teve colisao e com qual objeto bau ele colidiu. Feito isso, chama esse metodo
-				abrirBau(bausAlcance.get(0));
-				
-				///A mesma coisa aqui
-				abrirPorta(porta);
-				
 				keyInput.resetaValores();
 				
-	
 				if(objetoColidido != null) {
 					if(objetoColidido.getClass().getName().equals("main.Bau")) {
-							
-						abrirBau((Bau) objetoColidido);
-						
+
+						abrirBau((Bau)objetoColidido);
+
 					}
 				}
-				
+
 				if(objetoColidido != null) {
 					if(objetoColidido.getClass().getName().equals("main.Porta")) {
-							
-						abrirPorta((Porta) objetoColidido);
-						
+
+						abrirPorta((Porta)objetoColidido);
+
 					}
 				}
 				
@@ -271,8 +260,10 @@ public class Player extends Personagem{
 		
 		for(int i = 0; i < inventario.getListaItens().size(); i++) {	
 			if(inventario.getListaItens().get(i).getNome().equals("Chave")) {
+				inventario.getListaItens().remove(i);
 				return true;
 			}
+			
 		}
 		return false;
 	}

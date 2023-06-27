@@ -110,8 +110,4 @@ public class Zumbi extends Inimigo{
 		this.yInicial = yInicial;
 	}
 
-	@Override
-	public void morrer() {
-		// TODO Auto-generated method stub
-	}
 }

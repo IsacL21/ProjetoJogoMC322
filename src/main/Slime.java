@@ -54,23 +54,4 @@ public class Slime extends Follower {
 		tela.drawImage(image, this.getX(), this.getY(), getGamePanel().getTamanhoBloco(), getGamePanel().getTamanhoBloco(), null);
 	}
 
-	@Override
-	public void causarDano(Personagem player) {
-		// TODO Auto-generated method stub
-		
-		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
-		int dano = 0;
-		player.levarDano(dano);
-
-	}
-
-
-
-	@Override
-	public void morrer() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }

@@ -23,32 +23,32 @@ public abstract class Follower extends Inimigo {
 		followedY = y;
 	}
 
-	public int followInX() {
+	public boolean followInX() {
 		if (followedX - this.getVelocidade() > this.getX() ) {
 			setDirecao("direita");
 			this.moveDireita();
-			return 1;
+			return true;
 		}
 		else if ((followedX + this.getVelocidade() < this.getX())){
 			setDirecao("esquerda");
 			this.moveEsquerda();
-			return -1;
+			return true;
 		}
-		else return 0;
+		else return false;
 	}
 	
-	public int followInY() {
+	public boolean followInY() {
 		if (followedY - this.getVelocidade() > this.getY()) {
 			setDirecao("baixo");;
 			moveBaixo();
-			return 1;
+			return true;
 		}
 		else if ((followedY + this.getVelocidade() < this.getY())){
 			setDirecao("cima");
 			moveCima();
-			return -1;
+			return true;
 		}
-		else return 0;
+		else return false;
 	}
 	
 	public void randomFollow() {
@@ -65,11 +65,6 @@ public abstract class Follower extends Inimigo {
 			followInY();
 		else
 		followInX();
-	}
-
-	@Override
-	public void draw(Graphics2D tela) {
-
 	}
 
 }

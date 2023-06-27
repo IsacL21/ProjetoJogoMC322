@@ -39,8 +39,8 @@ public class Morcego extends Follower{
 	public void update() {
 		super.update();
 		if (!isSofrendoKnockback()) {
-			if (this.followInX() == 0)
-				if (this.followInY() == 0)
+			if (!followInX())
+				if (!followInY())
 					switchFollowedPoint();
 		}
 	}
@@ -79,12 +79,6 @@ public class Morcego extends Follower{
         spriteNum = (spriteNum + 1) % 20; 
 		
 		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
-		
-	}
-
-	@Override
-	public void morrer() {
-		// TODO Auto-generated method stub
 		
 	}
 	
