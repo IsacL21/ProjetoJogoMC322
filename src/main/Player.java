@@ -15,23 +15,14 @@ public class Player extends Personagem{
 	private final Rectangle hitBoxAtaqueBaixo = new Rectangle(42,96,60,30);
 	private final Rectangle hitBoxAtaqueEsquerda = new Rectangle(12,84,51,36);
 	private final Rectangle hitBoxAtaqueDireita = new Rectangle(63,84,51,36);
-	
-	
 	private KeyboardInput keyInput;
 	private int framesAnimacaoAndar = 30; 
 	private int framesAnimacaoAtaque = 16; 
 	private boolean atacando = false;
 	private boolean andando = false;
-
-
 	private Inventario inventario;
 	BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
 	private Entity objetoColidido = null;
-	
-	///////////////////Usado para testes para abrir, mas talvez vai ter que mudar quando tiver a colisao
-	private ArrayList<Bau> bausAlcance = new ArrayList<Bau>();
-	private Porta porta;
-
 	
 	//Construtor
 	public Player(int vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
