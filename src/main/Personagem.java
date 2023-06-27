@@ -1,7 +1,9 @@
 package main;
 
 import java.awt.Graphics2D;
+
 import java.util.ArrayList;
+
 import java.awt.Rectangle;
 
 public abstract class Personagem extends Entity implements Atualizavel{
@@ -15,12 +17,11 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	private Entity objetoColidido;
 	
 	//Construtor
-	public Personagem(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade) {
-		super(x, y, false, engine);
+	public Personagem(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, Rectangle hitBox) {
+		super(x, y, false, engine, hitBox);
 		this.vida = vida;
 		this.invencivel = invencivel;
 		this.velocidade = velocidade;
-		setHitBox(new Rectangle(50, 86, 28, 25));
 		this.objetoColidido = null;
 	}
 
@@ -176,6 +177,34 @@ public abstract class Personagem extends Entity implements Atualizavel{
 			}
 		}
 		return null;
+	}
+	
+	public boolean checarColisaoPlayer(Personagem personagem, Player player) {
+		int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
+        int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;
+        int personagemTopY = personagem.getY() + personagem.getHitBox().y;
+        int personagemBottomY = personagem.getY() + personagem.getHitBox().y + personagem.getHitBox().height;
+
+        switch(personagem.getDirecao()) {
+            case "cima":
+                personagemTopY -= personagem.getVelocidade();
+                break;
+            case "baixo":
+                personagemBottomY += personagem.getVelocidade();
+                break;
+            case "esquerda":
+                personagemLeftX -= personagem.getVelocidade();
+                break;
+            case "direita":
+                personagemRightX += personagem.getVelocidade();
+                break;
+        }
+		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
+			Rectangle hitBoxPersonagem2 = new Rectangle(player.getX(), player.getY(), 48, 48);
+			if (hitBoxFutura.intersects(hitBoxPersonagem2)) {
+				return true;
+			}
+		return false;
 	}
 
 	public Entity checarColisaoEntidades(Personagem personagem, ArrayList<Entity> listaEntidades) {

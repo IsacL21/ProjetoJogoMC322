@@ -8,11 +8,11 @@ import arquivos.Arquivos;
 public class Pocao extends Item{
 
 	private int vida = 1;
-	
 
 	public Pocao(int x, int y, Engine engine) {
 		super(x, y, true, engine, "pocao");
 		this.vida = 30;
+
 	}
 	
 	public void draw(Graphics2D tela) {

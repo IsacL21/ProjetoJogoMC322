@@ -15,7 +15,7 @@ public class Slime extends Follower {
 	private String direcaoOlhar = "direita"; //necessario pois o slime so olha para algum lado horizontal
 	
 	public Slime (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Personagem followed) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops, x, y);
+		super(x, y, engine, vida, invencivel, velocidade, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()), listaDrops, x, y);
 		this.followed = followed;
 	}
 	
@@ -61,6 +61,7 @@ public class Slime extends Follower {
 		player.levarDano(dano);
 
 	}
+
 
 
 	@Override

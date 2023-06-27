@@ -14,7 +14,6 @@ public class Main {
 	public static void main(boolean b, String nome, Arquivos arquivosResource) {
 		
 		
-		
 		//inicia a janela
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +48,6 @@ public class Main {
                 System.exit(0);
             }
         });
-		
 		
 	
 	}

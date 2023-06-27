@@ -38,6 +38,7 @@ public class Arquivos {
 	
 	
 	public void loadFiles() throws IOException, ExcecaoMapaInvalido{
+
 			
 			PlayerImages.upWalk.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/Up1.png")));
 			PlayerImages.upWalk.add(ImageIO.read(getClass().getResourceAsStream("/sprites/player/Up2.png")));
@@ -192,6 +193,7 @@ public class Arquivos {
 		return inputEntidadesMapas;
 	}
 
+
 	public void carregaBlocosMapa() throws ExcecaoMapaInvalido, IOException {
 		
 		for (int k = 0; k < Mapas.values().length; k++) {
@@ -206,6 +208,7 @@ public class Arquivos {
 							entrada.close();
 							throw new ExcecaoMapaInvalido();
 						}
+
 					}
 				}
 				
@@ -217,6 +220,7 @@ public class Arquivos {
 				int qtdMobs = Integer.parseInt(entrada.readLine());
 				
 					for (int i = 0; i < qtdMobs; i++) {
+
 						linhaAux = entrada.readLine().split(" ");
 						if (Integer.parseInt(linhaAux[0]) == 1) 
 							inputEntidadesMapas.get(k).addZumbi(Integer.parseInt(linhaAux[1]), Integer.parseInt(linhaAux[2]));
@@ -238,6 +242,7 @@ public class Arquivos {
 						}
 						
 					}
+
 				
 		}
 

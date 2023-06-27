@@ -12,8 +12,8 @@ public abstract class Follower extends Inimigo {
 	
 
 	//Construtor
-	public Follower (int x, int y,Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, int followedX, int followedY) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops);
+	public Follower (int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, Rectangle hitBox, ArrayList<Item> listaDrops, int followedX, int followedY) {
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
 		this.followedX = followedX;
 		this.followedY = followedY;
 	}
@@ -66,17 +66,6 @@ public abstract class Follower extends Inimigo {
 		else
 		followInX();
 	}
-	
-	@Override
-	public void causarDano(Personagem player) {
-		// TODO Auto-generated method stub
-		
-		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
-		int dano = 0;
-		player.levarDano(dano);
-
-	}
-
 
 	@Override
 	public void draw(Graphics2D tela) {

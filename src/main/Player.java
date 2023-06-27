@@ -18,7 +18,6 @@ public class Player extends Personagem{
 	private int framesAnimacaoAtaque = 30; 
 	private boolean atacando = false;
 	private boolean andando = false;
-	
 	private Inventario inventario;
 
 	
@@ -29,7 +28,7 @@ public class Player extends Personagem{
 	
 	//Construtor
 	public Player(double vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
-		super(100, 100, engine, vida, invencivel, velocidade);
+		super(100, 100, engine, vida, invencivel, velocidade,new Rectangle(50, 86, 28, 25));
 		this.inventario = new Inventario(capacidadeInventario);
 		this.keyInput = keyInput;
 	}
@@ -65,11 +64,12 @@ public class Player extends Personagem{
 			}
 		}
 		
-		
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
-				
+			
+			getEngine().passaFase();
+			
 			keyInput.resetaValores();
 			
 
@@ -138,15 +138,15 @@ public class Player extends Personagem{
 					}else if(colisaoEntidade.getClass().getName().equals("main.Porta")) {
 						Porta porta = (Porta)colisaoEntidade;
 						
+
 						if(!porta.isTrancado()) {
-							System.out.println("Passou de fase");
+							getEngine().passaFase();
 						}
 					}
 				}
 				
 				setColidindo(true);
 			}
-			
 			if (getColidindo() == false) {
 				switch(getDirecao()) {
 					case "cima": moveCima(); break;
@@ -154,7 +154,6 @@ public class Player extends Personagem{
 					case "esquerda": moveEsquerda(); break;
 					case "direita": moveDireita(); break;
 				}
-				// updateHitBox();
 			}
 		}
 		else andando = false;
@@ -242,7 +241,6 @@ public class Player extends Personagem{
 		}
 	}
 	
-
 	public void coletaItem(Item item) {
 		
 		inventario.addItem(item);
@@ -255,6 +253,10 @@ public class Player extends Personagem{
 			}
 			
 		}
+	}
+
+	
+	public void usaPocao() {
 		
 		for(int i = 0; i<inventario.getListaItens().size(); i++) {
 			
@@ -268,6 +270,7 @@ public class Player extends Personagem{
 		}
 	}
 	
+	
 
 	public void abrirBau(Bau bau) {
 		
@@ -278,7 +281,6 @@ public class Player extends Personagem{
 			keyInput.SetisXPressed(false);
 			JOptionPane.showMessageDialog(null, "Voce coletou: "+bau.getItem().getNome(), "Coleta de item", JOptionPane.INFORMATION_MESSAGE); 
 		}
-		
 	}
 	
 	public void abrirPorta(Porta portaTeste) {
@@ -299,15 +301,6 @@ public class Player extends Personagem{
 		}
 		return false;
 	}
-	
-	@Override
-	public void causarDano(Personagem personagem) {
-		
-		/////////////////////Vejam como vao calcular o que o player ir fazer nos mobs ja que ele tem espada e etc
-		int dano = 0;
-		personagem.levarDano(dano);
-		
-	}
 
 	
 
@@ -317,6 +310,12 @@ public class Player extends Personagem{
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
 		getEngine().retornaFase();
 		
+
+	}
+
+	@Override
+	public void causarDano(Personagem personagem) {
+		personagem.levarDano(1);		
 	}
 
 }

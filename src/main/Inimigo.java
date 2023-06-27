@@ -9,8 +9,8 @@ public abstract class Inimigo extends Personagem{
 	private ArrayList<Item> listaDrops = new ArrayList<Item>();
 	
 	//Construtor
-	public Inimigo(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade);
+	public Inimigo(int x, int y, Engine engine, double vida, boolean invencivel, int velocidade, ArrayList<Item> listaDrops, Rectangle hitBox) {
+		super(x, y, engine, vida, invencivel, velocidade, hitBox);
 		this.listaDrops = listaDrops;
 	}
 	
@@ -24,18 +24,9 @@ public abstract class Inimigo extends Personagem{
 	}
 
 	//Métodos
-	@Override
-	public void causarDano(Personagem player) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void levarDano(int danoRecebido) {
-		// TODO Auto-generated method stub
-		setVida(getVida()-danoRecebido);
-
-	}
-
 	
-
+	@Override
+	public void causarDano(Personagem personagem) {
+		personagem.levarDano(1);
+	}
 }

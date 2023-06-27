@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Rectangle;
+
 public abstract class Item extends Entity{
 
 	//Propriedades
@@ -8,7 +10,8 @@ public abstract class Item extends Entity{
 	
 	//Construtor
 	public Item(int x, int y, boolean colisivel, Engine engine, String nome) {
-		super(x, y, colisivel, engine);
+		super(x, y, colisivel, engine, new Rectangle(0, 0, engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
+
 		this.consumivel = true;
 		this.nome = nome;
 	}

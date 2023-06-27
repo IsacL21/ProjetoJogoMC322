@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+
 import javax.swing.JOptionPane;
 
 import arquivos.Arquivos;
@@ -20,6 +21,7 @@ public class Engine implements Runnable{
 	private ColisaoChecker colisaoChecker;
 	private int estadoJogo = 0; //utilizado para congelar jogo em menus, estado normal = 0
 	private int mapa_atual;
+
 	
 	private ArrayList<Inimigo> listaInimigos;
 	private ArrayList<Entity> listaEntidades;
@@ -35,12 +37,12 @@ public class Engine implements Runnable{
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
 		this.mapa_atual = mapa_atual;
 		
+
 		listaInimigos = new ArrayList<Inimigo> ();
 		listaEntidades = new ArrayList<Entity> ();
 		
 		carregaMobs(mapa_atual);
 
-		colisaoChecker = new ColisaoChecker(this);
 	}
 	
 	//Getters e Setters
@@ -72,6 +74,7 @@ public class Engine implements Runnable{
 		this.estadoJogo = estadoJogo;
 		System.out.println(this.estadoJogo);
 	}
+
 
 	public ArrayList<Entity> getListaEntidades() {
 		return listaEntidades;
@@ -139,13 +142,13 @@ public class Engine implements Runnable{
 		carregaMobs(mapa_atual);
 
 	}
-	
 	@Override
 	public void run() {
 		double delta = 0;
 		long lastTime = System.currentTimeMillis();
 		long currentTime;
 		long timer = 0;
+
 		
 		while(gameThread != null) {
 			 currentTime = System.currentTimeMillis();
@@ -153,12 +156,14 @@ public class Engine implements Runnable{
 			 timer += (currentTime - lastTime);
 			 lastTime = currentTime;
 			 if (timer >= 1000) { //um segundo passou
+
 				timer = 0;
 			}
 			
 			if (delta >= 1) {
 				atualizaJogo();
 				gamePanel.repaint();
+
 				delta--;
 		}}}
 }

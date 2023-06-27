@@ -7,6 +7,7 @@ import arquivos.Arquivos;
 
 public class Chave extends Item{
 
+
 	//Construtor
 	public Chave(int x, int y, Engine engine) {
 		super(x, y, true, engine, "Chave");

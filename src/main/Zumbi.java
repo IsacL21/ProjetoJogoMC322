@@ -18,24 +18,14 @@ public class Zumbi extends Inimigo{
 	private int contMov1 = 0;
 	private static int counter = 0;
 	
+
 	public Zumbi(int x, int y, double vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops);
+		super(x, y, engine, vida, invencivel, velocidade, listaDrops, new Rectangle(0,0,engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
 		this.xInicial = x;
 		this.yInicial = y;
 	}
 	
 	public void update() {
-		/*
-		Personagem colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
-		boolean colisaoMapa = checarColisaoMapa(this);
-		Entity colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
-
-		if(colisaoPersonagem == null && colisaoEntidade == null && colisaoMapa == false) {
-			setColidindo(false);
-		}else {
-			setColidindo(true);
-		}
-		*/
 		
 		if(contMov1 == 59) {
 			numero = 0;
@@ -45,39 +35,28 @@ public class Zumbi extends Inimigo{
 			if(numero == 0) {
 				Random aleatorio = new Random();
 				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
-				
 			}else {
 				
 				if(numero == 1 && (getY()-yInicial)<120) {
 						moveBaixo();
 						setDirecao("baixo");
 				
-			}else if(numero == 2 && (getY()-yInicial)>-120) {
+				}else if(numero == 2 && (getY()-yInicial)>-120) {
 					moveCima();
 					setDirecao("cima");
 				
-			}else if(numero == 3 && (getX()-xInicial)>-120) {
+				}else if(numero == 3 && (getX()-xInicial)>-120) {
 					moveEsquerda();
 					setDirecao("esquerda");
 				
-			}else if((getX()-xInicial)<120){
+				}else if((getX()-xInicial)<120){
 					moveDireita();
 					setDirecao("direita");
+				}
 			}
-				
-			}}
+		}
 		
 		contMov1 = (contMov1 + 1) % 60; 
-	}
-
-	@Override
-	public void causarDano(Personagem player) {
-		// TODO Auto-generated method stub
-		
-		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
-		int dano = 0;
-		player.levarDano(dano);
-		
 	}
 	
 	public void draw(Graphics2D tela) {
