@@ -66,9 +66,9 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	}
 
 	//Métodos
-	public abstract void causarDano();
+	public abstract void causarDano(Personagem personagem);
 
-	public abstract void levarDano();
+	public abstract boolean levarDano(int dano);
 
 	public abstract void morrer();
 	
@@ -164,6 +164,34 @@ public abstract class Personagem extends Entity implements Atualizavel{
 			}
 		}
 		return null;
+	}
+	
+	public boolean checarColisaoPlayer(Personagem personagem, Player player) {
+		int personagemLeftX = personagem.getX() + personagem.getHitBox().x;
+        int personagemRightX = personagem.getX() + personagem.getHitBox().x + personagem.getHitBox().width;
+        int personagemTopY = personagem.getY() + personagem.getHitBox().y;
+        int personagemBottomY = personagem.getY() + personagem.getHitBox().y + personagem.getHitBox().height;
+
+        switch(personagem.getDirecao()) {
+            case "cima":
+                personagemTopY -= personagem.getVelocidade();
+                break;
+            case "baixo":
+                personagemBottomY += personagem.getVelocidade();
+                break;
+            case "esquerda":
+                personagemLeftX -= personagem.getVelocidade();
+                break;
+            case "direita":
+                personagemRightX += personagem.getVelocidade();
+                break;
+        }
+		Rectangle hitBoxFutura = new Rectangle(personagemLeftX, personagemTopY, personagemRightX - personagemLeftX, personagemBottomY - personagemTopY);
+			Rectangle hitBoxPersonagem2 = new Rectangle(player.getX(), player.getY(), 48, 48);
+			if (hitBoxFutura.intersects(hitBoxPersonagem2)) {
+				return true;
+			}
+		return false;
 	}
 
 	public Entity checarColisaoEntidades(Personagem personagem, ArrayList<Entity> listaEntidades) {

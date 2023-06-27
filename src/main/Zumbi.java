@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -19,8 +18,8 @@ public class Zumbi extends Inimigo{
 	private int contMov1 = 0;
 	private static int counter = 0;
 	
-	public Zumbi(int x, int y, double vida, boolean invencivel, int velocidade, Engine engine, ArrayList<Item> listaDrops) {
-		super(x, y, engine, vida, invencivel, velocidade, listaDrops);
+	public Zumbi(int x, int y, double vida, boolean invencivel, int velocidade, GamePanel gamePanel, ArrayList<Item> listaDrops) {
+		super(x, y, gamePanel, vida, invencivel, velocidade,new Rectangle(0,0,gamePanel.getTamanhoBloco(), gamePanel.getTamanhoBloco()), listaDrops);
 		this.xInicial = x;
 		this.yInicial = y;
 	}
@@ -36,45 +35,47 @@ public class Zumbi extends Inimigo{
 				Random aleatorio = new Random();
 				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
 				
-			}else {
-				
-				if(numero == 1 && (getY()-yInicial)<120) {
-						moveBaixo();
-						setDirecao("baixo");
-				
-				}else if(numero == 2 && (getY()-yInicial)>-120) {
-					moveCima();
-					setDirecao("cima");
-				
-				}else if(numero == 3 && (getX()-xInicial)>-120) {
-					moveEsquerda();
-					setDirecao("esquerda");
-				
-				}else if((getX()-xInicial)<120){
-					moveDireita();
-					setDirecao("direita");
-				}
-			}}
-		
+			}else if(numero == 1 && (getY()-yInicial)<120) {
+				moveBaixo();
+				setDirecao("baixo");
+
+			}else if(numero == 2 && (getY()-yInicial)>-120) {
+				moveCima();
+				setDirecao("cima");
+			}else if(numero == 3 && (getX()-xInicial)>-120) {
+				moveEsquerda();
+				setDirecao ("esquerda");
+			}else if((getX()-xInicial)<120){
+				moveDireita();
+				setDirecao("direita");
+			}
+		}
 		contMov1 = (contMov1 + 1) % 60; 
 	}
 
 	@Override
-	public void causarDano(Personagem personagem) {
+	public void causarDano(Personagem player) {
+		// TODO Auto-generated method stub
 		
-		if(personagem.levarDano(1)) {
-			personagem.morrer();
-		}
+		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
+		int dano = 0;
+		player.levarDano(dano);
+		
 	}
 
 	@Override
-	public boolean levarDano(int dano) {
+	public boolean levarDano(int danoRecebido) {
+		// TODO Auto-generated method stub
 		
-		setVida(getVida()-dano);
+		////////////////////////A funcao levar dano retorna true quando o personagem morre
+		///////////////////////Usem isso para apagar o personagem da lista de personagens
 		
-		if(getVida()<=0) {
+		setVida(getVida()-danoRecebido);
+		
+		if(getVida() <= 0) {
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -130,6 +131,5 @@ public class Zumbi extends Inimigo{
 	@Override
 	public void morrer() {
 		// TODO Auto-generated method stub
-		
 	}
 }
