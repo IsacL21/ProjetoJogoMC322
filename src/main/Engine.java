@@ -61,6 +61,7 @@ public class Engine implements Runnable{
 		return gamePanel;
 	}
 
+
 	public ArrayList<Inimigo> getListaInimigos() {
 		return listaInimigos;
 	}
@@ -75,7 +76,6 @@ public class Engine implements Runnable{
 		return listaEntidades;
 	}
 
-	//Métodos
 	public void carregaMobs(int mapa_atual) {
 		listaEntidades.clear();
 		listaInimigos.clear();

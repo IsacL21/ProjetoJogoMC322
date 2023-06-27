@@ -13,7 +13,6 @@ public class Chave extends Item{
 		super(x, y, true, engine, "Chave");
 	}
 
-	//Métodos
 	public void draw(Graphics2D tela) {
 		BufferedImage image = Arquivos.getItemimages().get(0);
 		tela.drawImage(image, this.getX(), this.getY(), 25, 25, null);

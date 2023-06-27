@@ -1,27 +1,3 @@
-/*
-  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │                                                                                       x                      │
-  │                                   xxx                                                 xxx                    │
-  │      xxxxxxxxxx                  xxx                                                  xxx x                  │
-  │      xxxxxxxxxxxxx              xxxx                                                  xxxx                   │
-  │     xxxxxxxxxxxxx               xxx                                                   xxxx                   │
-  │     xxxx                        xxx                                                   xxxx                   │
-  │     xxxx                        xxx                                                   xxxx                   │
-  │     xxxx                        xxx                                                    xxx                   │
-  │    xxxxx                        xxx                 xx        xxxx                     xxx                   │
-  │    xxxxxxx          x xxxxxxxxx xx                 xxxx   x xxxxxxxxxx     xxxxxxxxxxxxxx                    │
-  │    xxxxxxxxxxxx      xxxxxxxxxxxx xx        xx    xxxxx   xxxxx     xx    xxxxxxxxxxxxxxxx    xxxxxxx        │
-  │    xxxxxxxxxx xx   xxxxx       xx xx        xxx  x x  xxx xxx      xxx    xxxxx       xxxxx xxxxxxxxxxxx     │
-  │    xxxxxxx xxxx    xxxx        xx xxx        xx  xxx  xxxx xx     xxxx    xxx          xxxx x       xxxxxx   │
-  │    xxxxx           xxxxx       xx  xx        xx xxx    xxx xx xxxx xx     xxxx          xxx xx        xx xx  │
-  │    xxxxxxx         xxxxx       xx  xxx       xx xxxxxx xxx  xx xxxxxx     xxxxx         xxx xxx        xxxx  │
-  │    xxxxxxxxxxxxxxxxxxx xxxxxxxxx    xxx      x  xxxxxxxxxxx xx     xxxx   xxxxxxxxxxxxxxx   xxxxx     xxxx   │
-  │       xxxxxxxxxxxxx  xxxxxxxxx       xxxx   xx xx       xxx xx       xxxx  xxxxxxxxxxxxxx     xxxxxxxxxxx    │
-  │                                       xxxxxxxx  x        xx xx       xxxxxx         xxx                      │
-  │                                          xxxx               xx         xxxxx                                 │
-  └──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-*/
-
 package main;
 
 import javax.swing.LayoutStyle;

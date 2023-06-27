@@ -56,9 +56,6 @@ public class Slime extends Follower {
 
 	@Override
 	public void causarDano(Personagem player) {
-		// TODO Auto-generated method stub
-		
-		/////////////////////Vejam como vao calcular o dano do personagem ja que ele tem armadura e etc
 		int dano = 0;
 		player.levarDano(dano);
 
@@ -67,9 +64,7 @@ public class Slime extends Follower {
 
 
 	@Override
-	public void morrer() {
-		// TODO Auto-generated method stub
-		
+	public void morrer() {		
 	}
 
 	

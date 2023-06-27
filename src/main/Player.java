@@ -15,8 +15,6 @@ public class Player extends Personagem{
 	private final Rectangle hitBoxAtaqueBaixo = new Rectangle(42,96,60,30);
 	private final Rectangle hitBoxAtaqueEsquerda = new Rectangle(12,84,51,36);
 	private final Rectangle hitBoxAtaqueDireita = new Rectangle(63,84,51,36);
-	
-	
 	private KeyboardInput keyInput;
 	private int framesAnimacaoAndar = 30; 
 	private int framesAnimacaoAtaque = 16; 
@@ -25,11 +23,6 @@ public class Player extends Personagem{
 	private Inventario inventario;
 	BufferedImage image = Arquivos.getPlayerDownwalk().get(Arquivos.getPlayerDownwalk().size()-1);
 	private Entity objetoColidido = null;
-	
-	///////////////////Usado para testes para abrir, mas talvez vai ter que mudar quando tiver a colisao
-	private ArrayList<Bau> bausAlcance = new ArrayList<Bau>();
-	private Porta porta;
-
 	
 	//Construtor
 	public Player(int vida, boolean invencivel, int velocidade, int capacidadeInventario, Engine engine, KeyboardInput keyInput) {
@@ -73,35 +66,15 @@ public class Player extends Personagem{
 			}
 			
 			else if(keyInput.isXPressed()) {
-				/*Informacoes para quando tiver a colisao
-				 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
-				
-				
-				////////Tem que ter um if aqui pra ver se teve colisao e com qual objeto bau ele colidiu. Feito isso, chama esse metodo
-				abrirBau(bausAlcance.get(0));
-				
-				///A mesma coisa aqui
-				abrirPorta(porta);
-				
 				keyInput.resetaValores();
-				
-	
 				if(objetoColidido != null) {
 					if(objetoColidido.getClass().getName().equals("main.Bau")) {
-							
 						abrirBau((Bau) objetoColidido);
-						
 					}
-				}
-				
-				if(objetoColidido != null) {
-					if(objetoColidido.getClass().getName().equals("main.Porta")) {
-							
+					else if(objetoColidido.getClass().getName().equals("main.Porta")) {
 						abrirPorta((Porta) objetoColidido);
-						
 					}
-				}
-				
+				}	
 			}
 			
 			else if (atacando && (getContadorFrames() % framesAnimacaoAtaque == framesAnimacaoAtaque - 1)) {
