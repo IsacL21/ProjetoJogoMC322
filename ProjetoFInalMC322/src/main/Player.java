@@ -64,6 +64,8 @@ public class Player extends Personagem{
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
 			
+			//morrer();
+			
 			keyInput.resetaValores();
 			
 			if(getObjetoColidido() != null) {
@@ -295,7 +297,7 @@ public class Player extends Personagem{
 	public void morrer() {
 		
 		JOptionPane.showMessageDialog(null, "Derrotado!", "Perdeu", JOptionPane.INFORMATION_MESSAGE); 
-		
+		getEngine().retornaFase();
 		
 	}
 

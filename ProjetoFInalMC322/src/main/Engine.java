@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import arquivos.Arquivos;
 
 public class Engine implements Runnable{
@@ -14,6 +16,7 @@ public class Engine implements Runnable{
 	private MapBuilder mapBuilder;
 	private ColisaoChecker colisaoChecker;
 	private int estadoJogo = 0; //utilizado para congelar jogo em menus, estado normal = 0
+	private int mapa_atual;
 	
 	private ArrayList<Inimigo> listaInimigos;
 	private ArrayList<Entity> listaEntidades;
@@ -27,7 +30,8 @@ public class Engine implements Runnable{
 		gamePanel = new GamePanel(this);
 		player = new Player(1, false, 3, 5, this, keyInput);		
 		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
-
+		this.mapa_atual = mapa_atual;
+		
 		listaInimigos = new ArrayList<Inimigo> ();
 		listaEntidades = new ArrayList<Entity> ();
 		
@@ -114,6 +118,25 @@ public class Engine implements Runnable{
 		else if (estadoJogo == 1) { //modo de menu
 			
 			}
+	}
+	
+	public void passaFase() {
+		
+		mapa_atual++;
+		if(mapa_atual <= 2) {
+			mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
+			carregaMobs(mapa_atual);
+		}else {
+			JOptionPane.showMessageDialog(null, "Voce chegou na ultima fase!", "Zerou", JOptionPane.INFORMATION_MESSAGE); 
+		}
+
+	}
+	
+	public void retornaFase() {
+		
+		mapBuilder = new MapBuilder(Arquivos.getVetorMapa(mapa_atual), gamePanel);
+		carregaMobs(mapa_atual);
+
 	}
 	
 	@Override
