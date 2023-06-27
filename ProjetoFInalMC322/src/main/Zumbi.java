@@ -26,6 +26,17 @@ public class Zumbi extends Inimigo{
 	}
 	
 	public void update() {
+		/*
+		Personagem colisaoPersonagem = checarColisaoPersonagens(this, getEngine().getListaInimigos());
+		boolean colisaoMapa = checarColisaoMapa(this);
+		Entity colisaoEntidade = checarColisaoEntidades(this, getEngine().getListaEntidades());
+
+		if(colisaoPersonagem == null && colisaoEntidade == null && colisaoMapa == false) {
+			setColidindo(false);
+		}else {
+			setColidindo(true);
+		}
+		*/
 		
 		if(contMov1 == 59) {
 			numero = 0;
@@ -36,21 +47,27 @@ public class Zumbi extends Inimigo{
 				Random aleatorio = new Random();
 				numero = 1 + aleatorio.nextInt((4 - 1) + 1);
 				
-			}else if(numero == 1 && (getY()-yInicial)<120) {
-				moveBaixo();
-				setDirecao("baixo");
-
+			}else {
+				
+				if(numero == 1 && (getY()-yInicial)<120) {
+						moveBaixo();
+						setDirecao("baixo");
+				
 			}else if(numero == 2 && (getY()-yInicial)>-120) {
-				moveCima();
-				setDirecao("cima");
+					moveCima();
+					setDirecao("cima");
+				
 			}else if(numero == 3 && (getX()-xInicial)>-120) {
-				moveEsquerda();
-				setDirecao ("esquerda");
+					moveEsquerda();
+					setDirecao("esquerda");
+				
 			}else if((getX()-xInicial)<120){
-				moveDireita();
-				setDirecao("direita");
+					moveDireita();
+					setDirecao("direita");
 			}
-		}
+				
+			}}
+		
 		contMov1 = (contMov1 + 1) % 60; 
 	}
 

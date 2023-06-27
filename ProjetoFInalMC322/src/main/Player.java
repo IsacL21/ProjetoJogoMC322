@@ -63,9 +63,7 @@ public class Player extends Personagem{
 		if(keyInput.isXPressed()) {
 			/*Informacoes para quando tiver a colisao
 			 *Quando colidir com os seguintes objetos e apertar X usar os metodos abaixo*/
-			
-			//morrer();
-			
+				
 			keyInput.resetaValores();
 			
 			if(getObjetoColidido() != null) {

@@ -76,6 +76,7 @@ public class Engine implements Runnable{
 
 	//Métodos
 	public void carregaMobs(int mapa_atual) {
+		listaInimigos.clear();
 		for (ArrayList<Integer> entidade : Arquivos.getVetorEntidades(mapa_atual)) {
 			if (entidade.get(0) == 1) 
 				listaInimigos.add(new Zumbi(entidade.get(1) * gamePanel.getTamanhoBloco(), entidade.get(2) * gamePanel.getTamanhoBloco(), 100, false, 3, this, new ArrayList<Item>()));
