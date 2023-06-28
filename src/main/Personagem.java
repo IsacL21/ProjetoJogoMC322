@@ -15,7 +15,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
 	private String direcaoAntesKnockback;
 	private int contadorFrames = 0;
 
-	
 	//Construtor
 	public Personagem(int x, int y, Engine engine, int vida, boolean invencivel, int velocidade, Rectangle hitBox) {
 		super(x, y, false, engine, hitBox);
@@ -68,6 +67,14 @@ public abstract class Personagem extends Entity implements Atualizavel{
 		this.direcaoKnockback = direcaoKnockback;
 	}
 
+	public String getDirecaoAntesKnockback() {
+		return direcaoAntesKnockback;
+	}
+	
+	public void setDirecaoAntesKnockback(String direcaoAntesKnockback) {
+		this.direcaoAntesKnockback = direcaoAntesKnockback;
+	}
+
 	public int getContadorFrames() {
 		return contadorFrames;
 	}
@@ -87,7 +94,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
 		if(getVida() <= 0) {
 			morrer();
 		}
-		
 	}
 
 	public abstract void morrer();
@@ -111,7 +117,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
 		if (!(returnValue = checaColisoes()))
 			setX(getX() - velocidade);
 		return returnValue;
-		
 	}
 	
 	public boolean moveDireita() {
@@ -119,9 +124,7 @@ public abstract class Personagem extends Entity implements Atualizavel{
 		if (!(returnValue = checaColisoes()))
 			setX(getX() + velocidade);
 		return returnValue;
-		
 	}
-	
 	
 	public abstract void draw(Graphics2D tela);
 	
@@ -169,10 +172,8 @@ public abstract class Personagem extends Entity implements Atualizavel{
 		return false;
 	}
 
-	
-	
 	public abstract boolean checaColisoes();
-	
+
 	public void update() {
 		contadorFrames = (contadorFrames + 1) % 60; 
 		if (direcaoKnockback != null) {
@@ -197,8 +198,6 @@ public abstract class Personagem extends Entity implements Atualizavel{
 				direcaoKnockback = null;
 				direcao = direcaoAntesKnockback;
 			}
-				
 		}
-			
 	}
 }

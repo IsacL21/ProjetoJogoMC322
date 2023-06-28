@@ -3,7 +3,6 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
 import arquivos.Arquivos;
 
 public class Bau extends Entity{
@@ -17,16 +16,6 @@ public class Bau extends Entity{
 		super(x, y, true, engine, new Rectangle(0, 0, engine.getGamePanel().getTamanhoBloco(), engine.getGamePanel().getTamanhoBloco()));
 		this.trancado = true;
 		this.item = item;
-	}
-	
-	public void draw(Graphics2D tela) {
-		BufferedImage image = Arquivos.getBauimages().get(0);
-		
-		if(trancado == false) {
-			image = Arquivos.getBauimages().get(1);
-		}
-		
-		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 
 	//Getters e Setetrs
@@ -44,5 +33,16 @@ public class Bau extends Entity{
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	//Método
+	public void draw(Graphics2D tela) {
+		BufferedImage image = Arquivos.getBauimages().get(0);
+		
+		if(trancado == false) {
+			image = Arquivos.getBauimages().get(1);
+		}
+		
+		tela.drawImage(image, this.getX(), this.getY(), 40, 40, null);
 	}
 }

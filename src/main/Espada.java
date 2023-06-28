@@ -18,18 +18,23 @@ public class Espada {
 	public double getAtaque() {
 		return ataque;
 	}
+
 	public void setAtaque(double ataque) {
 		this.ataque = ataque;
 	}
+
 	public int getAlcance() {
 		return alcance;
 	}
+
 	public void setAlcance(int alcance) {
 		this.alcance = alcance;
 	}
+
 	public double getVelocidadeAtaque() {
 		return velocidadeAtaque;
 	}
+
 	public void setVelocidadeAtaque(double velocidadeAtaque) {
 		this.velocidadeAtaque = velocidadeAtaque;
 	}

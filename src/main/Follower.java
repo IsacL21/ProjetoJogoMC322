@@ -1,16 +1,16 @@
 package main;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.awt.Rectangle;
 import java.util.Random;
 
 public abstract class Follower extends Inimigo {
+
+	//Propriedades
 	int followedX;
 	int followedY;
 	String direction = "direita";
 	
-
 	//Construtor
 	public Follower (int x, int y, Engine engine, int vida, boolean invencivel, int velocidade, Rectangle hitBox, ArrayList<Item> listaDrops, int followedX, int followedY) {
 		super(x, y, engine, vida, invencivel, velocidade, listaDrops, hitBox);
@@ -18,6 +18,24 @@ public abstract class Follower extends Inimigo {
 		this.followedY = followedY;
 	}
 	
+	//Getters e Setters
+	public int getFollowedX() {
+		return followedX;
+	}
+
+	public void setFollowedX(int followedX) {
+		this.followedX = followedX;
+	}
+
+	public int getFollowedY() {
+		return followedY;
+	}
+
+	public void setFollowedY(int followedY) {
+		this.followedY = followedY;
+	}
+
+	//Métodos
 	public void setFollowedPoint(int x, int y) {
 		followedX = x;
 		followedY = y;
@@ -34,7 +52,7 @@ public abstract class Follower extends Inimigo {
 			this.moveEsquerda();
 			return true;
 		}
-		else return false;
+		return false;
 	}
 	
 	public boolean followInY() {
@@ -48,23 +66,23 @@ public abstract class Follower extends Inimigo {
 			moveCima();
 			return true;
 		}
-		else return false;
+		return false;
 	}
 	
 	public void randomFollow() {
 		Random random = new Random();
 		int number = random.nextInt(2);
-		
 		if (number == 0)
 			followInY();
-		else followInX();
+		else
+			followInX();
 	}
 	
 	public void longestFollow() {
 		if (Math.abs(followedY - this.getY()) > (Math.abs(followedX - this.getX())))
 			followInY();
 		else
-		followInX();
+			followInX();
 	}
 
 }

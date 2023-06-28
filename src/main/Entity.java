@@ -7,7 +7,6 @@ public abstract class Entity implements Desenhavel{
 	//Propriedades
 	private int x, y;
 	private boolean colisivel;
-
 	private Rectangle hitBox;
 	private Engine engine;
 	
@@ -18,7 +17,6 @@ public abstract class Entity implements Desenhavel{
 		this.colisivel = colisivel;
 		this.engine = engine;
 		this.hitBox = hitBox;
-
 	}
 	
 	//Getters e Setters
@@ -48,6 +46,10 @@ public abstract class Entity implements Desenhavel{
 
 	public Engine getEngine() {
 		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
 	}
 
 	public GamePanel getGamePanel() {
