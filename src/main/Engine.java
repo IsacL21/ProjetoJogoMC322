@@ -143,8 +143,8 @@ public class Engine implements Runnable{
     }
 	
 	public void passaFase() {
-		Main.setMapa_atual(Main.getMapa_atual()+1);;
-		if(Main.getMapa_atual() <= 2) {
+		if(Main.getMapa_atual() < 2) {
+			Main.setMapa_atual(Main.getMapa_atual()+1);;
 			mapBuilder = new MapBuilder(Arquivos.getVetorMapa(Main.getMapa_atual()), gamePanel);
 			carregaMobs(Main.getMapa_atual());
 		}
